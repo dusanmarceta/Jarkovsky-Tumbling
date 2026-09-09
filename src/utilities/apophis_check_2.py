@@ -28,6 +28,10 @@ def verify_apophis_tumbling():
     w1_0 = (L_mag * np.sin(theta_0) * np.sin(psi_0)) / I1
     w2_0 = (L_mag * np.sin(theta_0) * np.cos(psi_0)) / I2
     w3_0 = (L_mag * np.cos(theta_0)) / I3
+    
+    print(f'period: {(2 * np.pi / w3_0) / 3600.0}')
+    
+    print
 
     y0 = [w1_0, w2_0, w3_0, phi_0, theta_0, psi_0]
 

@@ -8,15 +8,15 @@ silent_mode: false                  # Set to true when running batch jobs (suppr
 remote: false                       # Set to true when running on a remote server (suppresses plotting)
 
 # File paths
-shape_model_file: "500m_ico_sphere_80_facets.stl"  # Name of the shape model file in data/shape_models/
+shape_model_file: "Apophis_m.stl"  # Name of the shape model file in data/shape_models/
 shape_model_directory: "data/shape_models/"
 
 # Physical parameters
-thermal_inertia:        2500    # W m⁻² K⁻¹ s⁻½ -
-density:                500    # kg/m³
+thermal_inertia:        600    # W m⁻² K⁻¹ s⁻½ -
+density:                2000    # kg/m³
 specific_heat_capacity: 1000    # J/kg·K
-emissivity:             0.95
-albedo:                 0.0
+emissivity:             0.86
+albedo:                 0.14
 beaming_factor:         1.0
 
 # Model structure parameters
@@ -89,19 +89,19 @@ plot_energy_terms: false                        # Plot energy balance terms
 
 
 # Orbital parameters
-a_au:                   1           # Semi-major axis
-ecc:                    0.0           # Eccentricity
-orbital_initialisation: 3
+a_au:                   0.9223592206975018           # Semi-major axis
+ecc:                    0.1911492279663492           # Eccentricity
+orbital_initialisation: 0.5
 
 # Rotation Parameters
-I1:                 42175.444         # Moment of inertia x-axis (gives EXACTLY P_psi = 24.0h)
-I2:                 42175.444         # Moment of inertia y-axis (I1 = I2 for axial symmetry)
-lambda_L:           0                 # Ecliptic longitude of fixed spin axis L [deg]
-beta_L:             90                # Ecliptic latitude of fixed spin axis L [deg]
-phi_0:              90                # Initial orientation angle [deg]
-psi_0:              0                 # Initial spin angle [deg]
-P_phi_h:            876600.0          # Precession period in hours (100 years = 100 * 365.25d * 24h)
-E_ratio:            0.750006          # Generates EXACTLY theta_0 = 30 deg nutation angle
+I1:                 0.61         # Moment of inertia x-axis (gives EXACTLY P_psi = 24.0h)
+I2:                 0.965        # Moment of inertia y-axis (I1 = I2 for axial symmetry)
+lambda_L:           250                 # Ecliptic longitude of fixed spin axis L [deg]
+beta_L:             -75                # Ecliptic latitude of fixed spin axis L [deg]
+phi_0:              152                # Initial orientation angle [deg]
+psi_0:              14                 # Initial spin angle [deg]
+P_phi_h:            27.38          # Precession period in hours (100 years = 100 * 365.25d * 24h)
+E_ratio:            1.024          # Generates EXACTLY theta_0 = 30 deg nutation angle
 
 # version
 version:            new          # 

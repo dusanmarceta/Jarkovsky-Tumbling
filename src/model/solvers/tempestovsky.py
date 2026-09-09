@@ -10,6 +10,8 @@ import astropy.constants as const
 import time
 import os
 
+import sys
+
 #from src.utilities.tumbling_final_2 import compute_tumbling_dynamics
 
 # Standalone numba functions
@@ -160,16 +162,40 @@ ADDED
 
 '''
 
-def geometry_for_yarko(shape_model):
-    positions = np.array([facet.position for facet in shape_model])
-    normals   = np.array([facet.normal   for facet in shape_model])
-    areas     = np.array([facet.area     for facet in shape_model])
+# def geometry_for_yarko(shape_model):
+#     positions = np.array([facet.position for facet in shape_model])
+#     normals   = np.array([facet.normal   for facet in shape_model])
+#     areas     = np.array([facet.area     for facet in shape_model])
 
-    volume = (1.0 / 3.0) * np.sum(
-        areas * np.einsum('ij,ij->i', positions, normals)
-    )
+#     volume = (1.0 / 3.0) * np.sum(
+#         areas * np.einsum('ij,ij->i', positions, normals)
+#     )
+
+#     return abs(volume), normals, areas
+
+
+
+import numpy as np
+
+def geometry_for_yarko(shape_model):
+    # Izvlačenje podataka preko atributa koji garantovano postoje
+    positions = np.array([facet.position for facet in shape_model])
+    raw_normals = np.array([facet.normal for facet in shape_model])
+    areas = np.array([facet.area for facet in shape_model])
+
+    # 1. Normalizacija normala (zaštita od loše zapisanih STL fajlova)
+    norms = np.linalg.norm(raw_normals, axis=1, keepdims=True)
+    # Sprečavanje deljenja sa nulom za degenerisane trouglove
+    norms[norms == 0] = 1.0 
+    normals = raw_normals / norms
+
+    # 2. Računanje zapremine preko Teoreme o divergenciji
+    # V = (1/3) * sum( Area * (Position . Normal) )
+    dot_products = np.einsum('ij,ij->i', positions, normals)
+    volume = (1.0 / 3.0) * np.sum(areas * dot_products)
 
     return abs(volume), normals, areas
+
 
 def calculate_yarkovsky(simulation, normals, areas, asteroid_mass, r_rad, r_trans, true_anomaly, sun_distance, temperatures):
     
