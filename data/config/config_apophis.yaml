@@ -91,7 +91,7 @@ plot_energy_terms: false                        # Plot energy balance terms
 # Orbital parameters
 a_au:                   0.9223592206975018           # Semi-major axis
 ecc:                    0.1911492279663492           # Eccentricity
-orbital_initialisation: 0.5
+orbital_initialisation: 0.2
 
 # Rotation Parameters
 I1:                 0.61         # Moment of inertia x-axis (gives EXACTLY P_psi = 24.0h)
@@ -105,3 +105,5 @@ E_ratio:            1.024          # Generates EXACTLY theta_0 = 30 deg nutation
 
 # version
 version:            new          # 
+output_file:        "Apophis_yarko.txt"
+progress_file:      "Apophis_progress.txt"

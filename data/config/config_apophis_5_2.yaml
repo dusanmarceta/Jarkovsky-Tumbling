@@ -66,3 +66,5 @@ psi_0: 14
 P_phi_h: 27.38
 E_ratio: 1.024
 version: new
+output_file: apophis_yarko_5_2.txt
+progress_file: apophis_progress_5_2.txt

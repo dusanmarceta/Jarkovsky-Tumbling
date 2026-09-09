@@ -22,6 +22,9 @@ for i in range(len(TI)):
     for j in range(len(initialization)):
         config["thermal_inertia"] = float(TI[i])
         config["orbital_initialisation"] = float(initialization[j])
+        
+        config["output_file"] = f'apophis_yarko_{i}_{j}.txt'
+        config["progress_file"] = f'apophis_progress_{i}_{j}.txt'
 
 
 

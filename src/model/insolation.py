@@ -27,7 +27,11 @@ import astropy.constants as const
 L_sun_value = const.L_sun.value
 
 
-
+def print_and_log(message, value, filename):
+    print(message, flush=True)
+    with open(filename, "w") as f:
+        f.write(message + "\n")
+    return value
 
 
 def calculate_insolation(thermal_data, shape_model, simulation, config):
@@ -414,27 +418,57 @@ def calculate_insolation_orbit_section(thermal_data, shape_model, simulation, co
        
     n_chunks = len(chunks)
 
+# =============================================================================
+#     results = parallel(
+#     delayed(process_insolation_chunk_orbit)(
+#         (
+#             print(
+#                 f"Processing initialization section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}"
+#                 if initialisation == 1 else
+#                 f"Processing orbit section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}",
+#                 flush=True
+#             ) if start_idx == 0 else None
+#         ) or normals[start_idx:end_idx].astype(np.float64),
+#         positions[start_idx:end_idx].astype(np.float64),
+#         np.array(visible_facets_arrays[start_idx:end_idx], dtype=object),
+#         rotation_matrices.astype(np.float64),
+#         rotated_sunlight_directions.astype(np.float64),
+#         simulation.albedo,
+#         current_sun_distance.astype(np.float64),
+#         current_sunlight_directions.astype(np.float64),
+#         config.include_shadowing,
+#         shape_model_vertices.astype(np.float64)
+#     )
+#     for chunk_idx, (start_idx, end_idx) in enumerate(chunks)
+#     )
+# =============================================================================
+
     results = parallel(
-    delayed(process_insolation_chunk_orbit)(
-        (
-            print(
-                f"Processing initialization section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}"
-                if initialisation == 1 else
-                f"Processing orbit section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}",
-                flush=True
-            ) if start_idx == 0 else None
-        ) or normals[start_idx:end_idx].astype(np.float64),
-        positions[start_idx:end_idx].astype(np.float64),
-        np.array(visible_facets_arrays[start_idx:end_idx], dtype=object),
-        rotation_matrices.astype(np.float64),
-        rotated_sunlight_directions.astype(np.float64),
-        simulation.albedo,
-        current_sun_distance.astype(np.float64),
-        current_sunlight_directions.astype(np.float64),
-        config.include_shadowing,
-        shape_model_vertices.astype(np.float64)
-    )
-    for chunk_idx, (start_idx, end_idx) in enumerate(chunks)
+        delayed(process_insolation_chunk_orbit)(
+            (
+                print_and_log(
+                    (
+                        f"Processing initialization section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}"
+                        if initialisation == 1 else
+                        f"Processing orbit section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}"
+                    ),
+                    normals[start_idx:end_idx].astype(np.float64),
+                    simulation.progress_file
+                )
+                if start_idx == 0 else
+                normals[start_idx:end_idx].astype(np.float64)
+            ),
+            positions[start_idx:end_idx].astype(np.float64),
+            np.array(visible_facets_arrays[start_idx:end_idx], dtype=object),
+            rotation_matrices.astype(np.float64),
+            rotated_sunlight_directions.astype(np.float64),
+            simulation.albedo,
+            current_sun_distance.astype(np.float64),
+            current_sunlight_directions.astype(np.float64),
+            config.include_shadowing,
+            shape_model_vertices.astype(np.float64)
+        )
+        for chunk_idx, (start_idx, end_idx) in enumerate(chunks)
     )
        
 
