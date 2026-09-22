@@ -696,6 +696,10 @@ def main():
 
     conditional_print(config.silent_mode, f"Solver execution time: {solver_execution_time} seconds")
     conditional_print(config.silent_mode, f"Full run time: {full_run_end_time - full_run_start_time} seconds")
+    with open('execution_time.txt', 'w') as ff:
+            ff.write(f"Full run time: {np.round(full_run_end_time - full_run_start_time)} seconds")
+    ff.close()
+
 
     if config.plot_insolation_curve and not config.silent_mode:
         fig_temperature = plt.figure(figsize=(10, 6))
@@ -1131,9 +1135,14 @@ def main():
             print(f"  Error exporting insolation and temperature for facet {idx}: {e}")
 
 # Call the main program with interrupt handling
+
 if __name__ == "__main__":
+
     try:
         main()
+        
     except KeyboardInterrupt:
         print("\nRun interrupted by user (Ctrl-C). Exiting.")
         sys.exit(1)
+    
+

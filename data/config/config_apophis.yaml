@@ -8,11 +8,11 @@ silent_mode: false                  # Set to true when running batch jobs (suppr
 remote: false                       # Set to true when running on a remote server (suppresses plotting)
 
 # File paths
-shape_model_file: "Apophis_m.stl"  # Name of the shape model file in data/shape_models/
+shape_model_file: "50m_ico_sphere_80_facets.stl"  # Name of the shape model file in data/shape_models/
 shape_model_directory: "data/shape_models/"
 
 # Physical parameters
-thermal_inertia:        600    # W m⁻² K⁻¹ s⁻½ -
+thermal_inertia:        1000    # W m⁻² K⁻¹ s⁻½ -
 density:                2000    # kg/m³
 specific_heat_capacity: 1000    # J/kg·K
 emissivity:             0.86

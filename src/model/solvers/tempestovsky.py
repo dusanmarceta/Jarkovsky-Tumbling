@@ -598,7 +598,9 @@ class YarkovskySolver(TemperatureSolver):
         # print('povrsina', np.sum(areas))
         # print('drift', np.mean(drift))
         
-        np.savetxt(simulation.output_file, [np.mean(drift)])
+        with open(simulation.output_file, 'w') as ff:
+            ff.write(f"drift (m/s): {np.mean(drift)}\n")
+        ff.close()
 
         # plt.figure()
         # plt.plot(np.arange(simulation.timesteps_per_orbit)*simulation.delta_t/3600, mean_insolation)
