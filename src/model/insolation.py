@@ -8,7 +8,8 @@ NOTE: Currently this requires a lot of RAM - look for ways to reduce this and ch
 
 import time
 import numpy as np
-from numba import jit
+import numba
+from numba import jit, prange
 from joblib import Parallel, delayed
 from src.utilities.utils import (
     conditional_tqdm,
@@ -88,27 +89,43 @@ def calculate_insolation(thermal_data, shape_model, simulation, config):
     positions = np.array([facet.position for facet in shape_model], dtype=np.float64)
     shape_model_vertices = np.array([facet.vertices for facet in shape_model], dtype=np.float64)
 
-    # Process chunks in parallel
-    parallel = Parallel(n_jobs=config.n_jobs, verbose=0)
-    results = parallel(
-        delayed(process_insolation_chunk)(
-            normals[start_idx:end_idx],
-            positions[start_idx:end_idx],
-            thermal_data.visible_facets[start_idx:end_idx],
+    if getattr(config, 'numba_insolation', True):
+        # Same kernel as for the orbit, with the Sun fixed during this day
+        vis_ptr, vis_idx = visible_facets_csr(thermal_data.visible_facets)
+        set_numba_threads(config.n_jobs)
+        thermal_data.insolation[:] = insolation_orbit_numba(
+            normals, positions, vis_ptr, vis_idx,
             rotation_matrices,
             rotated_sunlight_directions,
             simulation.albedo,
-            current_sun_distance, # we start from aphelion
-            current_sunlight_direction.astype(np.float64),  # Ensure float64
+            np.full(number_of_time_steps, current_sun_distance, dtype=np.float64),
+            np.tile(current_sunlight_direction.astype(np.float64), (number_of_time_steps, 1)),
             config.include_shadowing,
-            shape_model_vertices
+            shape_model_vertices,
+            L_sun_value
         )
-        for start_idx, end_idx in chunks
-    )
-       
+    else:
+        # Process chunks in parallel
+        parallel = Parallel(n_jobs=config.n_jobs, verbose=0)
+        results = parallel(
+            delayed(process_insolation_chunk)(
+                normals[start_idx:end_idx],
+                positions[start_idx:end_idx],
+                thermal_data.visible_facets[start_idx:end_idx],
+                rotation_matrices,
+                rotated_sunlight_directions,
+                simulation.albedo,
+                current_sun_distance, # we start from aphelion
+                current_sunlight_direction.astype(np.float64),  # Ensure float64
+                config.include_shadowing,
+                shape_model_vertices
+            )
+            for start_idx, end_idx in chunks
+        )
 
-    for chunk_idx, (start_idx, end_idx) in enumerate(chunks):
-        thermal_data.insolation[start_idx:end_idx] = results[chunk_idx]
+
+        for chunk_idx, (start_idx, end_idx) in enumerate(chunks):
+            thermal_data.insolation[start_idx:end_idx] = results[chunk_idx]
 
     if config.n_scatters > 0:
         conditional_print(config.silent_mode, 
@@ -408,75 +425,92 @@ def calculate_insolation_orbit_section(thermal_data, shape_model, simulation, co
     positions = np.array([facet.position for facet in shape_model], dtype=np.float64)
     shape_model_vertices = np.array([facet.vertices for facet in shape_model], dtype=np.float64)
 
-    # Process chunks in parallel
-    parallel = Parallel(n_jobs=config.n_jobs, verbose=0)
+    message = (f"Processing initialization section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}"
+               if initialisation == 1 else
+               f"Processing orbit section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}")
+
+    if getattr(config, 'numba_insolation', True):
+        # Compiled, multithreaded equivalent of process_insolation_chunk_orbit (no joblib processes)
+        print_and_log(message, None, simulation.progress_file)
+        vis_ptr, vis_idx = visible_facets_csr(thermal_data.visible_facets)
+        set_numba_threads(config.n_jobs)
+        insol_array = insolation_orbit_numba(
+            normals, positions, vis_ptr, vis_idx,
+            np.ascontiguousarray(rotation_matrices, dtype=np.float64),
+            np.ascontiguousarray(rotated_sunlight_directions, dtype=np.float64),
+            simulation.albedo,
+            np.ascontiguousarray(current_sun_distance, dtype=np.float64),
+            np.ascontiguousarray(current_sunlight_directions, dtype=np.float64),
+            config.include_shadowing,
+            shape_model_vertices,
+            L_sun_value
+        )
+    else:
+        # Process chunks in parallel
+        parallel = Parallel(n_jobs=config.n_jobs, verbose=0)
 
     
-    visible_facets_arrays = [
-    np.array(facets, dtype=np.int64) for facets in thermal_data.visible_facets
-    ]   
+        visible_facets_arrays = [
+        np.array(facets, dtype=np.int64) for facets in thermal_data.visible_facets
+        ]   
        
-    n_chunks = len(chunks)
+        n_chunks = len(chunks)
 
-# =============================================================================
-#     results = parallel(
-#     delayed(process_insolation_chunk_orbit)(
-#         (
-#             print(
-#                 f"Processing initialization section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}"
-#                 if initialisation == 1 else
-#                 f"Processing orbit section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}",
-#                 flush=True
-#             ) if start_idx == 0 else None
-#         ) or normals[start_idx:end_idx].astype(np.float64),
-#         positions[start_idx:end_idx].astype(np.float64),
-#         np.array(visible_facets_arrays[start_idx:end_idx], dtype=object),
-#         rotation_matrices.astype(np.float64),
-#         rotated_sunlight_directions.astype(np.float64),
-#         simulation.albedo,
-#         current_sun_distance.astype(np.float64),
-#         current_sunlight_directions.astype(np.float64),
-#         config.include_shadowing,
-#         shape_model_vertices.astype(np.float64)
-#     )
-#     for chunk_idx, (start_idx, end_idx) in enumerate(chunks)
-#     )
-# =============================================================================
+    # =============================================================================
+    #     results = parallel(
+    #     delayed(process_insolation_chunk_orbit)(
+    #         (
+    #             print(
+    #                 f"Processing initialization section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}"
+    #                 if initialisation == 1 else
+    #                 f"Processing orbit section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}",
+    #                 flush=True
+    #             ) if start_idx == 0 else None
+    #         ) or normals[start_idx:end_idx].astype(np.float64),
+    #         positions[start_idx:end_idx].astype(np.float64),
+    #         np.array(visible_facets_arrays[start_idx:end_idx], dtype=object),
+    #         rotation_matrices.astype(np.float64),
+    #         rotated_sunlight_directions.astype(np.float64),
+    #         simulation.albedo,
+    #         current_sun_distance.astype(np.float64),
+    #         current_sunlight_directions.astype(np.float64),
+    #         config.include_shadowing,
+    #         shape_model_vertices.astype(np.float64)
+    #     )
+    #     for chunk_idx, (start_idx, end_idx) in enumerate(chunks)
+    #     )
+    # =============================================================================
 
-    results = parallel(
-        delayed(process_insolation_chunk_orbit)(
-            (
-                print_and_log(
-                    (
-                        f"Processing initialization section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}"
-                        if initialisation == 1 else
-                        f"Processing orbit section {orbit_section + 1} out of {len(timesteps_per_orbit_section)}"
-                    ),
-                    normals[start_idx:end_idx].astype(np.float64),
-                    simulation.progress_file
-                )
-                if start_idx == 0 else
-                normals[start_idx:end_idx].astype(np.float64)
-            ),
-            positions[start_idx:end_idx].astype(np.float64),
-            np.array(visible_facets_arrays[start_idx:end_idx], dtype=object),
-            rotation_matrices.astype(np.float64),
-            rotated_sunlight_directions.astype(np.float64),
-            simulation.albedo,
-            current_sun_distance.astype(np.float64),
-            current_sunlight_directions.astype(np.float64),
-            config.include_shadowing,
-            shape_model_vertices.astype(np.float64)
+        results = parallel(
+            delayed(process_insolation_chunk_orbit)(
+                (
+                    print_and_log(
+                        message,
+                        normals[start_idx:end_idx].astype(np.float64),
+                        simulation.progress_file
+                    )
+                    if start_idx == 0 else
+                    normals[start_idx:end_idx].astype(np.float64)
+                ),
+                positions[start_idx:end_idx].astype(np.float64),
+                np.array(visible_facets_arrays[start_idx:end_idx], dtype=object),
+                rotation_matrices.astype(np.float64),
+                rotated_sunlight_directions.astype(np.float64),
+                simulation.albedo,
+                current_sun_distance.astype(np.float64),
+                current_sunlight_directions.astype(np.float64),
+                config.include_shadowing,
+                shape_model_vertices.astype(np.float64)
+            )
+            for chunk_idx, (start_idx, end_idx) in enumerate(chunks)
         )
-        for chunk_idx, (start_idx, end_idx) in enumerate(chunks)
-    )
        
 
-    insol_array = np.empty((len(normals), timesteps_per_orbit_section[orbit_section]), dtype=np.float64)
+        insol_array = np.empty((len(normals), timesteps_per_orbit_section[orbit_section]), dtype=np.float64)
 
-    # Popunjavamo array rezultatima po chunk-ovima
-    for chunk_idx, (start_idx, end_idx) in enumerate(chunks):
-        insol_array[start_idx:end_idx] = results[chunk_idx]
+        # Popunjavamo array rezultatima po chunk-ovima
+        for chunk_idx, (start_idx, end_idx) in enumerate(chunks):
+            insol_array[start_idx:end_idx] = results[chunk_idx]
         
         
     return (
@@ -603,6 +637,110 @@ def process_insolation_chunk_orbit(normals, positions, visible_facets, rotation_
     return insolation
 
 
+
+
+def visible_facets_csr(visible_facets):
+    '''Pack the per-facet lists of visible facets into two flat arrays (CSR format) for numba.'''
+    lengths = np.array([len(v) for v in visible_facets], dtype=np.int64)
+    vis_ptr = np.zeros(len(visible_facets) + 1, dtype=np.int64)
+    vis_ptr[1:] = np.cumsum(lengths)
+    vis_idx = np.zeros(vis_ptr[-1], dtype=np.int64)
+    for i, v in enumerate(visible_facets):
+        vis_idx[vis_ptr[i]:vis_ptr[i + 1]] = v
+    return vis_ptr, vis_idx
+
+
+def set_numba_threads(n_jobs):
+    '''Use n_jobs from the config as the number of numba threads (-1 = all available).'''
+    max_threads = numba.config.NUMBA_NUM_THREADS
+    n = max_threads if n_jobs is None or n_jobs < 1 else min(int(n_jobs), max_threads)
+    numba.set_num_threads(n)
+
+
+@jit(nopython=True, cache=True)
+def ray_hits_any_triangle(origin, ray, shape_model_vertices, vis_idx, start, end):
+    '''
+    Same test as calculate_shadowing / rays_triangles_intersection (Moller-Trumbore, eps = 1e-6)
+    for a single ray, stopping at the first triangle that is hit.
+    '''
+    eps = 0.000001
+    for k in range(start, end):
+        j = vis_idx[k]
+        v1x = shape_model_vertices[j, 0, 0]; v1y = shape_model_vertices[j, 0, 1]; v1z = shape_model_vertices[j, 0, 2]
+        e1x = shape_model_vertices[j, 1, 0] - v1x; e1y = shape_model_vertices[j, 1, 1] - v1y; e1z = shape_model_vertices[j, 1, 2] - v1z
+        e2x = shape_model_vertices[j, 2, 0] - v1x; e2y = shape_model_vertices[j, 2, 1] - v1y; e2z = shape_model_vertices[j, 2, 2] - v1z
+
+        # pvec = cross(ray, edge2)
+        px = ray[1] * e2z - ray[2] * e2y
+        py = ray[2] * e2x - ray[0] * e2z
+        pz = ray[0] * e2y - ray[1] * e2x
+        det = e1x * px + e1y * py + e1z * pz
+        if abs(det) < eps:
+            continue
+        inv_det = 1.0 / det
+
+        tx = origin[0] - v1x; ty = origin[1] - v1y; tz = origin[2] - v1z
+        u = (tx * px + ty * py + tz * pz) * inv_det
+        if u < 0.0 or u > 1.0:
+            continue
+
+        # qvec = cross(tvec, edge1)
+        qx = ty * e1z - tz * e1y
+        qy = tz * e1x - tx * e1z
+        qz = tx * e1y - ty * e1x
+        v = (ray[0] * qx + ray[1] * qy + ray[2] * qz) * inv_det
+        if v < 0.0 or u + v > 1.0:
+            continue
+
+        t = (e2x * qx + e2y * qy + e2z * qz) * inv_det
+        if t < eps:
+            continue
+        return True
+    return False
+
+
+@jit(nopython=True, parallel=True, cache=True)
+def insolation_orbit_numba(normals, positions, vis_ptr, vis_idx, rotation_matrices,
+                           rotated_sunlight_directions, albedo, solar_distance_m,
+                           sunlight_direction, include_shadowing, shape_model_vertices, L_sun):
+    '''Compiled equivalent of process_insolation_chunk_orbit for all facets at once (parallel over facets).'''
+    n_facets = normals.shape[0]
+    timesteps = rotation_matrices.shape[0]
+    insolation = np.zeros((n_facets, timesteps))
+
+    for i in prange(n_facets):
+        nx = normals[i, 0]; ny = normals[i, 1]; nz = normals[i, 2]
+        start = vis_ptr[i]
+        end = vis_ptr[i + 1]
+
+        for t in range(timesteps):
+            R = rotation_matrices[t]
+            mx = R[0, 0] * nx + R[0, 1] * ny + R[0, 2] * nz
+            my = R[1, 0] * nx + R[1, 1] * ny + R[1, 2] * nz
+            mz = R[2, 0] * nx + R[2, 1] * ny + R[2, 2] * nz
+            new_normal_norm = np.sqrt(mx * mx + my * my + mz * mz)
+
+            sx = sunlight_direction[t, 0]; sy = sunlight_direction[t, 1]; sz = sunlight_direction[t, 2]
+            sun_dot_normal = sx * mx + sy * my + sz * mz
+            cos_zenith_angle = sun_dot_normal / (np.sqrt(sx * sx + sy * sy + sz * sz) * new_normal_norm)
+
+            if cos_zenith_angle > 0:
+                illumination_factor = 1
+
+                if end > start and include_shadowing:
+                    if ray_hits_any_triangle(positions[i], rotated_sunlight_directions[t],
+                                             shape_model_vertices, vis_idx, start, end):
+                        illumination_factor = 0
+
+                insolation[i, t] = (
+                    L_sun *
+                    (1 - albedo) *
+                    illumination_factor *
+                    cos_zenith_angle /
+                    (4 * np.pi * solar_distance_m[t]**2)
+                )
+
+    return insolation
 
 
 @jit(nopython=True)

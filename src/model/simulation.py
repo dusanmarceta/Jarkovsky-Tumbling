@@ -102,6 +102,9 @@ class Simulation:
         
         self.thermal_diffusivity = self.thermal_conductivity / (self.density * self.specific_heat_capacity)
         self.timesteps_per_day = self.calculate_adaptive_timesteps() * t_scale # Adaptive timestep for low thermal inertia stability
+        if self.config.temp_solver == 'tempestovsky_implicit':
+            # Implicit solver is unconditionally stable, so the timestep is set by the required time resolution
+            self.timesteps_per_day = int(getattr(self, 'implicit_timesteps_per_day', 200))
         self.delta_t = self.rotation_period_s / self.timesteps_per_day
  
         

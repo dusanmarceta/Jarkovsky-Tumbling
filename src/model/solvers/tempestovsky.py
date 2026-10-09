@@ -230,6 +230,23 @@ class YarkovskySolver(TemperatureSolver):
             "beaming_factor"
         ]
 
+    def diurnal_day(self, thermal_data, simulation, config, const1, const2, const3, self_heating_const):
+        """Advance the temperatures over one rotation (diurnal initialisation). Overridden by the implicit solver."""
+        return calculate_temperatures(
+            thermal_data.temperatures,
+            thermal_data.layer_temperatures,
+            thermal_data.insolation,
+            thermal_data.visible_facets,
+            thermal_data.thermal_view_factors,
+            const1, const2, const3, self_heating_const,
+            simulation.timesteps_per_day, simulation.n_layers,
+            config.include_self_heating
+        )
+
+    def orbit_step(self, thermal_data, current_insolation, simulation):
+        """Advance the temperatures by one timestep along the orbit. Overridden by the implicit solver."""
+        return update_thermal_state(thermal_data, current_insolation, simulation)
+
     def solve(self, thermal_data, shape_model, simulation, config):
         ''' 
         This is the main calculation function for the thermophysical body model. It calls the necessary functions to read in the shape model, set material and model properties, calculate 
@@ -266,15 +283,9 @@ class YarkovskySolver(TemperatureSolver):
 
         # unikuta dnevna inicijacija
         while day <= simulation.max_days and (day < simulation.min_days or convergence_error > simulation.convergence_target):
-            current_day_temperature = calculate_temperatures(
-                thermal_data.temperatures,
-                thermal_data.layer_temperatures,
-                thermal_data.insolation,
-                thermal_data.visible_facets,
-                thermal_data.thermal_view_factors,
-                const1, const2, const3, self_heating_const,
-                simulation.timesteps_per_day, simulation.n_layers,
-                config.include_self_heating
+            current_day_temperature = self.diurnal_day(
+                thermal_data, simulation, config,
+                const1, const2, const3, self_heating_const
             )
 
             # Check for invalid temperatures
@@ -456,7 +467,7 @@ class YarkovskySolver(TemperatureSolver):
                 for t in range(timesteps_per_orbit_section[orbit_section]):
         
     
-                    thermal_data.layer_temperatures = update_thermal_state(thermal_data, precomputed_insolation[:, t], simulation)
+                    thermal_data.layer_temperatures = self.orbit_step(thermal_data, precomputed_insolation[:, t], simulation)
         
                     surface_temperatures = thermal_data.layer_temperatures[:, 0]
 
@@ -547,7 +558,7 @@ class YarkovskySolver(TemperatureSolver):
                 # KLJUČNI MOMENAT: 
                 # Pozivamo funkciju i REZULTAT upisujemo nazad u thermal_data.
                 # Tako u sledećoj iteraciji (t+1) funkcija uzima temperaturu od (t).
-                thermal_data.layer_temperatures = update_thermal_state(thermal_data, precomputed_insolation[:, t], simulation)
+                thermal_data.layer_temperatures = self.orbit_step(thermal_data, precomputed_insolation[:, t], simulation)
     
                 surface_temperatures = thermal_data.layer_temperatures[:, 0]
                 # Ovde možeš sačuvati površinsku temperaturu za ovaj trenutak ako ti treba za grafikon
