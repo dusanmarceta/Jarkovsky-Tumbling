@@ -1,0 +1,112 @@
+# To run the model, run the following command:
+# python tempest.py --config data/config/example_config.yaml
+
+# This config file is set up as a straightforward example and can be saved as a template for your own objects.
+
+# General settings
+silent_mode: false                  # Set to true when running batch jobs (suppresses most console output)
+remote: false                       # Set to true when running on a remote server (suppresses plotting)
+
+# File paths
+shape_model_file: "500m_ico_sphere_80_facets.stl"  # Name of the shape model file in data/shape_models/
+shape_model_directory: "data/shape_models/"
+
+# Physical parameters
+thermal_inertia:        2500    # W m⁻² K⁻¹ s⁻½ (as in Vokrouhlicky model/linear_model_example.py)
+density:                500     # kg/m³
+specific_heat_capacity: 1000    # J/kg·K
+emissivity:             0.95
+albedo:                 0.0
+beaming_factor:         1.0
+
+# Model structure parameters
+
+n_skin_depths:          100         # In diurnal skin depths; seasonal depth = sqrt(P_orbit/P_rot) ~ 16.6 diurnal depths here, so this covers ~6 seasonal depths
+thicknes_0:             0.1          #
+n_layers:               1000        # Layer thickness = 0.1 diurnal skin depth
+convergence_method:     "mean"      # Method to determine convergence: 'mean' or 'max' temperature difference between days
+convergence_target:     0.1         # Target temperature difference between days for convergence in K. Higher values will converge faster.
+max_days:               0          # Maximum number of days to run simulation
+min_days:               0           # Minimum number of days to run simulation
+
+# Yarkovsky effect related parameters
+seasonal_effect: "yes"
+
+# Advanced modelling options
+n_jobs:                 4           # Number of numba threads
+chunk_size:             10          # Number of facets to process in each parallel batch
+include_shadowing:      true        # Recommended to keep this as True for most cases
+n_scatters:             0           # Set to 0 to disable scattering. 1 or 2 is recommended for most cases. 3 is almost always unnecessary.
+include_self_heating:   false                # Whether to include thermal radiation between facets
+scattering_lut:         "lambertian.npy"     # Lambertian is the only option currently supported
+emission_lut:           "lambertian_epf.npy" # Lambertian or Lommel-Seeliger are the only options currently supported
+temp_solver:            "tempestovsky_implicit"
+implicit_timesteps_per_day: 100
+linearized_emission:    false                # true: linearized T^4 emission (as in the linear Yarkovsky theory), implicit solver only
+linearization_temperature: "T_av"           # Linearization temperature: "T_av" (consistent with the linear theory), "T_star" or a number in K
+vf_rays:                1000                 # Number of rays to use for view factor calculations. 1000 is recommended for most cases.
+
+# TEMPEST Solver parameters: Used with TI and specific_heat_capacity to derive layer depth and skin depth. These should not affect the final temperature distribution once the model has converged.
+
+
+# Animation settings
+animate_final_day_temp_distribution: false  # 3D animation of final day temperatures
+animate_subfacets: false                   # Animate temperatures for sub-facets
+subfacet_facet_index: 37                   # Parent facet index for sub-facet visualization
+animate_shadowing: false                   # 3D animation showing insolation and shadowing
+fixed_camera_theta: 1.0472                 # Polar angle (radians) of camera direction
+fixed_camera_phi: 0.7854                   # Azimuth angle (radians) of camera direction
+use_precomputed_viewed_temps: true         # Whether to use precomputed viewed-temperature per facet based on viewing geometry (phase effects of thermal emission)
+
+# Plotting settings for individual facet properties
+plotted_facet_index: 1220                 # Index of facet to plot detailed temperature evolution
+plot_insolation_curve: false              # Plot insolation for a facet
+plot_initial_temp_histogram: false        # Plot initial temperature distribution of all facets
+plot_final_day_all_layers_temp_distribution: false # Plot final day temperature distribution for all layers including subsurface
+plot_final_day_comparison: false          # Plot final day temperature distribution against the same from previous run (if it exists)
+
+# Extra analysis options
+calculate_visible_phase_curve: false    # Whether to calculate visible light phase curve (not thoroughly validated)
+calculate_thermal_phase_curve: false    # Whether to calculate thermal phase curve (now with advanced dome flux integration)
+
+# Plotting settings for phase curves
+show_visible_phase_curve: false
+save_visible_phase_curve_data: false
+show_thermal_phase_curve: false
+save_thermal_phase_curve_data: false
+
+# Surface Roughness Model (kernel-based)
+apply_kernel_based_roughness: false        # Master switch for kernel-based roughness
+roughness_kernel: 'spherical_cap'          # 'spherical_cap' is the only option currently supported
+kernel_subfacets_count: 100                # Number of sub-facets per kernel patch
+kernel_profile_angle_degrees: 90           # Controls curvature for 'spherical_cap' kernel
+kernel_directional_bins: 100               # Number of dome directional bins for emission/scatter
+kernel_dome_radius_factor: 100.0           # Scale factor for dome radius relative to parent facet
+intra_facet_scatters: 2                    # Number of internal scattering iterations per depression
+
+# Debugging
+calculate_energy_terms: false                   # Whether to calculate and store detailed energy balance terms (not thoroughly validated - very slow to run)
+animate_secondary_radiation_view_factors: false # 3D animation showing secondary radiation view factors
+animate_secondary_contributions: false          # 3D animation showing radiative self-heating contributions
+plot_energy_terms: false                        # Plot energy balance terms
+
+
+# Orbital parameters
+a_au:                   1.0          # Semi-major axis
+ecc:                    0.0          # Eccentricity (circular, as in the linear model)
+orbital_initialisation: 15           # Orbits of thermal spin-up before the measured orbit (15 vs 30 differ by 0.07%)
+
+# Rotation Parameters
+I1:                 0.5          # I1 = I2 = 0.5, I3 = 1  ->  A = sin²psi_0/I1 + cos²psi_0/I2 = 2
+I2:                 0.5
+lambda_L:           0            # Ecliptic longitude of the spin axis [deg] (irrelevant for a circular orbit)
+beta_L:             60           # Ecliptic latitude of the spin axis [deg]: obliquity gamma = 90 - beta_L = 30 deg
+phi_0:              0
+psi_0:              0
+P_phi_h:            16           # Rotation period P = P_phi_h * A * I3 = 32 h
+E_ratio:            1.0          # 1.0 -> theta_0 = 0: rotation about a fixed axis (no tumbling)
+
+# version
+version:            new          # 
+output_file:        "output/vokrouhlicky_test_yarko.txt"
+progress_file:      "output/vokrouhlicky_test_progress.txt"

@@ -19,6 +19,10 @@ and the subsurface temperatures are then obtained by back substitution.
 Config options (only used by this solver):
     implicit_timesteps_per_day: number of timesteps per rotation (default 200)
     implicit_theta:             0.5 (Crank-Nicolson, default) ... 1.0 (backward Euler)
+    linearized_emission:        true replaces eps*sigma*T^4 by eps*sigma*(T0^4 + 4*T0^3*(T - T0)) in the
+                                surface energy balance and in the Yarkovsky force (default false).
+                                Used to compare with the linear Yarkovsky theory (Vokrouhlicky).
+    linearization_temperature:  T0: "T_av" (default), "T_star" or a number in K
 '''
 
 import numpy as np
@@ -45,7 +49,7 @@ def elimination_coefficients(n, a, theta, bottom_fixed):
 
 
 @jit(nopython=True, cache=True)
-def implicit_column_step(T_old, T_new, p, q, inv_d, source, rad_coeff, a, theta, bottom_fixed):
+def implicit_column_step(T_old, T_new, p, q, inv_d, source, rad_coeff, a, theta, bottom_fixed, T_ref=0.0):
     '''
     Advance one facet's temperature column by one timestep.
 
@@ -74,24 +78,37 @@ def implicit_column_step(T_old, T_new, p, q, inv_d, source, rad_coeff, a, theta,
         rhs = T_old[i] + ea * (T_old[i + 1] - 2.0 * T_old[i] + T_old[i - 1])
         p[i] = (rhs + ta * p[i + 1]) * inv_d[i]
 
-    # Surface: x*(1 + ta*(1 - q1)) + theta*rad*x^4 = R + ta*p1
+    # Surface node holds half a layer (finite volume), so its energy balance is multiplied by 2:
+    # x*(1 + 2*ta*(1 - q1)) + 2*theta*rad*x^4 = R
     T0 = T_old[0]
-    R = (T0 + source
-         - (1.0 - theta) * rad_coeff * T0**4
-         + ea * (T_old[1] - T0)
-         + ta * p[1])
-    lin = 1.0 + ta * (1.0 - q[1])
-    nl = theta * rad_coeff
+    lin = 1.0 + 2.0 * ta * (1.0 - q[1])
 
-    # f(x) is monotonic and convex for x > 0, so Newton from the old value converges quickly
-    x = T0
-    for _ in range(50):
-        f = lin * x + nl * x**4 - R
-        df = lin + 4.0 * nl * x**3
-        dx = f / df
-        x -= dx
-        if abs(dx) < 1e-10:
-            break
+    if T_ref > 0.0:
+        # LINEARIZED EMISSION: eps*sigma*T^4 -> eps*sigma*(Tr^4 + 4*Tr^3*(T - Tr)) = eps*sigma*(4*Tr^3*T - 3*Tr^4)
+        g1 = 4.0 * T_ref**3
+        g0 = 3.0 * T_ref**4
+        R = (T0 + 2.0 * (source
+                         - (1.0 - theta) * rad_coeff * (g1 * T0 - g0)
+                         + theta * rad_coeff * g0
+                         + ea * (T_old[1] - T0)
+                         + ta * p[1]))
+        x = R / (lin + 2.0 * theta * rad_coeff * g1)
+    else:
+        R = (T0 + 2.0 * (source
+                         - (1.0 - theta) * rad_coeff * T0**4
+                         + ea * (T_old[1] - T0)
+                         + ta * p[1]))
+        nl = 2.0 * theta * rad_coeff
+
+        # f(x) is monotonic and convex for x > 0, so Newton from the old value converges quickly
+        x = T0
+        for _ in range(50):
+            f = lin * x + nl * x**4 - R
+            df = lin + 4.0 * nl * x**3
+            dx = f / df
+            x -= dx
+            if abs(dx) < 1e-10:
+                break
 
     # Back substitution
     T_new[0] = x
@@ -100,7 +117,7 @@ def implicit_column_step(T_old, T_new, p, q, inv_d, source, rad_coeff, a, theta,
 
 
 @jit(nopython=True, parallel=True, cache=True)
-def implicit_orbit_step(layer_temperatures, insolation, prev_insolation, const1, rad_coeff, a, theta):
+def implicit_orbit_step(layer_temperatures, insolation, prev_insolation, const1, rad_coeff, a, theta, T_ref):
     '''One orbit timestep for all facets, in place (parallel over facets). layer_temperatures: (n_facets, n_layers).'''
     n_facets, n_layers = layer_temperatures.shape
     q, inv_d = elimination_coefficients(n_layers, a, theta, False)
@@ -108,13 +125,13 @@ def implicit_orbit_step(layer_temperatures, insolation, prev_insolation, const1,
         p = np.empty(n_layers)
         implicit_column_step(layer_temperatures[i], layer_temperatures[i], p, q, inv_d,
                              (theta * insolation[i] + (1.0 - theta) * prev_insolation[i]) * const1,
-                             rad_coeff, a, theta, False)
+                             rad_coeff, a, theta, False, T_ref)
 
 
 @jit(nopython=True, cache=True)
 def implicit_diurnal_day(temperatures, layer_temperatures, insolation, visible_facets_list,
                          view_factors_list, const1, const2, a, self_heating_const,
-                         timesteps_per_day, n_layers, include_self_heating, theta):
+                         timesteps_per_day, n_layers, include_self_heating, theta, T_ref):
     '''Implicit counterpart of calculate_temperatures in tempestovsky.py (same column swapping).'''
     n_facets = temperatures.shape[0]
     current_column = 0
@@ -137,7 +154,7 @@ def implicit_diurnal_day(temperatures, layer_temperatures, insolation, visible_f
                 )
 
             implicit_column_step(layer_temperatures[i, prev_column], layer_temperatures[i, current_column],
-                                 p, q, inv_d, source, const2, a, theta, True)
+                                 p, q, inv_d, source, const2, a, theta, True, T_ref)
             temperatures[i, time_step] = layer_temperatures[i, current_column, 0]
 
     return temperatures
@@ -152,6 +169,31 @@ class YarkovskyImplicitSolver(YarkovskySolver):
     def theta(self, simulation):
         return float(getattr(simulation, 'implicit_theta', 0.5))
 
+    def linearization_temperature(self, simulation):
+        '''
+        Reference temperature for linearized emission (0.0 = full nonlinear T^4).
+        Config: linearized_emission: true/false, linearization_temperature: "T_av" (default),
+        "T_star" or a number in K. With E_star = L_sun/(4 pi r^2) at the current heliocentric distance r:
+            T_star^4 = (1-A) E_star / (eps sigma)      (subsolar temperature, Vokrouhlicky's T_star)
+            T_av     = T_star / sqrt(2)                (eps sigma T_av^4 = (1-A) E_star / 4)
+        T_av is the choice consistent with the linear theory (its Theta, defined with T_star, together
+        with k1 = k2 = k3 = 1/2 is equivalent to linearizing the emission around T_star/sqrt(2)).
+        '''
+        if not bool(getattr(simulation, 'linearized_emission', False)):
+            simulation.T_lin_ref = 0.0
+            return 0.0
+        # Current heliocentric distance (set by the orbit loop); before the orbit loop r = a
+        r_au = getattr(simulation, 'current_r_au', simulation.a_au)
+        E_star = const.L_sun.value / (4.0 * np.pi * (r_au * const.au.value)**2)
+        T_star = ((1.0 - simulation.albedo) * E_star / (simulation.emissivity * const.sigma_sb.value))**0.25
+        choice = getattr(simulation, 'linearization_temperature', 'T_av')
+        if isinstance(choice, str):
+            T_ref = T_star if choice == 'T_star' else T_star / np.sqrt(2.0)
+        else:
+            T_ref = float(choice)
+        simulation.T_lin_ref = T_ref
+        return T_ref
+
     def diurnal_day(self, thermal_data, simulation, config, const1, const2, const3, self_heating_const):
         return implicit_diurnal_day(
             thermal_data.temperatures,
@@ -161,7 +203,8 @@ class YarkovskyImplicitSolver(YarkovskySolver):
             thermal_data.thermal_view_factors,
             const1, const2, const3, self_heating_const,
             simulation.timesteps_per_day, simulation.n_layers,
-            config.include_self_heating, self.theta(simulation)
+            config.include_self_heating, self.theta(simulation),
+            self.linearization_temperature(simulation)
         )
 
     def orbit_step(self, thermal_data, current_insolation, simulation):
@@ -179,6 +222,7 @@ class YarkovskyImplicitSolver(YarkovskySolver):
             self.prev_insolation = current_insolation
 
         implicit_orbit_step(T, current_insolation, self.prev_insolation,
-                            const1, rad_coeff, a, self.theta(simulation))
+                            const1, rad_coeff, a, self.theta(simulation),
+                            self.linearization_temperature(simulation))
         self.prev_insolation = current_insolation
         return T

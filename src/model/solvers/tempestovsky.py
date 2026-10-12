@@ -53,11 +53,12 @@ def calculate_temperatures(temperatures, layer_temperatures, insolation, visible
             
             conducted_heat_term = const3 * (prev_temp_layer1 - prev_temp)
             
-            new_temp = (prev_temp + 
+            # The surface node holds half a layer (finite volume), hence the factor 2
+            new_temp = (prev_temp + 2.0 * (
                     insolation_term + 
                     re_emitted_radiation_term + 
                     conducted_heat_term + 
-                    secondary_radiation_term)
+                    secondary_radiation_term))
 
             temperatures[i, time_step] = new_temp
             layer_temperatures[i, current_column, 0] = new_temp
@@ -100,7 +101,8 @@ def update_thermal_state(thermal_data, current_insolation, simulation):
     conduction_to_subsurface = simulation.thermal_conductivity * (T[:, 0] - T[:, 1]) / simulation.layer_thickness
 
     # Sada će ova linija raditi jer su svi nizovi (1266,)
-    dT_surf = (simulation.delta_t / (simulation.density * simulation.specific_heat_capacity * simulation.layer_thickness)) * (current_insolation - simulation.emissivity * const.sigma_sb.value * T[:, 0]**4 - conduction_to_subsurface)
+    # The surface node holds half a layer (finite volume): heat capacity rho*c*dz/2
+    dT_surf = (simulation.delta_t / (simulation.density * simulation.specific_heat_capacity * 0.5 * simulation.layer_thickness)) * (current_insolation - simulation.emissivity * const.sigma_sb.value * T[:, 0]**4 - conduction_to_subsurface)
     
     T_new[:, 0] = T[:, 0] + dT_surf
     
@@ -199,12 +201,21 @@ def geometry_for_yarko(shape_model):
 
 def calculate_yarkovsky(simulation, normals, areas, asteroid_mass, r_rad, r_trans, true_anomaly, sun_distance, temperatures):
     
-    F=2/3*simulation.emissivity*const.sigma_sb.value / const.c.value * np.sum(temperatures[:, None]**4 * normals * areas[:, None], axis=0)
+    # F points along the emitting normals; the recoil force on the body is -F.
+    # r_rad points away from the Sun and r_trans against the orbital motion, so
+    # B = (-F).(-r_trans) and R = (-F).r_rad.
+    T_ref = getattr(simulation, 'T_lin_ref', 0.0)
+    if T_ref > 0.0:
+        # Linearized emission: T^4 -> T_ref^4 + 4 T_ref^3 (T - T_ref)
+        T4 = T_ref**4 + 4.0 * T_ref**3 * (temperatures - T_ref)
+    else:
+        T4 = temperatures**4
+    F=2/3*simulation.emissivity*const.sigma_sb.value / const.c.value * np.sum(T4[:, None] * normals * areas[:, None], axis=0)
      
     B = np.dot(F, r_trans)
         
     # Radial thermal force
-    R = np.dot(F, r_rad)
+    R = -np.dot(F, r_rad)
 
     
     dadt = 2 * simulation.mean_motion * (simulation.a_au * const.au.value)**2 / const.GM_sun.value * (
@@ -467,6 +478,7 @@ class YarkovskySolver(TemperatureSolver):
                 for t in range(timesteps_per_orbit_section[orbit_section]):
         
     
+                    simulation.current_r_au = current_sun_distance[t]  # heliocentric distance [au] for linearized emission
                     thermal_data.layer_temperatures = self.orbit_step(thermal_data, precomputed_insolation[:, t], simulation)
         
                     surface_temperatures = thermal_data.layer_temperatures[:, 0]
@@ -558,6 +570,7 @@ class YarkovskySolver(TemperatureSolver):
                 # KLJUČNI MOMENAT: 
                 # Pozivamo funkciju i REZULTAT upisujemo nazad u thermal_data.
                 # Tako u sledećoj iteraciji (t+1) funkcija uzima temperaturu od (t).
+                simulation.current_r_au = current_sun_distance[t]  # heliocentric distance [au] for linearized emission
                 thermal_data.layer_temperatures = self.orbit_step(thermal_data, precomputed_insolation[:, t], simulation)
     
                 surface_temperatures = thermal_data.layer_temperatures[:, 0]
