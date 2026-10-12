@@ -7,4 +7,4 @@ model = mesh.Mesh.from_file("Apophis.stl")
 model.vectors *= 1000.0
 
 # Sačuvaj novi STL
-model.save("Apophis_m.stl")
+model.save("Apophis_3996.stl")

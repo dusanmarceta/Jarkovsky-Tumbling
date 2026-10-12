@@ -1,6 +1,6 @@
 silent_mode: false
 remote: false
-shape_model_file: Apophis_m.stl
+shape_model_file: Apophis_3996.stl
 shape_model_directory: data/shape_models/
 thermal_inertia: 230.88888888888889
 density: 2000
