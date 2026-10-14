@@ -228,6 +228,25 @@ def calculate_yarkovsky(simulation, normals, areas, asteroid_mass, r_rad, r_tran
     return dadt
 
 
+def aitken_limit(values, ratio_tolerance=0.1):
+    '''
+    Aitken extrapolation of a geometrically converging sequence from its last three values.
+    The sequence is accepted as geometric only if the last two ratios of consecutive changes are both in
+    (0, 1) and differ by less than ratio_tolerance (the first orbits are usually dominated by faster modes).
+    Returns None otherwise or if there are fewer than four values.
+    '''
+    if len(values) < 4:
+        return None
+    changes = np.diff(values[-4:])
+    if np.any(changes == 0):
+        return values[-1]
+    ratios = changes[1:] / changes[:-1]
+    if np.any(ratios <= 0) or np.any(ratios >= 1) or abs(ratios[1] - ratios[0]) > ratio_tolerance:
+        return None
+    a, b = changes[1], changes[2]
+    return values[-1] - b * b / (b - a)
+
+
 class YarkovskySolver(TemperatureSolver):
     def __init__(self):
         super().__init__("tempest_standard_yarko")
@@ -411,8 +430,9 @@ class YarkovskySolver(TemperatureSolver):
         counter = 0
         thermal_data.layer_temperatures = thermal_data.layer_temperatures[:, 1, :]
         last_state = 0
+        simulation.total_initialisation_time = 0.0
         
-        if simulation.orbital_initialisation > 0:
+        if getattr(simulation, 'orbital_initialisation', 0) > 0:
             
             number_of_rotations = np.floor(simulation.orbital_period * simulation.orbital_initialisation/simulation.rotation_period_s) # OK
             
@@ -511,120 +531,194 @@ class YarkovskySolver(TemperatureSolver):
         #     timesteps_per_orbit_section[-1] = simulation.timesteps_per_orbit - sum(timesteps_per_orbit_section[:-1]) + 100
         
         
-        counter = 0
         os.makedirs("output", exist_ok=True)
 
+        # Convergence of the drift: the orbit is repeated (the thermal and rotation state carry over
+        # from one orbit to the next) until the error of the mean drift is below
+        # max(yarkovsky_tolerance * |drift|, yarkovsky_abs_tolerance). The error is the change of the drift
+        # between the last two orbits or, once the drift converges geometrically (see aitken_limit), |d_k - d_inf|
+        # if larger, with d_inf the Aitken extrapolation (the change underestimates the error by rho/(1 - rho)).
+        # With yarkovsky_extrapolate, d_inf is reported as the result, otherwise the drift of the last orbit.
+        yarkovsky_tolerance = float(getattr(simulation, 'yarkovsky_tolerance', 1e-3))
+        yarkovsky_abs_tolerance = float(getattr(simulation, 'yarkovsky_abs_tolerance', 0.0))
+        yarkovsky_extrapolate = bool(getattr(simulation, 'yarkovsky_extrapolate', True))
+        min_orbits = int(getattr(simulation, 'min_orbits', 4))
+        max_orbits = int(getattr(simulation, 'max_orbits', 20))
+
+        # Deep temperature correction: in the periodic steady state the time mean of the heat equation
+        # gives d2<T>/dz2 = 0, and with the insulating bottom <T(z)> is the same at every depth, equal to the
+        # mean surface temperature. The slowest transient (relaxation of the deep layers, ~L^2/kappa) is
+        # removed by shifting every layer by <T_surface> - <T(z)> after each orbit (zero in the steady state).
+        deep_temperature_correction = bool(getattr(simulation, 'deep_temperature_correction', True))
+
         last_state = simulation.y0
+        drift_history = []
+        yarkovsky_converged = False
 
-#        thermal_data.layer_temperatures = thermal_data.layer_temperatures[:, 1, :]
-        for orbit_section in range(number_of_orbit_sections):
+        for orbit in range(max_orbits):
+            counter = 0
+            if deep_temperature_correction:
+                layer_temperature_sum = np.zeros(thermal_data.layer_temperatures.shape)
+
+    #        thermal_data.layer_temperatures = thermal_data.layer_temperatures[:, 1, :]
+            for orbit_section in range(number_of_orbit_sections):
             
-            (
-                precomputed_insolation,
-                true_anomaly,
-                current_sun_distance,
-                r_rad,
-                r_trans,
-                last_state
-            ) = calculate_insolation_orbit_section(
-                thermal_data,
-                shape_model,
-                simulation,
-                config,
-                timesteps_per_orbit_section,
-                orbit_section,
-                initial_rotation_state = last_state,
-                initialisation=0
-            )
+                (
+                    precomputed_insolation,
+                    true_anomaly,
+                    current_sun_distance,
+                    r_rad,
+                    r_trans,
+                    last_state
+                ) = calculate_insolation_orbit_section(
+                    thermal_data,
+                    shape_model,
+                    simulation,
+                    config,
+                    timesteps_per_orbit_section,
+                    orbit_section,
+                    initial_rotation_state = last_state,
+                    initialisation=0
+                )
         
-            # # Dodavanje rezultata na kraj fajlova
-            # with open(f"output/precomputed_insolation_{simulation.version}.npy", "ab") as f:
-            #     np.save(f, precomputed_insolation)
+                # # Dodavanje rezultata na kraj fajlova
+                # with open(f"output/precomputed_insolation_{simulation.version}.npy", "ab") as f:
+                #     np.save(f, precomputed_insolation)
         
-            # with open(f"output/true_anomaly_{simulation.version}.npy", "ab") as f:
-            #     np.save(f, true_anomaly)
+                # with open(f"output/true_anomaly_{simulation.version}.npy", "ab") as f:
+                #     np.save(f, true_anomaly)
         
-            # with open(f"output/current_sun_distance_{simulation.version}.npy", "ab") as f:
-            #     np.save(f, current_sun_distance)
+                # with open(f"output/current_sun_distance_{simulation.version}.npy", "ab") as f:
+                #     np.save(f, current_sun_distance)
         
-            # with open(f"output/r_rad_{simulation.version}.npy", "ab") as f:
-            #     np.save(f, r_rad)
+                # with open(f"output/r_rad_{simulation.version}.npy", "ab") as f:
+                #     np.save(f, r_rad)
         
-            # with open(f"output/r_trans_{simulation.version}.npy", "ab") as f:
-            #     np.save(f, r_trans)
+                # with open(f"output/r_trans_{simulation.version}.npy", "ab") as f:
+                #     np.save(f, r_trans)
         
-            # with open(f"output/last_state_{simulation.version}.npy", "ab") as f:
-            #     np.save(f, last_state)
+                # with open(f"output/last_state_{simulation.version}.npy", "ab") as f:
+                #     np.save(f, last_state)
                 
                 
-            # print(timesteps_per_orbit_section[0])
+                # print(timesteps_per_orbit_section[0])
                 
-            # if orbit_section == 5:
+                # if orbit_section == 5:
 
-            #     raise SystemExit
+                #     raise SystemExit
         
-            for t in range(timesteps_per_orbit_section[orbit_section]):
+                for t in range(timesteps_per_orbit_section[orbit_section]):
     
                 
                 
-                # KLJUČNI MOMENAT: 
-                # Pozivamo funkciju i REZULTAT upisujemo nazad u thermal_data.
-                # Tako u sledećoj iteraciji (t+1) funkcija uzima temperaturu od (t).
-                simulation.current_r_au = current_sun_distance[t]  # heliocentric distance [au] for linearized emission
-                thermal_data.layer_temperatures = self.orbit_step(thermal_data, precomputed_insolation[:, t], simulation)
+                    # KLJUČNI MOMENAT: 
+                    # Pozivamo funkciju i REZULTAT upisujemo nazad u thermal_data.
+                    # Tako u sledećoj iteraciji (t+1) funkcija uzima temperaturu od (t).
+                    simulation.current_r_au = current_sun_distance[t]  # heliocentric distance [au] for linearized emission
+                    thermal_data.layer_temperatures = self.orbit_step(thermal_data, precomputed_insolation[:, t], simulation)
     
-                surface_temperatures = thermal_data.layer_temperatures[:, 0]
-                # Ovde možeš sačuvati površinsku temperaturu za ovaj trenutak ako ti treba za grafikon
-                surface_history[:, counter] = surface_temperatures
+                    surface_temperatures = thermal_data.layer_temperatures[:, 0]
+                    # Ovde možeš sačuvati površinsku temperaturu za ovaj trenutak ako ti treba za grafikon
+                    surface_history[:, counter] = surface_temperatures
+                    if deep_temperature_correction:
+                        layer_temperature_sum += thermal_data.layer_temperatures
                 
-                drift[counter] = calculate_yarkovsky(simulation, normals, areas, asteroid_mass, 
-                                               r_rad[t], r_trans[t], true_anomaly[t], 
-                                               current_sun_distance[t], 
-                                               surface_temperatures)
+                    drift[counter] = calculate_yarkovsky(simulation, normals, areas, asteroid_mass, 
+                                                   r_rad[t], r_trans[t], true_anomaly[t], 
+                                                   current_sun_distance[t], 
+                                                   surface_temperatures)
                 
-                mean_T[counter] = np.mean(surface_history[:, counter])
-                mean_insolation[counter] = np.mean(precomputed_insolation[:, t])
+                    mean_T[counter] = np.mean(surface_history[:, counter])
+                    mean_insolation[counter] = np.mean(precomputed_insolation[:, t])
                 
-                true_anomaly_orbit[counter] = true_anomaly[t]
-                r_sun[counter] = current_sun_distance[t]
+                    true_anomaly_orbit[counter] = true_anomaly[t]
+                    r_sun[counter] = current_sun_distance[t]
                 
-                # if np.mod(counter, 1000) == 0:
-                #     print(f'step {counter} out of {simulation.timesteps_per_orbit}, section: {orbit_section}')
+                    # if np.mod(counter, 1000) == 0:
+                    #     print(f'step {counter} out of {simulation.timesteps_per_orbit}, section: {orbit_section}')
     
                 
         
-                # angles_rad = np.rad2deg(np.arctan2(r_rad[:,1], r_rad[:,0]))
-                # angles_trans = np.rad2deg(np.arctan2(r_trans[:,1], r_trans[:,0]))
+                    # angles_rad = np.rad2deg(np.arctan2(r_rad[:,1], r_rad[:,0]))
+                    # angles_trans = np.rad2deg(np.arctan2(r_trans[:,1], r_trans[:,0]))
                 
                 
-                # vertikal_trans = np.rad2deg(np.arcsin(r_trans[:,2]))
+                    # vertikal_trans = np.rad2deg(np.arcsin(r_trans[:,2]))
                 
-                # vertikal_rad = np.rad2deg(np.arcsin(r_rad[:,2]))
+                    # vertikal_rad = np.rad2deg(np.arcsin(r_rad[:,2]))
                 
-                counter += 1
+                    counter += 1
                 
 
-            # with open(f"output/precomputed_insolation_{simulation.version}.npy", "ab") as f:
-            #     np.save(f, precomputed_insolation)
+                # with open(f"output/precomputed_insolation_{simulation.version}.npy", "ab") as f:
+                #     np.save(f, precomputed_insolation)
         
-            # with open(f"output/true_anomaly_{simulation.version}.npy", "ab") as f:
-            #     np.save(f, true_anomaly)
+                # with open(f"output/true_anomaly_{simulation.version}.npy", "ab") as f:
+                #     np.save(f, true_anomaly)
         
-            # with open(f"output/current_sun_distance_{simulation.version}.npy", "ab") as f:
-            #     np.save(f, current_sun_distance)
+                # with open(f"output/current_sun_distance_{simulation.version}.npy", "ab") as f:
+                #     np.save(f, current_sun_distance)
                 
-            # if orbit_section == 5:
+                # if orbit_section == 5:
             
-            #     raise SystemExit
+                #     raise SystemExit
 
-        # print('poluprecnik', poluprecnik)
-        # print('zapremina', volume)
-        # print('povrsina', np.sum(areas))
-        # print('drift', np.mean(drift))
+            # print('poluprecnik', poluprecnik)
+            # print('zapremina', volume)
+            # print('povrsina', np.sum(areas))
+            # print('drift', np.mean(drift))
         
+            drift_history.append(np.mean(drift))
+
+            if deep_temperature_correction:
+                layer_temperature_mean = layer_temperature_sum / counter
+                temperature_correction = layer_temperature_mean[:, :1] - layer_temperature_mean
+                thermal_data.layer_temperatures += temperature_correction
+
+            drift_limit = max(yarkovsky_tolerance * abs(drift_history[-1]), yarkovsky_abs_tolerance)
+            drift_extrapolated = aitken_limit(drift_history)
+            if len(drift_history) > 1:
+                drift_error = abs(drift_history[-1] - drift_history[-2])
+                if drift_extrapolated is not None:
+                    drift_error = max(drift_error, abs(drift_history[-1] - drift_extrapolated))
+            else:
+                drift_error = np.inf
+
+            message = f"Orbit {orbit + 1}: drift = {drift_history[-1]:.6e} m/s"
+            if len(drift_history) > 1:
+                message += f" | change = {drift_history[-1] - drift_history[-2]:.3e} m/s"
+            if drift_extrapolated is not None:
+                message += f" | extrapolated = {drift_extrapolated:.6e} m/s"
+            if np.isfinite(drift_error):
+                message += f" | error = {drift_error:.3e} m/s ({drift_error / abs(drift_history[-1]):.2e} rel.)"
+            if deep_temperature_correction:
+                message += f" | max deep correction = {np.max(np.abs(temperature_correction)):.3f} K"
+            print(message)
+            with open(simulation.progress_file, 'a') as ff:
+                ff.write(message + '\n')
+
+            if orbit + 1 >= min_orbits and drift_error <= drift_limit:
+                yarkovsky_converged = True
+                break
+
+        if not yarkovsky_converged:
+            print(f"WARNING: Yarkovsky drift not converged after {max_orbits} orbits")
+
+        if yarkovsky_extrapolate and drift_extrapolated is not None:
+            yarkovsky_drift = drift_extrapolated
+        else:
+            yarkovsky_drift = drift_history[-1]
+
         with open(simulation.output_file, 'w') as ff:
-            ff.write(f"drift (m/s): {np.mean(drift)}\n")
-        ff.close()
+            ff.write(f"drift (m/s): {yarkovsky_drift}\n")
+            ff.write(f"drift last orbit (m/s): {drift_history[-1]}\n")
+            ff.write(f"drift extrapolated (m/s): {drift_extrapolated}\n")
+            ff.write(f"estimated error (m/s): {drift_error}\n")
+            ff.write(f"converged: {yarkovsky_converged}\n")
+            ff.write(f"orbits: {len(drift_history)}\n")
+            for k, d in enumerate(drift_history):
+                ff.write(f"orbit {k + 1}: {d}\n")
+
 
         # plt.figure()
         # plt.plot(np.arange(simulation.timesteps_per_orbit)*simulation.delta_t/3600, mean_insolation)
@@ -688,6 +782,8 @@ class YarkovskySolver(TemperatureSolver):
             "days_to_convergence": day,
             "mean_temperature_error": mean_temperature_error,
             "max_temperature_error": max_temperature_error,
-            "Yarkovsky drift": np.mean(drift)
+            "Yarkovsky drift": yarkovsky_drift,
+            "Yarkovsky drift history": drift_history,
+            "Yarkovsky converged": yarkovsky_converged
         } 
             
