@@ -39,8 +39,8 @@ orbital_initialisation: 1
 I1:                 0.61             # Normalized principal moment of inertia (x-axis)
 I2:                 0.965            # Normalized principal moment of inertia (y-axis)
 I3:                 1.0              # Normalized principal moment of inertia (z-axis, major axis)
-lambda_L:           250.0            # Ecliptic longitude of angular momentum vector L [deg]
-beta_L:             -75.0            # Ecliptic latitude of angular momentum vector L [deg]
+lambda_L:           250.0            # Longitude of L in the orbital frame (x towards perihelion, z along the orbital angular momentum) [deg]
+beta_L:             -75.0            # Latitude of L above the orbital plane [deg]; obliquity = 90 - beta_L
 phi_0:              152.0            # Initial precession angle at epoch [deg]
 psi_0:              14.0             # Initial spin angle around z-axis at epoch [deg]
 P_phi_h:            27.38            # Precession period [hours]

@@ -59,8 +59,8 @@ ecc: 0.1911492279663492
 orbital_initialisation: 1.1
 I1: 0.61
 I2: 0.965
-lambda_L: 250
-beta_L: -75
+lambda_L: 269.222
+beta_L: -77.201
 phi_0: 152
 psi_0: 14
 P_phi_h: 27.38

@@ -97,8 +97,8 @@ orbital_initialisation: 3
 # Rotation Parameters (Pure Fixed-Axis Rotation: P_spin = 200h)
 I1:                 10           # Moment of inertia x-axis (normalized to I3 = 1.0)
 I2:                 10           # Moment of inertia y-axis (normalized to I3 = 1.0)
-lambda_L:           0            # Ecliptic longitude of fixed spin axis L [deg]
-beta_L:             60            # Ecliptic latitude of fixed spin axis L [deg]
+lambda_L:           0            # Longitude of L in the orbital frame (x towards perihelion, z along the orbital angular momentum) [deg]
+beta_L:             60            # Latitude of L above the orbital plane [deg]; obliquity = 90 - beta_L
 phi_0:              0             # Initial orientation angle [deg]
 psi_0:              0             # Initial spin angle [deg]
 P_phi_h:            240        # Scaled precession parameter (P_rot / A = 200.0 * 5.0)

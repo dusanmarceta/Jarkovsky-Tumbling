@@ -96,8 +96,8 @@ orbital_initialisation: 0.2
 # Rotation Parameters
 I1:                 0.61         # Moment of inertia x-axis (gives EXACTLY P_psi = 24.0h)
 I2:                 0.965        # Moment of inertia y-axis (I1 = I2 for axial symmetry)
-lambda_L:           250                 # Ecliptic longitude of fixed spin axis L [deg]
-beta_L:             -75                # Ecliptic latitude of fixed spin axis L [deg]
+lambda_L:           269.222             # Longitude of L in the orbital frame (x towards perihelion, z along the orbital angular momentum) [deg]
+beta_L:             -77.201             # Latitude of L above the orbital plane [deg]; obliquity = 90 - beta_L = 167.2 deg
 phi_0:              152                # Initial orientation angle [deg]
 psi_0:              14                 # Initial spin angle [deg]
 P_phi_h:            27.38          # Precession period in hours (100 years = 100 * 365.25d * 24h)

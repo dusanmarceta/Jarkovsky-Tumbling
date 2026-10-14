@@ -39,8 +39,8 @@ orbital_initialisation: 1
 I1:                 1.0           # Moment of inertia x-axis
 I2:                 1.0           # Moment of inertia y-axis
 I3:                 0.21449       # Moment of inertia z-axis (gives spin 3x faster than precession)
-lambda_L:           0.0           # Ecliptic longitude of L [deg]
-beta_L:             90          # Ecliptic latitude of L [deg]
+lambda_L:           0.0           # Longitude of L in the orbital frame (x towards perihelion, z along the orbital angular momentum) [deg]
+beta_L:             90          # Latitude of L above the orbital plane [deg]; obliquity = 90 - beta_L
 phi_0:              152.0         # Initial precession angle [deg]
 psi_0:              14.0          # Initial spin angle [deg]
 P_phi_h:            10.0          # Precession period around L [hours]

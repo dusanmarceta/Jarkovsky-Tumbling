@@ -99,8 +99,8 @@ orbital_initialisation: 15           # Orbits of thermal spin-up before the meas
 # Rotation Parameters
 I1:                 0.5          # I1 = I2 = 0.5, I3 = 1  ->  A = sin²psi_0/I1 + cos²psi_0/I2 = 2
 I2:                 0.5
-lambda_L:           0            # Ecliptic longitude of the spin axis [deg] (irrelevant for a circular orbit)
-beta_L:             60           # Ecliptic latitude of the spin axis [deg]: obliquity gamma = 90 - beta_L = 30 deg
+lambda_L:           0            # Longitude of L in the orbital frame (x towards perihelion, z along the orbital angular momentum) [deg]
+beta_L:             60           # Latitude of L above the orbital plane [deg]; obliquity = 90 - beta_L
 phi_0:              0
 psi_0:              0
 P_phi_h:            16           # Rotation period P = P_phi_h * A * I3 = 32 h
