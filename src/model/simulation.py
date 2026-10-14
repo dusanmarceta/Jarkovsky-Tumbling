@@ -4,6 +4,7 @@ import numpy as np
 from src.utilities.locations import Locations
 import astropy.constants as const
 from scipy.optimize import fsolve
+from src.utilities.tumbling_final_2 import mean_euler_rates
 
 
 class Simulation:
@@ -67,6 +68,17 @@ class Simulation:
             print(f'Fiksna rotacija sa periodom od {self.P_psi_h_calculated:.4f} h')
             print(f'izracunati period: {self.P_psi_h_calculated}')
         else:
+            # L_mag = w_phi / A gives the instantaneous phi-dot at t = 0. For I1 != I2 phi-dot varies,
+            # so the angular velocity is rescaled such that the MEAN precession period equals P_phi_h
+            # (E_ratio and the initial angles do not change under this scaling).
+            mean_phi_dot, mean_psi_dot, T_omega = mean_euler_rates(self.y0, self.I)
+            scale = w_phi / mean_phi_dot
+            w1_0, w2_0, w3_0 = w1_0 * scale, w2_0 * scale, w3_0 * scale
+            self.y0 = [w1_0, w2_0, w3_0, phi_0, theta_0, psi_0]
+            self.P_psi_mean_h = 2 * np.pi / abs(mean_psi_dot * scale) / 3600.0
+            print(f'Tumbling: theta_0 = {np.rad2deg(theta_0):.3f} deg, mean P_phi = {self.P_phi_h:.4f} h, '
+                  f'mean |P_psi| = {self.P_psi_mean_h:.4f} h, omega period = {T_omega / scale / 3600.0:.4f} h')
+
             # U tumbling režimu, efektivni (instantni) period spina iz w3_0
             # w3_0 = L_mag * cos(theta_0) / I3
             if abs(w3_0) > 1e-15:

@@ -31,6 +31,48 @@ from scipy.integrate import solve_ivp
 
 
 
+def mean_euler_rates(y0, I):
+    """
+    Mean rates of the Euler angles phi (precession about L) and psi for torque-free rotation.
+
+    The body-frame angular velocity is periodic, so one period T of omega(t) is found (omega returns
+    to omega0) and the mean rates are the increments of phi and psi over that period divided by T.
+    Returns (mean_phi_dot, mean_psi_dot, T) in the units of y0 (rad/s, s).
+    """
+    I1, I2, I3 = I
+    y0 = np.asarray(y0, dtype=float)
+    w0 = y0[:3]
+
+    def dynamics(t, y):
+        w1, w2, w3, phi, theta, psi = y
+        st = np.sin(theta) if abs(np.sin(theta)) > 1e-9 else 1e-9
+        dphi = (w1 * np.sin(psi) + w2 * np.cos(psi)) / st
+        return [((I2 - I3) * w2 * w3) / I1,
+                ((I3 - I1) * w3 * w1) / I2,
+                ((I1 - I2) * w1 * w2) / I3,
+                dphi,
+                w1 * np.cos(psi) - w2 * np.sin(psi),
+                w3 - dphi * np.cos(theta)]
+
+    # omega(t) - omega0 projected on the initial direction of motion of omega: zero and increasing
+    # at t = 0 and again after each full period
+    dw0 = np.array(dynamics(0.0, y0)[:3])
+
+    def back_to_start(t, y):
+        return np.dot(np.asarray(y[:3]) - w0, dw0)
+    back_to_start.direction = 1
+
+    t_unit = 2 * np.pi / np.linalg.norm(w0)
+    sol = solve_ivp(dynamics, (0, 1000 * t_unit), y0, method='DOP853', rtol=1e-11, atol=1e-13,
+                    events=back_to_start)
+    t_ev, y_ev = sol.t_events[0], sol.y_events[0]
+    k = np.argmax(t_ev > 1e-3 * t_unit)
+    if t_ev.size == 0 or t_ev[k] <= 1e-3 * t_unit:
+        raise RuntimeError('mean_euler_rates: period of the body-frame rotation not found')
+    T = t_ev[k]
+    return (y_ev[k][3] - y0[3]) / T, (y_ev[k][5] - y0[5]) / T, T
+
+
 def compute_tumbling_dynamics(dt, timesteps, y0, I, r_inertial, lambda_L_deg, beta_L_deg, initialisation):
     """
     Rešava Eulerove jednačine i vraća rezultate uključujući i fiksni vektor ugaonog momenta L.
@@ -139,8 +181,11 @@ def compute_tumbling_dynamics(dt, timesteps, y0, I, r_inertial, lambda_L_deg, be
         ])
         
         
-        # rotations.append(R_rotation @ Ri @ R_rotation.T)
-        rotations.append(R_rotation @ Ri.T @ R_rotation.T)
+        # Frames: Ri maps the L-frame (z along L) to the body frame, R_rotation maps the L-frame to the
+        # inertial (orbit) frame. The shape model (STL) is given in the body principal-axis frame
+        # (x = I1, y = I2, z = I3), so body -> inertial is R_rotation @ Ri.T, and the Sun direction in the
+        # body frame is Ri @ R_rotation.T @ r (r_inertial was already multiplied by R_rotation.T above).
+        rotations.append(R_rotation @ Ri.T)
         r_body.append(Ri @ r_inertial[i])
         t_body.append(Ri @ t_inertial[i])
         
@@ -160,8 +205,6 @@ def compute_tumbling_dynamics(dt, timesteps, y0, I, r_inertial, lambda_L_deg, be
 
     r_body = np.stack(r_body)
     t_body = np.stack(t_body)
-    r_body = r_body @ R_rotation.T
-    t_body = t_body @ R_rotation.T
 
     return {
         'rotations': np.stack(rotations),
