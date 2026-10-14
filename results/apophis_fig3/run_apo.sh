@@ -1,0 +1,3 @@
+cd /media/dusan/HDD1/Projekti/ENIGMA/Tempestovsky
+for f in /media/dusan/HDD1/Projekti/ENIGMA/Tempestovsky/results/apophis_fig3/cfg/grid_*.yaml /media/dusan/HDD1/Projekti/ENIGMA/Tempestovsky/results/apophis_fig3/cfg/conv_*.yaml; do n=$(basename $f .yaml); /usr/bin/time -f "$n %e s" /home/dusan/anaconda3/envs/tempest/bin/python tempest.py --config $f > /media/dusan/HDD1/Projekti/ENIGMA/Tempestovsky/results/apophis_fig3/out/$n.log 2>&1; echo "$(tail -1 /media/dusan/HDD1/Projekti/ENIGMA/Tempestovsky/results/apophis_fig3/out/$n.log) | $(cat /media/dusan/HDD1/Projekti/ENIGMA/Tempestovsky/results/apophis_fig3/out/$n.txt 2>/dev/null)"; done
+git checkout -- execution_time.txt 2>/dev/null; true
