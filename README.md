@@ -193,8 +193,7 @@ pip install -r requirements.txt
 # fixed-axis sphere, compared with linear theory in Vokrouhlicky model/
 python tempest.py --config data/config/config_vokrouhlicky_test.yaml
 
-# Apophis orbit and tumbling state (80-facet sphere in this config;
-# set shape_model_file: "Apophis_200.stl" for the radar shape)
+# Apophis: radar shape model (Apophis_200.stl), eccentric orbit, tumbling
 python tempest.py --config data/config/config_apophis.yaml
 ```
 

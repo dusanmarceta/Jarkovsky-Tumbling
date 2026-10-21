@@ -8,7 +8,7 @@ silent_mode: false                  # Set to true when running batch jobs (suppr
 remote: false                       # Set to true when running on a remote server (suppresses plotting)
 
 # File paths
-shape_model_file: "50m_ico_sphere_80_facets.stl"  # Name of the shape model file in data/shape_models/
+shape_model_file: "Apophis_200.stl"  # Apophis radar shape model, 200 facets (also Apophis_500/1000/3996.stl)
 shape_model_directory: "data/shape_models/"
 
 # Physical parameters
