@@ -228,6 +228,22 @@ def calculate_yarkovsky(simulation, normals, areas, asteroid_mass, r_rad, r_tran
     return dadt
 
 
+def orbit_sections(n_steps, n_facets, max_memory_mb):
+    '''
+    Split n_steps timesteps into sections such that the insolation data precomputed for a section fit
+    into max_memory_mb. Per timestep these are the insolation of all facets (float64) plus ~1 kB for the
+    rotation matrices, Sun directions and the tumbling solution. While a section is computed the arrays of
+    the previous one are still alive, so the peak is twice one section. Returns the number of timesteps
+    in each section (sizes differ by at most 1).
+    '''
+    bytes_per_step = 8 * n_facets + 1024
+    max_steps = max(1, int(max_memory_mb * 1024**2 // (2 * bytes_per_step)))
+    n_sections = max(1, int(np.ceil(n_steps / max_steps)))
+    sizes = np.full(n_sections, n_steps // n_sections, dtype=int)
+    sizes[:n_steps % n_sections] += 1
+    return sizes
+
+
 def aitken_limit(values, ratio_tolerance=0.1):
     '''
     Aitken extrapolation of a geometrically converging sequence from its last three values.
@@ -416,10 +432,8 @@ class YarkovskySolver(TemperatureSolver):
         
         
         
-        '''
-        this must be input parameter
-        '''
-        number_of_orbit_sections = 100
+        # The insolation is precomputed section by section, the number of sections follows from the memory limit
+        max_insolation_memory_mb = float(getattr(simulation, 'max_insolation_memory_mb', 500))
         
         
         
@@ -439,12 +453,8 @@ class YarkovskySolver(TemperatureSolver):
             total_number_of_initial_timesteps = (number_of_rotations * simulation.timesteps_per_day).astype(int)
             
             simulation.orbital_initialisation = number_of_rotations * simulation.rotation_period_s / simulation.orbital_period # OK
-            number_of_initial_sections = int(np.ceil(number_of_orbit_sections * simulation.orbital_initialisation)) # OK
-            timesteps_per_orbit_section = (np.ones(number_of_initial_sections) * np.floor(simulation.timesteps_per_orbit/number_of_initial_sections * simulation.orbital_initialisation)).astype(int)
-            # timesteps_per_orbit_section[-1] = np.ceil(simulation.timesteps_per_orbit * simulation.orbital_initialisation) - sum(timesteps_per_orbit_section[:-1]) - 1
-            
-
-            timesteps_per_orbit_section[-1] = total_number_of_initial_timesteps - sum(timesteps_per_orbit_section[:-1])
+            timesteps_per_orbit_section = orbit_sections(total_number_of_initial_timesteps, len(shape_model), max_insolation_memory_mb)
+            number_of_initial_sections = len(timesteps_per_orbit_section)
             
             
             simulation.total_initialisation_time = (total_number_of_initial_timesteps) * simulation.delta_t
@@ -523,9 +533,10 @@ class YarkovskySolver(TemperatureSolver):
         r_sun = np.zeros(simulation.timesteps_per_orbit)
 
         
-#        number_of_orbit_sections = 3
-        timesteps_per_orbit_section = (np.ones(number_of_orbit_sections) * simulation.timesteps_per_orbit/number_of_orbit_sections).astype(int)
-        timesteps_per_orbit_section[-1] = simulation.timesteps_per_orbit - sum(timesteps_per_orbit_section[:-1])
+        timesteps_per_orbit_section = orbit_sections(simulation.timesteps_per_orbit, len(shape_model), max_insolation_memory_mb)
+        number_of_orbit_sections = len(timesteps_per_orbit_section)
+        print(f"Orbit: {simulation.timesteps_per_orbit} timesteps in {number_of_orbit_sections} sections "
+              f"(max_insolation_memory_mb = {max_insolation_memory_mb:g})")
         
         # if simulation.version == 'new':
         #     timesteps_per_orbit_section[-1] = simulation.timesteps_per_orbit - sum(timesteps_per_orbit_section[:-1]) + 100

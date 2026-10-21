@@ -95,6 +95,7 @@ plot_energy_terms: false                        # Plot energy balance terms
 a_au:                   1.0          # Semi-major axis
 ecc:                    0.0          # Eccentricity (circular, as in the linear model)
 orbital_initialisation: 15           # Orbits of thermal spin-up before the measured orbit (15 vs 30 differ by 0.07%)
+max_insolation_memory_mb: 500        # Memory limit [MB] for the insolation precomputed per orbit section; sets the number of sections
 
 # Rotation Parameters
 I1:                 0.5          # I1 = I2 = 0.5, I3 = 1  ->  A = sin²psi_0/I1 + cos²psi_0/I2 = 2
