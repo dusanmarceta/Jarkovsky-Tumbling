@@ -41,19 +41,19 @@ For a shape model, thermal parameters, an orbit and a rotation state, the model 
 
 ```mermaid
 flowchart TD
-    A[Config YAML<br/>shape, thermal parameters, orbit, spin state] --> B[Load STL shape model<br/>normals, areas, visible facets]
-    B --> C[Diurnal initialisation<br/>temperatures for one rotation]
-    C --> D[Split the orbit into sections<br/>by max_insolation_memory_mb]
-    D --> E[Section k: Sun direction from Kepler's equation<br/>+ rotation state from the Euler equations]
-    E --> F[Insolation with shadowing<br/>numba, multithreaded]
-    F --> G[Time steps: 1D heat conduction per facet<br/>surface energy balance with T⁴ emission]
-    G --> H[Yarkovsky recoil force → da/dt at every step]
-    H --> I{last section<br/>of the orbit?}
-    I -- no --> E
-    I -- yes --> J[Mean da/dt over the orbit<br/>deep-temperature correction]
-    J --> K{converged?<br/>change, Aitken estimate}
-    K -- no, next orbit --> E
-    K -- yes --> L[drift written to output_file]
+    A["Config YAML: shape, thermal parameters, orbit, spin state"] --> B["Load STL shape model: normals, areas, visible facets"]
+    B --> C["Diurnal initialisation: temperatures for one rotation"]
+    C --> D["Split the orbit into sections (max_insolation_memory_mb)"]
+    D --> E["Section k: Sun direction from Kepler equation and rotation state from Euler equations"]
+    E --> F["Insolation with shadowing (numba, multithreaded)"]
+    F --> G["Time steps: 1D heat conduction per facet, surface energy balance with T^4 emission"]
+    G --> H["Yarkovsky recoil force and da/dt at every step"]
+    H --> I{"Last section of the orbit?"}
+    I -->|no| E
+    I -->|yes| J["Mean da/dt over the orbit, deep-temperature correction"]
+    J --> K{"Converged? (change or Aitken estimate)"}
+    K -->|no: next orbit| E
+    K -->|yes| L["Drift written to output_file"]
 ```
 
 The rotation and thermal state carry over continuously from one section to the next and from one orbit to the next. The insolation is precomputed only one section at a time, so memory use does not depend on the length of the orbit.
@@ -76,7 +76,7 @@ The rotation state is given by the angular momentum direction **L** and the Eule
 | `P_phi_h` | **mean** precession period of the Euler angle $\varphi$ [h]; the initial angular velocity is rescaled so that the mean equals this value |
 | `phi_0`, `psi_0` | initial Euler angles [deg] |
 
-For `E_ratio: 1.0` and `I1 = I2 = 0.5` the body rotates about a fixed axis with period $P = 2\,P_{\varphi}$. The torque-free Euler equations are integrated with DOP853 (`rtol = 1e-11`). The shape model is taken to be in the principal-axis frame (x = $I_1$, y = $I_2$, z = $I_3$).
+For `E_ratio: 1.0` and `I1 = I2 = 0.5` the body rotates about a fixed axis with period $P = 2 P_{\varphi}$. The torque-free Euler equations are integrated with DOP853 (`rtol = 1e-11`). The shape model is taken to be in the principal-axis frame (x = $I_1$, y = $I_2$, z = $I_3$).
 
 ---
 
@@ -84,19 +84,19 @@ For `E_ratio: 1.0` and `I1 = I2 = 0.5` the body rotates about a fixed axis with 
 
 **Heat conduction** in every facet, with an insulating bottom:
 
-$$\rho c\,\frac{\partial T}{\partial t} = k\,\frac{\partial^2 T}{\partial z^2},\qquad \left.\frac{\partial T}{\partial z}\right|_{z=L} = 0 .$$
+$$\rho c \frac{\partial T}{\partial t} = k \frac{\partial^2 T}{\partial z^2},\qquad \left.\frac{\partial T}{\partial z}\right|_{z=L} = 0 .$$
 
 **Surface energy balance**, with insolation $E(t)$ including cast shadows:
 
-$$(1-A)\,E(t) + k\left.\frac{\partial T}{\partial z}\right|_{0} = \varepsilon\sigma T_0^4 .$$
+$$(1-A) E(t) + k\left.\frac{\partial T}{\partial z}\right|_{0} = \varepsilon\sigma T_0^4 .$$
 
 **Yarkovsky force** (Lambertian thermal recoil, summed over facets with normals $\hat n_i$ and areas $A_i$):
 
-$$\mathbf F = -\frac{2}{3}\,\frac{\varepsilon\sigma}{c}\sum_i T_i^4\,A_i\,\hat{\mathbf n}_i ,$$
+$$\mathbf F = -\frac{2}{3} \frac{\varepsilon\sigma}{c}\sum_i T_i^4 A_i \hat{\mathbf n}_i ,$$
 
 projected onto the radial direction ($R$) and the transverse direction ($B$), and converted with Gauss' equation
 
-$$\frac{da}{dt} = \frac{2}{n\sqrt{1-e^2}}\,\frac{1}{m}\left(R\,e\sin\nu + B\,\frac{a(1-e^2)}{r}\right),$$
+$$\frac{da}{dt} = \frac{2}{n\sqrt{1-e^2}} \frac{1}{m}\left(R e\sin\nu + B \frac{a(1-e^2)}{r}\right),$$
 
 which is averaged over the orbit.
 
@@ -104,7 +104,7 @@ which is averaged over the orbit.
 
 | `temp_solver` | time integration | notes |
 |---|---|---|
-| `tempestovsky` | explicit FTCS | stable only for $\kappa\,\Delta t/\Delta z^2 \lesssim 0.25$, so it needs very small time steps |
+| `tempestovsky` | explicit FTCS | stable only for $\kappa \Delta t/\Delta z^2 \lesssim 0.25$, so it needs very small time steps |
 | `tempestovsky_implicit` | θ-scheme, Crank-Nicolson by default | unconditionally stable; one tridiagonal sweep per facet and step; the surface $T^4$ is solved exactly with Newton's method |
 
 In both solvers the surface node holds half a layer (finite volume). In the implicit solver the insolation is time-centred like the other terms, which keeps Crank-Nicolson second order in time.
@@ -113,7 +113,7 @@ In both solvers the surface node holds half a layer (finite volume). In the impl
 
 With `linearized_emission: true` (implicit solver), the emission is replaced by its first-order Taylor expansion around a reference temperature $T_0$, both in the energy balance and in the recoil force:
 
-$$\varepsilon\sigma T^4 \;\rightarrow\; \varepsilon\sigma\left(T_0^4 + 4T_0^3\,(T - T_0)\right),\qquad T_0 = T_\star/\sqrt{2},\quad \varepsilon\sigma T_\star^4 = \frac{(1-A)L_\odot}{4\pi r^2}.$$
+$$\varepsilon\sigma T^4 \quad\rightarrow\quad \varepsilon\sigma\left(T_0^4 + 4T_0^3 (T - T_0)\right),\qquad T_0 = T_\star/\sqrt{2},\quad \varepsilon\sigma T_\star^4 = \frac{(1-A)L_\odot}{4\pi r^2}.$$
 
 $T_0$ follows the current heliocentric distance $r$. This choice is the one consistent with the linear theory. The difference between the full and the linearized run is then purely the effect of the $T^4$ nonlinearity.
 
