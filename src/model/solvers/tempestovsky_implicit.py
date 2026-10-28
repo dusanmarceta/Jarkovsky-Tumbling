@@ -49,29 +49,15 @@ def elimination_coefficients(n, a, theta, bottom_fixed):
 
 
 @jit(nopython=True, cache=True)
-def implicit_column_step(T_old, T_new, p, q, inv_d, source, rad_coeff, a, theta, bottom_fixed, T_ref=0.0):
+def surface_temperature(T_old, p, q, inv_d, source, rad_coeff, a, theta, T_ref):
     '''
-    Advance one facet's temperature column by one timestep.
-
-    T_old, T_new: (n_layers,) temperatures before/after the step (may be the same array)
-    p:            (n_layers,) scratch array
-    q, inv_d:     from elimination_coefficients (with the same a, theta and bottom_fixed)
-    source:       explicit surface heating for this step, in K (insolation*const1 + self heating)
-    rad_coeff:    emission coefficient, in K^-3 (emissivity*sigma*dt / (dz*rho*c))
-    a:            kappa*dt/dz^2
-    theta:        implicitness, 0.5 = Crank-Nicolson, 1 = backward Euler
-    bottom_fixed: True keeps the deepest layer at its current temperature (as in the explicit
-                  diurnal loop), False makes it insulating, T[-1] = T[-2] (as in the explicit orbit loop)
+    Eliminate the interior rows of one column from the bottom up (T[i] = p[i] + q[i] * T[i-1], fills p)
+    and solve the surface energy balance for the new surface temperature. T_old is only read, and
+    p[n-1] must already hold the bottom boundary. Returns the new surface temperature.
     '''
     n = T_old.shape[0]
     ta = theta * a
     ea = (1.0 - theta) * a
-
-    # Bottom boundary, written as T[n-1] = p[n-1] + q[n-1] * T[n-2]
-    if bottom_fixed:
-        p[n - 1] = T_old[n - 1]
-    else:
-        p[n - 1] = 0.0
 
     # Eliminate interior rows from the bottom up: T[i] = p[i] + q[i] * T[i-1]
     for i in range(n - 2, 0, -1):
@@ -92,40 +78,83 @@ def implicit_column_step(T_old, T_new, p, q, inv_d, source, rad_coeff, a, theta,
                          + theta * rad_coeff * g0
                          + ea * (T_old[1] - T0)
                          + ta * p[1]))
-        x = R / (lin + 2.0 * theta * rad_coeff * g1)
-    else:
-        R = (T0 + 2.0 * (source
-                         - (1.0 - theta) * rad_coeff * T0**4
-                         + ea * (T_old[1] - T0)
-                         + ta * p[1]))
-        nl = 2.0 * theta * rad_coeff
+        return R / (lin + 2.0 * theta * rad_coeff * g1)
 
-        # f(x) is monotonic and convex for x > 0, so Newton from the old value converges quickly
-        x = T0
-        for _ in range(50):
-            f = lin * x + nl * x**4 - R
-            df = lin + 4.0 * nl * x**3
-            dx = f / df
-            x -= dx
-            if abs(dx) < 1e-10:
-                break
+    R = (T0 + 2.0 * (source
+                     - (1.0 - theta) * rad_coeff * T0**4
+                     + ea * (T_old[1] - T0)
+                     + ta * p[1]))
+    nl = 2.0 * theta * rad_coeff
 
-    # Back substitution
+    # f(x) is monotonic and convex for x > 0, so Newton from the old value converges quickly
+    x = T0
+    for _ in range(50):
+        f = lin * x + nl * x**4 - R
+        df = lin + 4.0 * nl * x**3
+        dx = f / df
+        x -= dx
+        if abs(dx) < 1e-10:
+            break
+    return x
+
+
+@jit(nopython=True, cache=True)
+def implicit_column_step(T_old, T_new, p, q, inv_d, q_be, inv_d_be, source, source_be, rad_coeff, a, theta,
+                         bottom_fixed, T_ref=0.0):
+    '''
+    Advance one facet's temperature column by one timestep. Returns 1 if the backward Euler fallback
+    was used, otherwise 0.
+
+    T_old, T_new: (n_layers,) temperatures before/after the step (may be the same array)
+    p:            (n_layers,) scratch array
+    q, inv_d:     from elimination_coefficients (with the same a, theta and bottom_fixed)
+    q_be, inv_d_be: the same for theta = 1 (backward Euler fallback)
+    source:       explicit surface heating for this step, in K (insolation*const1 + self heating)
+    source_be:    the same with the insolation at the end of the step only (theta = 1)
+    rad_coeff:    emission coefficient, in K^-3 (emissivity*sigma*dt / (dz*rho*c))
+    a:            kappa*dt/dz^2
+    theta:        implicitness, 0.5 = Crank-Nicolson, 1 = backward Euler
+    bottom_fixed: True keeps the deepest layer at its current temperature (as in the explicit
+                  diurnal loop), False makes it insulating, T[-1] = T[-2] (as in the explicit orbit loop)
+
+    Crank-Nicolson is not L-stable: when the surface is stiff (low thermal inertia, kappa*dt/dz^2 > 1
+    or emission time << dt) its explicit half can drive the surface temperature negative, and with
+    T^4 emission a negative temperature runs away. Such a step is redone with backward Euler, which keeps
+    the temperatures positive (all its coefficients are positive), at first order in time for that step.
+    '''
+    n = T_old.shape[0]
+
+    # Bottom boundary, written as T[n-1] = p[n-1] + q[n-1] * T[n-2]
+    p[n - 1] = T_old[n - 1] if bottom_fixed else 0.0
+
+    fallback = 0
+    x = surface_temperature(T_old, p, q, inv_d, source, rad_coeff, a, theta, T_ref)
+    if not x >= 0.0:    # negative or NaN (0 K is a facet that starts at 0 K and stays dark)
+        fallback = 1
+        x = surface_temperature(T_old, p, q_be, inv_d_be, source_be, rad_coeff, a, 1.0, T_ref)
+        q = q_be
+
+    # Back substitution (T_old is not read any more, so T_new may be the same array)
     T_new[0] = x
     for i in range(1, n):
         T_new[i] = p[i] + q[i] * T_new[i - 1]
+    return fallback
 
 
 @jit(nopython=True, parallel=True, cache=True)
 def implicit_orbit_step(layer_temperatures, insolation, prev_insolation, const1, rad_coeff, a, theta, T_ref):
-    '''One orbit timestep for all facets, in place (parallel over facets). layer_temperatures: (n_facets, n_layers).'''
+    '''One orbit timestep for all facets, in place (parallel over facets). layer_temperatures: (n_facets, n_layers).
+    Returns the number of facets that needed the backward Euler fallback.'''
     n_facets, n_layers = layer_temperatures.shape
     q, inv_d = elimination_coefficients(n_layers, a, theta, False)
+    q_be, inv_d_be = elimination_coefficients(n_layers, a, 1.0, False)
+    fallbacks = np.zeros(n_facets, dtype=np.int64)
     for i in prange(n_facets):
         p = np.empty(n_layers)
-        implicit_column_step(layer_temperatures[i], layer_temperatures[i], p, q, inv_d,
-                             (theta * insolation[i] + (1.0 - theta) * prev_insolation[i]) * const1,
-                             rad_coeff, a, theta, False, T_ref)
+        fallbacks[i] = implicit_column_step(layer_temperatures[i], layer_temperatures[i], p, q, inv_d, q_be, inv_d_be,
+                                            (theta * insolation[i] + (1.0 - theta) * prev_insolation[i]) * const1,
+                                            insolation[i] * const1, rad_coeff, a, theta, False, T_ref)
+    return fallbacks.sum()
 
 
 @jit(nopython=True, cache=True)
@@ -138,6 +167,7 @@ def implicit_diurnal_day(temperatures, layer_temperatures, insolation, visible_f
     prev_column = 1
     p = np.empty(n_layers)
     q, inv_d = elimination_coefficients(n_layers, a, theta, True)
+    q_be, inv_d_be = elimination_coefficients(n_layers, a, 1.0, True)
 
     for time_step in range(timesteps_per_day):
         current_column, prev_column = prev_column, current_column
@@ -145,16 +175,19 @@ def implicit_diurnal_day(temperatures, layer_temperatures, insolation, visible_f
         for i in range(n_facets):
             prev_step = (time_step - 1) % timesteps_per_day  # the day is periodic
             source = (theta * insolation[i, time_step] + (1.0 - theta) * insolation[i, prev_step]) * const1
+            source_be = insolation[i, time_step] * const1
             if include_self_heating:
-                source += calculate_secondary_radiation(
+                self_heating = calculate_secondary_radiation(
                     layer_temperatures[:, prev_column, 0],
                     visible_facets_list[i],
                     view_factors_list[i],
                     self_heating_const
                 )
+                source += self_heating
+                source_be += self_heating
 
             implicit_column_step(layer_temperatures[i, prev_column], layer_temperatures[i, current_column],
-                                 p, q, inv_d, source, const2, a, theta, True, T_ref)
+                                 p, q, inv_d, q_be, inv_d_be, source, source_be, const2, a, theta, True, T_ref)
             temperatures[i, time_step] = layer_temperatures[i, current_column, 0]
 
     return temperatures
@@ -165,6 +198,7 @@ class YarkovskyImplicitSolver(YarkovskySolver):
         super().__init__()
         self.name = "tempestovsky_implicit"
         self.prev_insolation = None
+        self.fallback_steps = 0     # facet steps redone with backward Euler (see implicit_column_step)
 
     def theta(self, simulation):
         return float(getattr(simulation, 'implicit_theta', 0.5))
@@ -221,8 +255,8 @@ class YarkovskyImplicitSolver(YarkovskySolver):
         if self.prev_insolation is None:
             self.prev_insolation = current_insolation
 
-        implicit_orbit_step(T, current_insolation, self.prev_insolation,
-                            const1, rad_coeff, a, self.theta(simulation),
-                            self.linearization_temperature(simulation))
+        self.fallback_steps += implicit_orbit_step(T, current_insolation, self.prev_insolation,
+                                                   const1, rad_coeff, a, self.theta(simulation),
+                                                   self.linearization_temperature(simulation))
         self.prev_insolation = current_insolation
         return T

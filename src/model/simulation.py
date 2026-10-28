@@ -4,7 +4,7 @@ import numpy as np
 from src.utilities.locations import Locations
 import astropy.constants as const
 from scipy.optimize import fsolve
-from src.utilities.tumbling_final_2 import mean_euler_rates
+from src.utilities.tumbling_final_2 import mean_euler_rates, max_angular_speed
 
 
 class Simulation:
@@ -46,6 +46,12 @@ class Simulation:
 
         A = (np.sin(psi_0) ** 2 / self.I1) + (np.cos(psi_0) ** 2 / self.I2)
         sin2_theta0 = (self.E_ratio - 1.0) / (self.I3 * A - 1.0)
+        if 1.0 < sin2_theta0 <= 1.0 + 1e-6:   # rounding of psi_0 for a state with theta_0 = 90 deg
+            sin2_theta0 = 1.0
+        if not 0.0 <= sin2_theta0 <= 1.0:
+            # In long axis mode only some psi_0 are reachable: E_ratio <= I3 * A is required
+            raise ValueError(f'E_ratio = {self.E_ratio} is not reachable with psi_0 = {self.psi_0} deg '
+                             f'(sin^2 theta_0 = {sin2_theta0:.4f}); choose psi_0 with I3*(sin^2 psi_0/I1 + cos^2 psi_0/I2) >= E_ratio')
         theta_0 = np.arcsin(np.sqrt(sin2_theta0))
 
         # 4. PRORAČUN UGAONIH BRZINA I VEKTORA POČETNOG STANJA y0
@@ -79,18 +85,15 @@ class Simulation:
             print(f'Tumbling: theta_0 = {np.rad2deg(theta_0):.3f} deg, mean P_phi = {self.P_phi_h:.4f} h, '
                   f'mean |P_psi| = {self.P_psi_mean_h:.4f} h, omega period = {T_omega / scale / 3600.0:.4f} h')
 
-            # U tumbling režimu, efektivni (instantni) period spina iz w3_0
-            # w3_0 = L_mag * cos(theta_0) / I3
-            if abs(w3_0) > 1e-15:
-                self.P_psi_h_calculated = (2 * np.pi / w3_0) / 3600.0
-                
-                
-            else:
-                self.P_psi_h_calculated = np.nan
-                
+            # Rotation period that sets the time step and the skin depth: 2*pi / max|omega|. The fastest
+            # change of the Sun direction in the body frame is |omega|; omega_3 alone is not usable because
+            # in long axis mode it oscillates around zero.
+            w_max = max_angular_speed(self.y0[:3], self.I, T_omega / scale)
+            self.P_psi_h_calculated = (2 * np.pi / w_max) / 3600.0
+
             self.mode = "General Tumbling"
-            print(f'Tumbling režim: Početni efektivni period spina P_psi = {self.P_psi_h_calculated:.4f} h')
-            print(f'izracunati period: {self.P_psi_h_calculated}')
+            print(f'Tumbling: rotation period for the time step 2pi/max|omega| = {self.P_psi_h_calculated:.4f} h '
+                  f'({"SAM" if self.I3 / self.E_ratio > self.I2 else "LAM"}, I_d/I3 = {1.0 / self.E_ratio:.5f})')
             
             
         # ADDED

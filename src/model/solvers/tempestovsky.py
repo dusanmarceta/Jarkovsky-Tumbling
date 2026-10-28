@@ -680,6 +680,10 @@ class YarkovskySolver(TemperatureSolver):
             # print('drift', np.mean(drift))
         
             drift_history.append(np.mean(drift))
+            # surface temperature range of this orbit; a negative or non-finite value means a failed solve
+            # (0 K is possible in the first orbit: facets without insolation on the first day start at 0 K)
+            T_surface_min, T_surface_max = np.min(surface_history), np.max(surface_history)
+            temperatures_valid = bool(np.isfinite(T_surface_min) and np.isfinite(T_surface_max) and T_surface_min >= 0)
 
             if deep_temperature_correction:
                 layer_temperature_mean = layer_temperature_sum / counter
@@ -704,9 +708,14 @@ class YarkovskySolver(TemperatureSolver):
                 message += f" | error = {drift_error:.3e} m/s ({drift_error / abs(drift_history[-1]):.2e} rel.)"
             if deep_temperature_correction:
                 message += f" | max deep correction = {np.max(np.abs(temperature_correction)):.3f} K"
+            message += f" | T surface {T_surface_min:.1f}..{T_surface_max:.1f} K"
             print(message)
             with open(simulation.progress_file, 'a') as ff:
                 ff.write(message + '\n')
+
+            if not (temperatures_valid and np.isfinite(drift_history[-1])):
+                print("WARNING: invalid temperatures or drift, stopping (use more implicit_timesteps_per_day)")
+                break
 
             if orbit + 1 >= min_orbits and drift_error <= drift_limit:
                 yarkovsky_converged = True
@@ -726,6 +735,9 @@ class YarkovskySolver(TemperatureSolver):
             ff.write(f"drift extrapolated (m/s): {drift_extrapolated}\n")
             ff.write(f"estimated error (m/s): {drift_error}\n")
             ff.write(f"converged: {yarkovsky_converged}\n")
+            ff.write(f"valid: {temperatures_valid and bool(np.isfinite(yarkovsky_drift))}\n")
+            ff.write(f"T surface min, max last orbit (K): {T_surface_min} {T_surface_max}\n")
+            ff.write(f"backward Euler fallback steps: {getattr(self, 'fallback_steps', 0)}\n")
             ff.write(f"orbits: {len(drift_history)}\n")
             for k, d in enumerate(drift_history):
                 ff.write(f"orbit {k + 1}: {d}\n")

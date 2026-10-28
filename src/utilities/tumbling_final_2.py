@@ -73,6 +73,24 @@ def mean_euler_rates(y0, I):
     return (y_ev[k][3] - y0[3]) / T, (y_ev[k][5] - y0[5]) / T, T
 
 
+def max_angular_speed(w0, I, T, n_samples=2000):
+    """
+    Maximum of |omega| over one period T of the torque-free body-frame angular velocity (Euler equations only).
+    Used as the rotation rate that sets the time step: unlike omega_3, |omega| never approaches zero
+    (omega_3 oscillates around zero in long axis mode).
+    """
+    I1, I2, I3 = I
+
+    def euler(t, w):
+        return [((I2 - I3) * w[1] * w[2]) / I1,
+                ((I3 - I1) * w[2] * w[0]) / I2,
+                ((I1 - I2) * w[0] * w[1]) / I3]
+
+    sol = solve_ivp(euler, (0, T), np.asarray(w0, dtype=float), method='DOP853', rtol=1e-11, atol=1e-13,
+                    t_eval=np.linspace(0, T, n_samples))
+    return np.max(np.linalg.norm(sol.y, axis=0))
+
+
 def compute_tumbling_dynamics(dt, timesteps, y0, I, r_inertial, lambda_L_deg, beta_L_deg, initialisation):
     """
     Rešava Eulerove jednačine i vraća rezultate uključujući i fiksni vektor ugaonog momenta L.
