@@ -48,7 +48,8 @@ def run_one(row, out_dir, extra):
     if os.path.exists(f'{out_dir}/run_{run:05d}.txt'):
         return run, 'skipped'
     cfg = make_config(row, out_dir, extra)
-    env = dict(os.environ, NUMBA_NUM_THREADS='1', OMP_NUM_THREADS='1', MKL_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1')
+    env = dict(os.environ, NUMBA_NUM_THREADS='1', OMP_NUM_THREADS='1', MKL_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',
+               MPLBACKEND='Agg')          # no display on a compute server
     with open(f'{out_dir}/logs/run_{run:05d}.log', 'w') as log:
         r = subprocess.run([sys.executable, 'tempest.py', '--config', cfg], stdout=log, stderr=subprocess.STDOUT, env=env)
     return run, 'ok' if r.returncode == 0 and os.path.exists(f'{out_dir}/run_{run:05d}.txt') else f'failed ({r.returncode})'

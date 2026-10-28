@@ -11,4 +11,4 @@ scikit-learn
 pyvista
 vtk
 pyyaml
-h5py
+h5pyastropy

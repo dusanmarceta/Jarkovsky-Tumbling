@@ -100,6 +100,19 @@ on the orbit before and after the flyby: −8.0916e-6 m/s → −7.4969e-6 m/s, 
 
 ## Running the batch (`run_batch.py`, `collect.py`)
 
+Setting up a server (Python 3.10, as used here):
+
+```bash
+git clone -b tumbling https://github.com/dusanmarceta/Jarkovsky-Tumbling.git
+cd Jarkovsky-Tumbling
+python3 -m venv venv && source venv/bin/activate      # or a conda environment
+pip install numpy scipy numba astropy matplotlib pandas joblib numpy-stl tqdm pyyaml h5py
+# one run first: checks the installation and fills the numba cache before many processes start at once
+python results/apophis_flyby_2029/run_batch.py results/apophis_flyby_2029/inputs_sim.csv.gz --out runs_sim --last 1
+cat runs_sim/run_00000.txt                            # drift, valid: True, converged: True
+```
+
+
 From the repository root, one single-threaded Tempestovsky process per run, round-robin chunks:
 
 ```bash
