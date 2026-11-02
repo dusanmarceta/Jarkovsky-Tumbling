@@ -126,7 +126,9 @@ python results/apophis_flyby_2029/collect.py results/apophis_flyby_2029/inputs_s
     results/apophis_flyby_2029/inputs_dig.csv.gz runs_dig
 ```
 
-Existing outputs are skipped, so an interrupted batch can be restarted. Extra config overrides:
+Existing outputs are skipped, so an interrupted batch can be restarted. To bring the results back without the
+run folders, `collect.py ... --table results/apophis_flyby_2029/drift_runs.csv.gz` writes one row per finished run
+(drift, validity, convergence, orbits, temperature range, rescaled da/dt) to a small file that can be committed. Extra config overrides:
 `--set implicit_timesteps_per_day=100`.
 
 ### Settings and cost
