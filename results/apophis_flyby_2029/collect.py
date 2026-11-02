@@ -50,6 +50,9 @@ def collect(inputs, run_dir):
 
 def summary(name, res):
     d = np.array([x['dadt'] for x in res if x['valid']]) * 1e4
+    if len(d) == 0:
+        print(f'{name}: {len(res)} finished runs, none valid yet')
+        return d
     bad = sum(not x['valid'] for x in res); nc = sum(not x['converged'] for x in res)
     p = np.percentile(d, [0.135, 15.865, 50, 84.135, 99.865])
     print(f'{name}: {len(res)} runs ({bad} invalid, {nc} not converged), mean orbits {np.mean([x["orbits"] for x in res]):.1f}')
