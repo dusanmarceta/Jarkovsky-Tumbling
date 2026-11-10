@@ -11,8 +11,9 @@ import math
 import subprocess
 from pathlib import Path
 
-WALL = {'1h': '02:00:00', '6h': '10:00:00', '24h': '1-12:00:00', '96h': '6-00:00:00'}   # ~1.5x margin; adjust to limits
-MEM = {'1h': '2G', '6h': '2G', '24h': '3G', '96h': '4G'}
+WALL = {'1h': '02:00:00', '6h': '10:00:00', '24h': '1-12:00:00', '96h': '6-00:00:00',   # ~1.5x margin; adjust to limits
+        '400h': '25-00:00:00'}      # 'full_long' runs (prepare.py --allow-long): only on a long queue, else checkpointing
+MEM = {'1h': '2G', '6h': '2G', '24h': '3G', '96h': '4G', '400h': '4G'}
 
 TEMPLATE = """#!/usr/bin/env bash
 #SBATCH --job-name={name}

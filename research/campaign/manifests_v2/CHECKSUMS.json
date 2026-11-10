@@ -1,0 +1,13 @@
+[
+ {
+  "file": "V2_convergence.jsonl.gz",
+  "lines": 108,
+  "runs": 106,
+  "routes": {
+   "full": 66,
+   "full_costly": 36,
+   "multiscale_required": 6
+  },
+  "sha256": "f1c5b99c6548a987cf64b1c4d7fa420542f7c34d16ab4cd716b29792e82b0289"
+ }
+]

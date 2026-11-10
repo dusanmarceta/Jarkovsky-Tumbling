@@ -73,6 +73,7 @@ insolation_data/
 temperature_data/
 .pytest_cache/
 research/campaign/manifests/*.jsonl
+research/campaign/manifests_v2/*.jsonl
 research/runs/probe/
 research/runs/smoke/
 research/runs/postfix/*/

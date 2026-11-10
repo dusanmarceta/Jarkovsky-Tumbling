@@ -126,20 +126,27 @@ def state_from_unit(x, stratum):
             'ecc': lin(x[10], *ECC), 'D_eq_m': logu(x[11], *s['D_m'])}
 
 
-def derive_state(st, numerics=None, check_against_solver=False):
-    """check_against_solver: also derive through the solver's own Simulation (slow) and require agreement."""
-    from .fastspin import derived_fast
+def derive_state(st, numerics=None, check_against_solver=False, rotation=None):
+    """check_against_solver: also derive through the solver's own Simulation (slow) and require agreement.
+    rotation: the 'derived' block of an existing manifest line for this state. Its rotational periods are reused
+    instead of being derived again, so lines rebuilt for an existing state (e.g. convergence variants) reproduce its
+    configuration exactly. Manifests A-D were derived through the Simulation, E and later through fastspin; the two
+    agree to < 1e-8 but not to the last digit."""
     num = dict(NUMERICS, **(numerics or {}))
-    ref = derived_fast(st['I1'], st['I2'], st['E_ratio'], 10.0, st['psi_0'], st['phi_0'])
-    if check_against_solver:
-        slow = derived(st['I1'], st['I2'], st['E_ratio'], 10.0, st['psi_0'], st['phi_0'])
-        diff = max(abs(ref[k] / slow[k] - 1) for k in ('P_par_h', 'P_dt_h', 'T_omega_h')
-                   if np.isfinite(slow[k]) and slow[k])
-        if diff > 1e-6:
-            raise RuntimeError(f'fast derivation differs from the solver set-up by {diff:.2e}')
-        ref['solver_check_max_rel_diff'] = diff
-    k = st['P_phi_h'] / 10.0                                   # torque-free motion is scale-invariant in time
-    d = {key: (v * k if key.endswith('_h') and isinstance(v, float) else v) for key, v in ref.items()}
+    if rotation is not None:
+        d = dict(rotation)
+    else:
+        from .fastspin import derived_fast
+        ref = derived_fast(st['I1'], st['I2'], st['E_ratio'], 10.0, st['psi_0'], st['phi_0'])
+        if check_against_solver:
+            slow = derived(st['I1'], st['I2'], st['E_ratio'], 10.0, st['psi_0'], st['phi_0'])
+            diff = max(abs(ref[k] / slow[k] - 1) for k in ('P_par_h', 'P_dt_h', 'T_omega_h')
+                       if np.isfinite(slow[k]) and slow[k])
+            if diff > 1e-6:
+                raise RuntimeError(f'fast derivation differs from the solver set-up by {diff:.2e}')
+            ref['solver_check_max_rel_diff'] = diff
+        k = st['P_phi_h'] / 10.0                               # torque-free motion is scale-invariant in time
+        d = {key: (v * k if key.endswith('_h') and isinstance(v, float) else v) for key, v in ref.items()}
     d['P_phi_h'] = st['P_phi_h']
     d['delta_t_s'] = d['P_dt_h'] * 3600.0 / num['steps_per_rotation']
     P_orb_h = YEAR_H * FIXED['a_au'] ** 1.5
@@ -233,9 +240,9 @@ def mesh_filename(b_a, c_a, D, n_subdiv):
     return f'ell_{hashlib.sha256(key.encode()).hexdigest()[:12]}_n{20 * 4 ** n_subdiv}.stl'
 
 
-def lines_for_unit(x, stratum, state_id, twins=('P_par',), numerics=None, replicate=None, check=False):
+def lines_for_unit(x, stratum, state_id, twins=('P_par',), numerics=None, replicate=None, check=False, rotation=None):
     st = state_from_unit(x, stratum)
-    d, th, policy = derive_state(st, numerics, check_against_solver=check)
+    d, th, policy = derive_state(st, numerics, check_against_solver=check, rotation=rotation)
     num = dict(NUMERICS, **(numerics or {}))
     base = {'state_id': state_id, 'stratum': stratum, 'unit': [float(v) for v in x], 'inputs': st, 'derived': d,
             'thermal': th, 'policy': policy, 'fixed': FIXED, 'numerics': num, 'replicate': replicate,

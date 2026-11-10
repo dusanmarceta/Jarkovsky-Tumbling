@@ -1,0 +1,1530 @@
+{
+ "name": "outside_1d_v1",
+ "source_tag": "hpc-freeze-v1",
+ "rule": "policy.flags contains 'outside_1d_validity': the finite-sphere factor F(R/l, Theta)/F(inf, Theta) of the linear theory deviates from 1 by more than 5 % at the seasonal or the diurnal period",
+ "counts": {
+  "runs": 107,
+  "in_executable_routes": 43,
+  "by_route": {
+   "full": 33,
+   "multiscale_required": 64,
+   "full_costly": 10
+  }
+ },
+ "manifest_sha256": {
+  "A_morris_ordinary.jsonl.gz": "ae992af5340790fe0f0fe83f3a13836e4caef967cb49afbb7e67ae7fd13959b9",
+  "A_morris_slow.jsonl.gz": "e7f5abd8bd72b49104518baf89d621de23b55c6c3a06396669dcd56eb2cd1489",
+  "B_sobol_ordinary.jsonl.gz": "6c20a9f48a74888ca32d90530c646f62c6aaa3d854cf0be6adcb8fe8b99df03b",
+  "B_sobol_slow.jsonl.gz": "7732ecdbd4566055aa3b64619d662d1c6f58d3f2304bd99ac491177c91268f04",
+  "C_conventions_ordinary.jsonl.gz": "12b77e9ee9d8601dabd0990b2b281c0e756507c55022157b40b86b84bfdb7ac1",
+  "C_conventions_slow.jsonl.gz": "43265e0de06e7f5686c3d2a0ed41a4858910d1c9f21bce4ab227bfcc73f6d472",
+  "D_phase_ordinary.jsonl.gz": "c5fede2d9f0358d9a8f05c9c95ca75a95ba5aed6ac5a9ff45e0801b523baf67b",
+  "D_phase_slow.jsonl.gz": "80e664c5ff0cf69a757be0f27d827b42427c54b08d810eaf0fca534a73bd299f",
+  "E_sobol_fast.jsonl.gz": "d6672b1a787c88538a10763f1929315112de950bba58b791c44f00f8552e8bfd",
+  "E_sobol_superfast.jsonl.gz": "c61d1ee77cdb296b7829f5894f03bd4c1be458a5176fd22137b192925eb3e02c",
+  "V_convergence.jsonl.gz": "295f534b7fc67f4bba44af103ede507a81599d6f6029c7b2196003651beeafe6"
+ },
+ "runs": [
+  {
+   "run_id": "00d786e53ac7b3a5",
+   "kind": "pa_P_par",
+   "state_id": "morris1102_ordinary_00046",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:93"
+   ]
+  },
+  {
+   "run_id": "022a914df265f5a6",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00249",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 9.181261109309219,
+   "thermal_inertia": 2319.808312890992,
+   "finite_body_factor_seasonal": 0.29439227723546685,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:499"
+   ]
+  },
+  {
+   "run_id": "02365ec2e71e537b",
+   "kind": "tumbler",
+   "state_id": "morris1102_ordinary_00046",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:92"
+   ]
+  },
+  {
+   "run_id": "053da769ab749231",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00151",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 6.994537683386074,
+   "thermal_inertia": 837.1422231394819,
+   "finite_body_factor_seasonal": 0.9126083423349963,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:302"
+   ]
+  },
+  {
+   "run_id": "054281c593bd8ceb",
+   "kind": "pa_P_par",
+   "state_id": "sobol2101_slow_00171",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.0478062554080618,
+   "sources": [
+    "B_sobol_slow:343",
+    "D_phase_slow:415"
+   ]
+  },
+  {
+   "run_id": "06be10d43a1b7cd0",
+   "kind": "tumbler",
+   "state_id": "sobol4101_fast_00220",
+   "stratum": "fast",
+   "route": "full",
+   "D_eq_m": 16.768334058829392,
+   "thermal_inertia": 1765.0970381430056,
+   "finite_body_factor_seasonal": 0.8307447326525821,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:440"
+   ]
+  },
+  {
+   "run_id": "0984a54987b3a7d4",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00115",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 5.234260322262348,
+   "thermal_inertia": 377.10530321542524,
+   "finite_body_factor_seasonal": 0.7413975716714546,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:230"
+   ]
+  },
+  {
+   "run_id": "0a36cb7698135780",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00250",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.5142011660868517,
+   "thermal_inertia": 392.67833025514693,
+   "finite_body_factor_seasonal": 0.736715030702013,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:501"
+   ]
+  },
+  {
+   "run_id": "0ba59accf575d690",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00140",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.6123949318885855,
+   "thermal_inertia": 1504.3711308996226,
+   "finite_body_factor_seasonal": 0.20536542749507194,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:281"
+   ]
+  },
+  {
+   "run_id": "0fa2293b98131265",
+   "kind": "pa_P_par",
+   "state_id": "sobol4101_fast_00043",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 11.988593660804284,
+   "thermal_inertia": 2468.9536676616226,
+   "finite_body_factor_seasonal": 0.873292587180207,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:87"
+   ]
+  },
+  {
+   "run_id": "1260ebc91eae5689",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00059",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.698087561063036,
+   "thermal_inertia": 1847.2723215564774,
+   "finite_body_factor_seasonal": 0.18287481340818826,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:118"
+   ]
+  },
+  {
+   "run_id": "127259d5f2959a66",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00233",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.9488465925278975,
+   "thermal_inertia": 948.831443649106,
+   "finite_body_factor_seasonal": 0.5347847337125703,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:466"
+   ]
+  },
+  {
+   "run_id": "134eb7dc10ad3538",
+   "kind": "pa_P_par",
+   "state_id": "morris1102_ordinary_00047",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:95"
+   ]
+  },
+  {
+   "run_id": "15935fa44fd611e5",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00014",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 16.771926630782044,
+   "thermal_inertia": 2044.7713216345144,
+   "finite_body_factor_seasonal": 0.9072929953892287,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:28"
+   ]
+  },
+  {
+   "run_id": "161de7b4d075717e",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00250",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.5142011660868517,
+   "thermal_inertia": 392.67833025514693,
+   "finite_body_factor_seasonal": 0.736715030702013,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:500"
+   ]
+  },
+  {
+   "run_id": "176be4037e01c097",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00135",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 12.730698033760135,
+   "thermal_inertia": 1964.6806566697499,
+   "finite_body_factor_seasonal": 0.9062429024588452,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:271"
+   ]
+  },
+  {
+   "run_id": "1ff7debb5de854bf",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00135",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 12.730698033760135,
+   "thermal_inertia": 1964.6806566697499,
+   "finite_body_factor_seasonal": 0.9062429024588452,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:270"
+   ]
+  },
+  {
+   "run_id": "21e976de28031f64",
+   "kind": "pa_P_par",
+   "state_id": "sobol4101_fast_00030",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 23.6902798617417,
+   "thermal_inertia": 2222.802064321782,
+   "finite_body_factor_seasonal": 0.786377907295318,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:61"
+   ]
+  },
+  {
+   "run_id": "220db317e0a19f8f",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00199",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 14.384088264486824,
+   "thermal_inertia": 1325.3196326961697,
+   "finite_body_factor_seasonal": 0.9004904127414924,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:398"
+   ]
+  },
+  {
+   "run_id": "24e95f342dd1e1b1",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00140",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.6123949318885855,
+   "thermal_inertia": 1504.3711308996226,
+   "finite_body_factor_seasonal": 0.20536542749507194,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:280"
+   ]
+  },
+  {
+   "run_id": "280ff5a0743146da",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00171_ph2",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.0478062554080783,
+   "sources": [
+    "D_phase_slow:417"
+   ]
+  },
+  {
+   "run_id": "2a32696df716816c",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00043",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 13.884545704922282,
+   "thermal_inertia": 934.3672357832933,
+   "finite_body_factor_seasonal": 0.9168581667617006,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:86"
+   ]
+  },
+  {
+   "run_id": "2db1e1991700116c",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00169",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.380303840296683,
+   "thermal_inertia": 705.2578091248407,
+   "finite_body_factor_seasonal": 0.9100290591670502,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:338"
+   ]
+  },
+  {
+   "run_id": "32192316c6309cb2",
+   "kind": "tumbler",
+   "state_id": "sobol2102_ordinary_00576",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.15868829457217,
+   "thermal_inertia": 2192.7110709148255,
+   "finite_body_factor_seasonal": 0.8751295524242023,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "B_sobol_ordinary:1152"
+   ]
+  },
+  {
+   "run_id": "33f0d2378c2ca5af",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00151",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 6.994537683386074,
+   "thermal_inertia": 837.1422231394819,
+   "finite_body_factor_seasonal": 0.9126083423349963,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:303"
+   ]
+  },
+  {
+   "run_id": "344fd34164e09ca9",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00077",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.592946558783715,
+   "thermal_inertia": 318.6649594514911,
+   "finite_body_factor_seasonal": 0.9054521092595316,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:155"
+   ]
+  },
+  {
+   "run_id": "376311d9ecbb49bf",
+   "kind": "pa_P_par",
+   "state_id": "sobol2101_slow_00571",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 22.327231135230253,
+   "thermal_inertia": 1610.4145442048766,
+   "finite_body_factor_seasonal": 0.7510303171913639,
+   "finite_body_factor_diurnal": 1.067871033960017,
+   "sources": [
+    "B_sobol_slow:1143"
+   ]
+  },
+  {
+   "run_id": "3ab4ced80ed9c416",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00112",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 14.481637665428432,
+   "thermal_inertia": 2338.9119649522204,
+   "finite_body_factor_seasonal": 0.7259248835150413,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:225"
+   ]
+  },
+  {
+   "run_id": "3af85fbd9835a77c",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00096",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.7710121943901878,
+   "thermal_inertia": 987.6160984166023,
+   "finite_body_factor_seasonal": 0.24374545517939153,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:193"
+   ]
+  },
+  {
+   "run_id": "3d3116f09d662e1b",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00204",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 6.65449926527484,
+   "thermal_inertia": 2101.7787414815134,
+   "finite_body_factor_seasonal": 0.4999818241106037,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:408"
+   ]
+  },
+  {
+   "run_id": "46935441184f345b",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00056",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 10.009215543656676,
+   "thermal_inertia": 489.9566628693891,
+   "finite_body_factor_seasonal": 0.9029257624733688,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:112"
+   ]
+  },
+  {
+   "run_id": "4b7950bcc69f2704",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00171_ph5",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.0478062554080767,
+   "sources": [
+    "D_phase_slow:420"
+   ]
+  },
+  {
+   "run_id": "4c3e8af10fd82ee2",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00005",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 5.049150113596732,
+   "thermal_inertia": 1491.5406334462666,
+   "finite_body_factor_seasonal": 0.1906823099721944,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:10"
+   ]
+  },
+  {
+   "run_id": "4ff4f7059cf16131",
+   "kind": "pa_P_par",
+   "state_id": "morris1102_ordinary_00045",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:91"
+   ]
+  },
+  {
+   "run_id": "505f3004ef2b8c70",
+   "kind": "tumbler",
+   "state_id": "sobol4101_fast_00169",
+   "stratum": "fast",
+   "route": "multiscale_required",
+   "D_eq_m": 23.299651891324952,
+   "thermal_inertia": 1218.5419695985745,
+   "finite_body_factor_seasonal": 0.9266402800396382,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:338"
+   ]
+  },
+  {
+   "run_id": "5427374a98333d20",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00169",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.380303840296683,
+   "thermal_inertia": 705.2578091248407,
+   "finite_body_factor_seasonal": 0.9100290591670502,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:339"
+   ]
+  },
+  {
+   "run_id": "56a2a0102b8c6b32",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00178",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 5.162753168129461,
+   "thermal_inertia": 1785.6896943926706,
+   "finite_body_factor_seasonal": 0.18851051836452262,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:356"
+   ]
+  },
+  {
+   "run_id": "56b64dd46f5bdcd5",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00112",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 14.481637665428432,
+   "thermal_inertia": 2338.9119649522204,
+   "finite_body_factor_seasonal": 0.7259248835150413,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:224"
+   ]
+  },
+  {
+   "run_id": "56e580c26e502662",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00069",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.4690071197752745,
+   "thermal_inertia": 2132.0237044631504,
+   "finite_body_factor_seasonal": 0.21987582014660728,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:138"
+   ]
+  },
+  {
+   "run_id": "5a053df6c6bb9b0d",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00171",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.0478062554080618,
+   "sources": [
+    "B_sobol_slow:342",
+    "C_conventions_slow:427",
+    "D_phase_slow:414"
+   ]
+  },
+  {
+   "run_id": "5ad658ebce43510c",
+   "kind": "pa_P_par",
+   "state_id": "sobol4101_fast_00162",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 18.541620533384137,
+   "thermal_inertia": 2389.81950707118,
+   "finite_body_factor_seasonal": 0.9253025707158166,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:325"
+   ]
+  },
+  {
+   "run_id": "5db3fe6e9b5111af",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00094",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.992991782321498,
+   "thermal_inertia": 535.8304532348467,
+   "finite_body_factor_seasonal": 0.7882275727286521,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:189"
+   ]
+  },
+  {
+   "run_id": "62eeac06d8ea9aaf",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00233",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.9488465925278975,
+   "thermal_inertia": 948.831443649106,
+   "finite_body_factor_seasonal": 0.5347847337125703,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:467"
+   ]
+  },
+  {
+   "run_id": "63491d63495e445b",
+   "kind": "pa_P_par",
+   "state_id": "sobol2101_slow_00652",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 22.676983055483294,
+   "thermal_inertia": 2009.626922803755,
+   "finite_body_factor_seasonal": 0.8173993038829113,
+   "finite_body_factor_diurnal": 1.0527073191490575,
+   "sources": [
+    "B_sobol_slow:1305"
+   ]
+  },
+  {
+   "run_id": "63ee12a799d85c2f",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00199",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 14.384088264486824,
+   "thermal_inertia": 1325.3196326961697,
+   "finite_body_factor_seasonal": 0.9004904127414924,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:399"
+   ]
+  },
+  {
+   "run_id": "659d108c0af64725",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00078",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 9.104160606903726,
+   "thermal_inertia": 1280.6405775130386,
+   "finite_body_factor_seasonal": 0.42649205495838954,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:156"
+   ]
+  },
+  {
+   "run_id": "67a66ce7776f4b4b",
+   "kind": "tumbler",
+   "state_id": "sobol4101_fast_00043",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 11.988593660804284,
+   "thermal_inertia": 2468.9536676616226,
+   "finite_body_factor_seasonal": 0.873292587180207,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:86"
+   ]
+  },
+  {
+   "run_id": "69ed90edb9be5522",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00014",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 16.771926630782044,
+   "thermal_inertia": 2044.7713216345144,
+   "finite_body_factor_seasonal": 0.9072929953892287,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:29"
+   ]
+  },
+  {
+   "run_id": "6f03790ff8b6e21d",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00242",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.567925218654831,
+   "thermal_inertia": 1204.3492296100085,
+   "finite_body_factor_seasonal": 0.5099202445606563,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:484"
+   ]
+  },
+  {
+   "run_id": "718d76a6470b9ad4",
+   "kind": "tumbler",
+   "state_id": "sobol4101_fast_00226",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 12.999721176249922,
+   "thermal_inertia": 1456.2362106783928,
+   "finite_body_factor_seasonal": 0.4824328650761976,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:452"
+   ]
+  },
+  {
+   "run_id": "71b64e9e0d4f5400",
+   "kind": "tumbler",
+   "state_id": "morris1102_ordinary_00044",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:88"
+   ]
+  },
+  {
+   "run_id": "729cbf7adfe4fc4b",
+   "kind": "pa_P_par",
+   "state_id": "sobol4101_fast_00169",
+   "stratum": "fast",
+   "route": "multiscale_required",
+   "D_eq_m": 23.299651891324952,
+   "thermal_inertia": 1218.5419695985745,
+   "finite_body_factor_seasonal": 0.9266402800396382,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:339"
+   ]
+  },
+  {
+   "run_id": "72fc0eaa8e9abb06",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00043",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 13.884545704922282,
+   "thermal_inertia": 934.3672357832933,
+   "finite_body_factor_seasonal": 0.9168581667617006,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:87"
+   ]
+  },
+  {
+   "run_id": "7346651f8bdcf062",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00162",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 9.35978329200894,
+   "thermal_inertia": 921.210507696134,
+   "finite_body_factor_seasonal": 0.9052848780374667,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:324"
+   ]
+  },
+  {
+   "run_id": "73cd6c78d4db4a87",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00171_ph7",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.0478062554081555,
+   "sources": [
+    "D_phase_slow:422"
+   ]
+  },
+  {
+   "run_id": "7427a7ba84f4b512",
+   "kind": "pa_P_phi",
+   "state_id": "sobol2101_slow_00171",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.0478062554080618,
+   "sources": [
+    "C_conventions_slow:428"
+   ]
+  },
+  {
+   "run_id": "74520dae3a85efa1",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00069",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.4690071197752745,
+   "thermal_inertia": 2132.0237044631504,
+   "finite_body_factor_seasonal": 0.21987582014660728,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:139"
+   ]
+  },
+  {
+   "run_id": "79bc78006e450651",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00094",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.992991782321498,
+   "thermal_inertia": 535.8304532348467,
+   "finite_body_factor_seasonal": 0.7882275727286521,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:188"
+   ]
+  },
+  {
+   "run_id": "7dcadbd86c4c53e4",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00021",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 9.566089528857567,
+   "thermal_inertia": 747.5626526433031,
+   "finite_body_factor_seasonal": 0.9058953053724481,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:43"
+   ]
+  },
+  {
+   "run_id": "7ee20abb12d9ac09",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00367",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 36.3193633293213,
+   "thermal_inertia": 1978.888652082297,
+   "finite_body_factor_seasonal": 0.9388494935348615,
+   "finite_body_factor_diurnal": 1.061819233757563,
+   "sources": [
+    "B_sobol_slow:734"
+   ]
+  },
+  {
+   "run_id": "7f94a4754f028240",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00161",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.4483564519093286,
+   "thermal_inertia": 207.85584171511752,
+   "finite_body_factor_seasonal": 0.8827672947624019,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:323"
+   ]
+  },
+  {
+   "run_id": "82e449a1b993e3ef",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00156",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 14.221126380914864,
+   "thermal_inertia": 778.4041747573455,
+   "finite_body_factor_seasonal": 0.8667538741580573,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:312"
+   ]
+  },
+  {
+   "run_id": "849f5cb6c3869de6",
+   "kind": "tumbler",
+   "state_id": "morris1102_ordinary_00045",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:90"
+   ]
+  },
+  {
+   "run_id": "894214796843b746",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00078",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 9.104160606903726,
+   "thermal_inertia": 1280.6405775130386,
+   "finite_body_factor_seasonal": 0.42649205495838954,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:157"
+   ]
+  },
+  {
+   "run_id": "8c2371f6a43b1bfb",
+   "kind": "tumbler",
+   "state_id": "sobol4101_fast_00162",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 18.541620533384137,
+   "thermal_inertia": 2389.81950707118,
+   "finite_body_factor_seasonal": 0.9253025707158166,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:324"
+   ]
+  },
+  {
+   "run_id": "8c63cccd44df8148",
+   "kind": "pa_P_par",
+   "state_id": "sobol4101_fast_00014",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 12.830684837503208,
+   "thermal_inertia": 1126.4910089118928,
+   "finite_body_factor_seasonal": 0.9148063455353468,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:29"
+   ]
+  },
+  {
+   "run_id": "8f1d06680a6221b6",
+   "kind": "pa_P_par",
+   "state_id": "sobol4101_fast_00226",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 12.999721176249922,
+   "thermal_inertia": 1456.2362106783928,
+   "finite_body_factor_seasonal": 0.4824328650761976,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:453"
+   ]
+  },
+  {
+   "run_id": "91936dba34b86a1e",
+   "kind": "tumbler",
+   "state_id": "morris1102_ordinary_00043",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:86"
+   ]
+  },
+  {
+   "run_id": "933d4959c58a62f7",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00171_ph1",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.0478062554080718,
+   "sources": [
+    "D_phase_slow:416"
+   ]
+  },
+  {
+   "run_id": "93b0d18dd6ba896a",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00652",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 22.676983055483294,
+   "thermal_inertia": 2009.626922803755,
+   "finite_body_factor_seasonal": 0.8173993038829113,
+   "finite_body_factor_diurnal": 1.0527073191490575,
+   "sources": [
+    "B_sobol_slow:1304"
+   ]
+  },
+  {
+   "run_id": "95d9d2c49f6fd009",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00178",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 5.162753168129461,
+   "thermal_inertia": 1785.6896943926706,
+   "finite_body_factor_seasonal": 0.18851051836452262,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:357"
+   ]
+  },
+  {
+   "run_id": "95f873db50d037c8",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00123",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 6.816417523221556,
+   "thermal_inertia": 1156.727123493532,
+   "finite_body_factor_seasonal": 0.8859516597667729,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:246"
+   ]
+  },
+  {
+   "run_id": "961fe9f8ad67011d",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00021",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 9.566089528857567,
+   "thermal_inertia": 747.5626526433031,
+   "finite_body_factor_seasonal": 0.9058953053724481,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:42"
+   ]
+  },
+  {
+   "run_id": "9880156b21eb6862",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00161",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.4483564519093286,
+   "thermal_inertia": 207.85584171511752,
+   "finite_body_factor_seasonal": 0.8827672947624019,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:322"
+   ]
+  },
+  {
+   "run_id": "9c577928c722a8dc",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00030",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.417782552601061,
+   "thermal_inertia": 843.946033424477,
+   "finite_body_factor_seasonal": 0.801658752294123,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:61"
+   ]
+  },
+  {
+   "run_id": "a7e5d62f4f826184",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00571",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 22.327231135230253,
+   "thermal_inertia": 1610.4145442048766,
+   "finite_body_factor_seasonal": 0.7510303171913639,
+   "finite_body_factor_diurnal": 1.067871033960017,
+   "sources": [
+    "B_sobol_slow:1142"
+   ]
+  },
+  {
+   "run_id": "abe02008050c6641",
+   "kind": "pa_P_par",
+   "state_id": "sobol2102_ordinary_00576",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.15868829457217,
+   "thermal_inertia": 2192.7110709148255,
+   "finite_body_factor_seasonal": 0.8751295524242023,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "B_sobol_ordinary:1153"
+   ]
+  },
+  {
+   "run_id": "ac32a66d27c355f2",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00096",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.7710121943901878,
+   "thermal_inertia": 987.6160984166023,
+   "finite_body_factor_seasonal": 0.24374545517939153,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:192"
+   ]
+  },
+  {
+   "run_id": "ac6afbe2e0d72768",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00030",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.417782552601061,
+   "thermal_inertia": 843.946033424477,
+   "finite_body_factor_seasonal": 0.801658752294123,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:60"
+   ]
+  },
+  {
+   "run_id": "ae116a99c7e31bc1",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00215",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.7946604306652207,
+   "thermal_inertia": 543.6943932876477,
+   "finite_body_factor_seasonal": 0.3939971691280219,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:431"
+   ]
+  },
+  {
+   "run_id": "b1346b22a5ad33a1",
+   "kind": "pa_P_par",
+   "state_id": "sobol2101_slow_00367",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 36.3193633293213,
+   "thermal_inertia": 1978.888652082297,
+   "finite_body_factor_seasonal": 0.9388494935348615,
+   "finite_body_factor_diurnal": 1.061819233757563,
+   "sources": [
+    "B_sobol_slow:735"
+   ]
+  },
+  {
+   "run_id": "b18b36c7cfb6870a",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00123",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 6.816417523221556,
+   "thermal_inertia": 1156.727123493532,
+   "finite_body_factor_seasonal": 0.8859516597667729,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:247"
+   ]
+  },
+  {
+   "run_id": "b49e641325ac0604",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00156",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 14.221126380914864,
+   "thermal_inertia": 778.4041747573455,
+   "finite_body_factor_seasonal": 0.8667538741580573,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:313"
+   ]
+  },
+  {
+   "run_id": "b59e2d6deee35b25",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00162",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 9.35978329200894,
+   "thermal_inertia": 921.210507696134,
+   "finite_body_factor_seasonal": 0.9052848780374667,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:325"
+   ]
+  },
+  {
+   "run_id": "b798aa47a5d7f962",
+   "kind": "pa_P_par",
+   "state_id": "sobol4101_fast_00220",
+   "stratum": "fast",
+   "route": "full",
+   "D_eq_m": 16.768334058829392,
+   "thermal_inertia": 1765.0970381430056,
+   "finite_body_factor_seasonal": 0.8307447326525821,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:441"
+   ]
+  },
+  {
+   "run_id": "c0de93552c512ada",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00249",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 9.181261109309219,
+   "thermal_inertia": 2319.808312890992,
+   "finite_body_factor_seasonal": 0.29439227723546685,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:498"
+   ]
+  },
+  {
+   "run_id": "c3792542174aacc2",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00196",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 5.360505473160577,
+   "thermal_inertia": 314.1825300013703,
+   "finite_body_factor_seasonal": 0.9200493092677636,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:393"
+   ]
+  },
+  {
+   "run_id": "cad97989015e8044",
+   "kind": "pa_P_lc",
+   "state_id": "sobol2101_slow_00171",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.0478062554080618,
+   "sources": [
+    "C_conventions_slow:429"
+   ]
+  },
+  {
+   "run_id": "cd56c21ec459ae6c",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00171_ph3",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.047806255408066,
+   "sources": [
+    "D_phase_slow:418"
+   ]
+  },
+  {
+   "run_id": "cdc6acedebd7962d",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00215",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.7946604306652207,
+   "thermal_inertia": 543.6943932876477,
+   "finite_body_factor_seasonal": 0.3939971691280219,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:430"
+   ]
+  },
+  {
+   "run_id": "cdd35aaa9444596f",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00056",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 10.009215543656676,
+   "thermal_inertia": 489.9566628693891,
+   "finite_body_factor_seasonal": 0.9029257624733688,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:113"
+   ]
+  },
+  {
+   "run_id": "ce5dcf30ad01cf08",
+   "kind": "pa_P_par",
+   "state_id": "morris1102_ordinary_00044",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:89"
+   ]
+  },
+  {
+   "run_id": "d2659da415d53f3c",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00171_ph6",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.047806255408056,
+   "sources": [
+    "D_phase_slow:421"
+   ]
+  },
+  {
+   "run_id": "d31577e427abcb2d",
+   "kind": "tumbler",
+   "state_id": "morris1102_ordinary_00047",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:94"
+   ]
+  },
+  {
+   "run_id": "d3e8f083df2fa92c",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00077",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.592946558783715,
+   "thermal_inertia": 318.6649594514911,
+   "finite_body_factor_seasonal": 0.9054521092595316,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:154"
+   ]
+  },
+  {
+   "run_id": "dda89ac6d7240fce",
+   "kind": "tumbler",
+   "state_id": "sobol4102_superfast_00196",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 5.360505473160577,
+   "thermal_inertia": 314.1825300013703,
+   "finite_body_factor_seasonal": 0.9200493092677636,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:392"
+   ]
+  },
+  {
+   "run_id": "e339811676a2f4aa",
+   "kind": "pa_P_par",
+   "state_id": "morris1102_ordinary_00043",
+   "stratum": "ordinary",
+   "route": "full",
+   "D_eq_m": 20.000124292548186,
+   "thermal_inertia": 2499.9844635280297,
+   "finite_body_factor_seasonal": 0.5843757608681227,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "A_morris_ordinary:87"
+   ]
+  },
+  {
+   "run_id": "e645ea3752ca0ef0",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00059",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 3.698087561063036,
+   "thermal_inertia": 1847.2723215564774,
+   "finite_body_factor_seasonal": 0.18287481340818826,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:119"
+   ]
+  },
+  {
+   "run_id": "e757cb3d106e1735",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00005",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 5.049150113596732,
+   "thermal_inertia": 1491.5406334462666,
+   "finite_body_factor_seasonal": 0.1906823099721944,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:11"
+   ]
+  },
+  {
+   "run_id": "e93d4a17c2dfd40c",
+   "kind": "tumbler",
+   "state_id": "sobol4101_fast_00030",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 23.6902798617417,
+   "thermal_inertia": 2222.802064321782,
+   "finite_body_factor_seasonal": 0.786377907295318,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:60"
+   ]
+  },
+  {
+   "run_id": "ebc6b085b73f4bcb",
+   "kind": "pa_P_par",
+   "state_id": "sobol4101_fast_00085",
+   "stratum": "fast",
+   "route": "full",
+   "D_eq_m": 13.175289559069249,
+   "thermal_inertia": 1734.6548978831943,
+   "finite_body_factor_seasonal": 0.5461035643987829,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:171"
+   ]
+  },
+  {
+   "run_id": "ecea7a24e35c089f",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00115",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 5.234260322262348,
+   "thermal_inertia": 377.10530321542524,
+   "finite_body_factor_seasonal": 0.7413975716714546,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:231"
+   ]
+  },
+  {
+   "run_id": "f4afe03e822eba91",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00242",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 4.567925218654831,
+   "thermal_inertia": 1204.3492296100085,
+   "finite_body_factor_seasonal": 0.5099202445606563,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:485"
+   ]
+  },
+  {
+   "run_id": "f63495961bcb0bda",
+   "kind": "tumbler",
+   "state_id": "sobol2101_slow_00171_ph4",
+   "stratum": "slow",
+   "route": "full",
+   "D_eq_m": 28.119427338713688,
+   "thermal_inertia": 1766.0268503937984,
+   "finite_body_factor_seasonal": 0.8470297783608564,
+   "finite_body_factor_diurnal": 1.047806255408079,
+   "sources": [
+    "D_phase_slow:419"
+   ]
+  },
+  {
+   "run_id": "fb934405b6a50f15",
+   "kind": "pa_P_par",
+   "state_id": "sobol4102_superfast_00204",
+   "stratum": "superfast",
+   "route": "multiscale_required",
+   "D_eq_m": 6.65449926527484,
+   "thermal_inertia": 2101.7787414815134,
+   "finite_body_factor_seasonal": 0.4999818241106037,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_superfast:409"
+   ]
+  },
+  {
+   "run_id": "fd86eb18da11172a",
+   "kind": "tumbler",
+   "state_id": "sobol4101_fast_00085",
+   "stratum": "fast",
+   "route": "full",
+   "D_eq_m": 13.175289559069249,
+   "thermal_inertia": 1734.6548978831943,
+   "finite_body_factor_seasonal": 0.5461035643987829,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:170"
+   ]
+  },
+  {
+   "run_id": "ff3a75ed665c3edd",
+   "kind": "tumbler",
+   "state_id": "sobol4101_fast_00014",
+   "stratum": "fast",
+   "route": "full_costly",
+   "D_eq_m": 12.830684837503208,
+   "thermal_inertia": 1126.4910089118928,
+   "finite_body_factor_seasonal": 0.9148063455353468,
+   "finite_body_factor_diurnal": 1.0,
+   "sources": [
+    "E_sobol_fast:28"
+   ]
+  }
+ ]
+}

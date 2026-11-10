@@ -25,6 +25,35 @@ writes only into `<root>/runs/<run_id>/`; meshes and caches are prepared once be
 **Order.** The convergence matrix first, then A (Morris), D (phases), B (Sobol′) and C (conventions). Each stage is
 checked before the next.
 
+## Waves (branch `research/paper1-hpc-v2`)
+
+The frozen manifests are not submitted one by one. `research/campaign/waves.py` checks them against
+`FREEZE_checksums.json`, applies the exclusion list (`research/campaign/exclusions/outside_1d_v1.json`), puts every
+unique run in exactly one wave and writes a deduplicated wave manifest. Counts and run-ID hashes are recorded in
+`research/campaign/WAVES.json`.
+
+| Wave | Content | Runs | Core-h (M4) | Starts when |
+|---|---|---|---|---|
+| 0 | convergence batch V (executable lines) | 78 | ~880 | HPC access |
+| 1 | slow + ordinary, e ≤ 0.6 | 4,810 | ~23,800 | V passes |
+| 1b | V2 convergence corners C1–C7 (`research/campaign/manifests_v2/`) | 106 | ~2,740 | alongside wave 1 |
+| 2 | e ∈ (0.6, 0.8] and the executable fast stratum | 2,000 | ~28,400 | C1–C5 pass |
+| 3 | preserved low-Γ ordinary runs (`full_long`, 101–256 core-h each) | 88 | ~14,600 | C7 (and C1–C3) pass; long queue or checkpointing |
+| excluded | outside 1D validity (43 in executable routes) | 107 | – | never in production |
+| deferred | super-fast stratum, non-executable fast runs | 602 | – | new numerics validated |
+
+```
+python research/campaign/waves.py write --wave 1 --out $SCRATCH/campaign/wave1.jsonl
+python research/hpc/prepare.py $SCRATCH/campaign/wave1.jsonl --root $SCRATCH/campaign --speed-factor F
+python research/hpc/make_slurm_arrays.py --root $SCRATCH/campaign --manifest $SCRATCH/campaign/wave1.jsonl ...
+```
+
+Use **one** `--root` for all waves. Results go to `<root>/runs/<run_id>/` and accepted runs are skipped, so a run
+that occurs in two waves is computed once. For example, the V2 base variants are the production runs themselves.
+Wave 3 and the C7 lines of wave 1b need `prepare.py --allow-long`. That fills a `400h` bin whose wall time
+(25 days in `make_slurm_arrays.py`) must be checked against the cluster limit; if the limit is shorter, these runs
+need orbit checkpointing first. `prepare.py` skips excluded runs in any manifest (`--exclusions ""` disables this).
+
 ## Information needed from the administrators
 
 - **Access:** login host(s), SSH key or 2FA procedure, VPN; data transfer method (scp, rsync or Globus).

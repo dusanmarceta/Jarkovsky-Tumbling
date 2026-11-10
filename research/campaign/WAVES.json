@@ -1,0 +1,71 @@
+{
+ "selection": "waves-v1",
+ "long_max_core_h": 400.0,
+ "waves": {
+  "excluded": {
+   "runs": 107,
+   "core_h_m4": 1686216.0,
+   "hpc_routes": {
+    "full": 33,
+    "full_costly": 10,
+    "full_long": 2,
+    "None": 62
+   },
+   "run_ids_sha256": "442c9e80eec6a2a1080eea9c47a7ded1849cc7333cf0a328207a40e6c6aa3229"
+  },
+  "0": {
+   "runs": 78,
+   "core_h_m4": 876.2,
+   "hpc_routes": {
+    "full": 58,
+    "full_costly": 20
+   },
+   "run_ids_sha256": "cf460b2760f136b826aaa43bc055612616c115ed197fc5e8c54bfb63d9711975"
+  },
+  "1": {
+   "runs": 4810,
+   "core_h_m4": 23808.1,
+   "hpc_routes": {
+    "full": 4290,
+    "full_costly": 520
+   },
+   "run_ids_sha256": "b4aa1f9c409d5b48878112b6afbde5ee26f59fa5f979c5bc4fd67f3b18761b64"
+  },
+  "2": {
+   "runs": 2000,
+   "core_h_m4": 28418.6,
+   "hpc_routes": {
+    "full": 1346,
+    "full_costly": 654
+   },
+   "run_ids_sha256": "9e61c8f6925f900180b8b4d2945cba42b1d94e61d7c0ff9ce751f2de2cc7abe8"
+  },
+  "3": {
+   "runs": 88,
+   "core_h_m4": 14609.1,
+   "hpc_routes": {
+    "full_long": 88
+   },
+   "run_ids_sha256": "a45f559fb0054ad2712838482b7ebc255d2b1fad0bd5c561a9d463556313e2f4"
+  },
+  "deferred": {
+   "runs": 602,
+   "core_h_m4": 12378777.8,
+   "hpc_routes": {
+    "full_long": 108,
+    "None": 494
+   },
+   "run_ids_sha256": "339efbc529c99372e11b1fa35b5a42510dde8758a5a1121aef6009ff1a0d99da"
+  },
+  "1b": {
+   "runs": 106,
+   "core_h_m4": 2744.6,
+   "hpc_routes": {
+    "full": 64,
+    "full_costly": 36,
+    "full_long": 6
+   },
+   "run_ids_sha256": "2aa8820321222a8913da69f81eb3d580cb83f8ea21ad89e6c9ef54800b9bdb9d"
+  }
+ }
+}
