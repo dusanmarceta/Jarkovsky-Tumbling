@@ -99,6 +99,17 @@ tests confirm to 10⁻⁹.
 | E | Sobol′ N = 256 per stratum (fast, super-fast) | 512 | parameter sets only | waits for a validated multi-timescale solver (route flags in the manifest) |
 | (F) | Saltelli N = 256 (3,584 points), slow stratum | 3,584 | optional | surrogate-free Sobol check, only if the surrogate fails validation |
 
+**Built manifests** (`research/campaign/manifests/*.jsonl.gz`, counts in `SUMMARY.json`):
+
+| Group | Status |
+|---|---|
+| all manifests | 8,394 lines, 7,685 unique runs, 0 rejected |
+| executable with the current solver | 6,931 runs (5,727 `full`, about 13,000 core-h; 1,204 `full_costly`, about 41,000 core-h, at Apple M4 speed per core) |
+| multi-timescale solver required | 754 runs (super-fast stratum and part of the fast stratum) |
+
+Most `full_costly` runs are low-Γ states in the ordinary and fast strata, where the S ≤ 1 time-step limit applies.
+Applying solver fix S-1, so that such states can use validated backward-Euler steps, is the main lever on cost.
+
 **Sensitivity outputs.**
 - Signed drift da/dt.
 - log₁₀|da/dt| with the sign analysed separately as a classification boundary.
