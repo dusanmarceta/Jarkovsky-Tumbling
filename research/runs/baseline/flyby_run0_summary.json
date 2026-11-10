@@ -1,0 +1,26 @@
+{
+ "case": "apophis_flyby_2029 inputs_sim row 0 (tumbling SAM, Apophis_200.stl), run with run_batch.py defaults",
+ "drift_m_s": -7.578562355734209e-06,
+ "reference_m_s": -7.578562334e-06,
+ "rel_diff": 2.8678537322690545e-09,
+ "orbits": 4,
+ "reference_orbits": 4,
+ "estimated_error_m_s": 4.835832803604619e-09,
+ "reference_estimated_error_m_s": 4.835832921e-09,
+ "T_surface_K": [
+  127.65256693815556,
+  391.8597714156538
+ ],
+ "reference_T_surface_K": [
+  127.6525667,
+  391.8597715
+ ],
+ "drift_history_m_s": [
+  -7.478806949764865e-06,
+  -7.5950633048185966e-06,
+  -7.573726522930604e-06,
+  -7.578562355734209e-06
+ ],
+ "wall_time_s": 134.3,
+ "threads": 1
+}

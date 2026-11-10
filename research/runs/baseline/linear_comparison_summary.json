@@ -1,0 +1,62 @@
+[
+ {
+  "case": "gamma 0, P 24 h, TI 200, full",
+  "drift_m_s": 1.3646211506662322e-05,
+  "reference_m_s": 1.3646e-05,
+  "rel_diff_vs_reference": 1.5499535565233202e-05,
+  "linear_theory_m_s(repo table)": 1.3329e-05,
+  "linear_theory_m_s(recomputed)": 1.3328693440906991e-05,
+  "rel_diff_vs_linear_theory": 0.02379859754387592,
+  "orbits": 3,
+  "reference_orbits": 3,
+  "converged": true,
+  "valid": true,
+  "wall_time_s": 55.32,
+  "exit_code": 0
+ },
+ {
+  "case": "gamma 0, P 24 h, TI 200, lin",
+  "drift_m_s": 1.3517846667268692e-05,
+  "reference_m_s": 1.3518e-05,
+  "rel_diff_vs_reference": -1.1342856288454328e-05,
+  "linear_theory_m_s(repo table)": 1.3329e-05,
+  "linear_theory_m_s(recomputed)": 1.3328693440906991e-05,
+  "rel_diff_vs_linear_theory": 0.014168104679172622,
+  "orbits": 3,
+  "reference_orbits": 3,
+  "converged": true,
+  "valid": true,
+  "wall_time_s": 20.1,
+  "exit_code": 0
+ },
+ {
+  "case": "gamma 90, P 24 h, TI 200, full",
+  "drift_m_s": -1.0035652213360308e-06,
+  "reference_m_s": -1.0036e-06,
+  "rel_diff_vs_reference": -3.4653909893545e-05,
+  "linear_theory_m_s(repo table)": -6.8839e-07,
+  "linear_theory_m_s(recomputed)": -6.883960836388328e-07,
+  "rel_diff_vs_linear_theory": 0.4578439857290648,
+  "orbits": 4,
+  "reference_orbits": 4,
+  "converged": true,
+  "valid": true,
+  "wall_time_s": 27.4,
+  "exit_code": 0
+ },
+ {
+  "case": "gamma 90, P 24 h, TI 200, lin",
+  "drift_m_s": -7.188717270151566e-07,
+  "reference_m_s": -7.1887e-07,
+  "rel_diff_vs_reference": 2.402402599299691e-06,
+  "linear_theory_m_s(repo table)": -6.8839e-07,
+  "linear_theory_m_s(recomputed)": -6.883960836388328e-07,
+  "rel_diff_vs_linear_theory": 0.04427973534647034,
+  "orbits": 5,
+  "reference_orbits": 5,
+  "converged": true,
+  "valid": true,
+  "wall_time_s": 33.64,
+  "exit_code": 0
+ }
+]
