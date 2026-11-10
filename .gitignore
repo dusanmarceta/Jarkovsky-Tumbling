@@ -72,3 +72,6 @@ research/runs/**/raw/
 insolation_data/
 temperature_data/
 .pytest_cache/
+research/campaign/manifests/*.jsonl
+research/runs/probe/
+research/runs/smoke/

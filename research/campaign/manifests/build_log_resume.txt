@@ -1,0 +1,55 @@
+skip research/campaign/manifests/A_morris_slow.jsonl
+skip research/campaign/manifests/A_morris_ordinary.jsonl
+skip research/campaign/manifests/B_sobol_slow.jsonl
+skip research/campaign/manifests/B_sobol_ordinary.jsonl
+skip research/campaign/manifests/C_conventions_slow.jsonl
+skip research/campaign/manifests/C_conventions_ordinary.jsonl
+skip research/campaign/manifests/D_phase_slow.jsonl
+skip research/campaign/manifests/D_phase_ordinary.jsonl
+{
+ "manifest": "research/campaign/manifests/E_sobol_fast.jsonl",
+ "states": 256,
+ "runs": 512,
+ "rejected": 0,
+ "routes": {
+  "full": 96,
+  "multiscale_required": 154,
+  "full_costly": 262
+ },
+ "core_h_by_route": {
+  "full": 700.4,
+  "multiscale_required": 57500.3,
+  "full_costly": 11544.9
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 128,
+  "outside_1d_validity": 16
+ },
+ "modes": {
+  "SAM": 128,
+  "LAM": 128
+ },
+ "long_averaging_tumblers": 0
+}
+{
+ "manifest": "research/campaign/manifests/E_sobol_superfast.jsonl",
+ "states": 256,
+ "runs": 512,
+ "rejected": 0,
+ "routes": {
+  "multiscale_required": 512
+ },
+ "core_h_by_route": {
+  "multiscale_required": 14006957.3
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 128,
+  "outside_1d_validity": 62
+ },
+ "modes": {
+  "LAM": 128,
+  "SAM": 128
+ },
+ "long_averaging_tumblers": 0
+}
+ALL MANIFESTS BUILT

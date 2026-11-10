@@ -1,0 +1,201 @@
+{
+ "A_morris_ordinary.jsonl": {
+  "states": 260,
+  "runs": 520,
+  "rejected": 0,
+  "routes": {
+   "full": 370,
+   "full_costly": 130,
+   "multiscale_required": 20
+  },
+  "core_h_M4_estimate": {
+   "full": 1115,
+   "full_costly": 4493,
+   "multiscale_required": 4368
+  },
+  "kinds": {
+   "tumbler": 260,
+   "pa_P_par": 260
+  }
+ },
+ "A_morris_slow.jsonl": {
+  "states": 260,
+  "runs": 520,
+  "rejected": 0,
+  "routes": {
+   "full": 492,
+   "full_costly": 28
+  },
+  "core_h_M4_estimate": {
+   "full": 830,
+   "full_costly": 807
+  },
+  "kinds": {
+   "tumbler": 260,
+   "pa_P_par": 260
+  }
+ },
+ "B_sobol_ordinary.jsonl": {
+  "states": 1024,
+  "runs": 2048,
+  "rejected": 0,
+  "routes": {
+   "full": 1582,
+   "full_costly": 420,
+   "multiscale_required": 46
+  },
+  "core_h_M4_estimate": {
+   "full": 4361,
+   "full_costly": 13943,
+   "multiscale_required": 6974
+  },
+  "kinds": {
+   "tumbler": 1024,
+   "pa_P_par": 1024
+  }
+ },
+ "B_sobol_slow.jsonl": {
+  "states": 1024,
+  "runs": 2048,
+  "rejected": 0,
+  "routes": {
+   "full": 1900,
+   "full_costly": 148
+  },
+  "core_h_M4_estimate": {
+   "full": 3194,
+   "full_costly": 3874
+  },
+  "kinds": {
+   "tumbler": 1024,
+   "pa_P_par": 1024
+  }
+ },
+ "C_conventions_ordinary.jsonl": {
+  "states": 256,
+  "runs": 640,
+  "rejected": 0,
+  "routes": {
+   "full": 489,
+   "full_costly": 139,
+   "multiscale_required": 12
+  },
+  "core_h_M4_estimate": {
+   "full": 1333,
+   "full_costly": 4463,
+   "multiscale_required": 1618
+  },
+  "kinds": {
+   "tumbler": 256,
+   "pa_P_phi": 256,
+   "pa_P_lc": 128
+  }
+ },
+ "C_conventions_slow.jsonl": {
+  "states": 256,
+  "runs": 640,
+  "rejected": 0,
+  "routes": {
+   "full": 593,
+   "full_costly": 47
+  },
+  "core_h_M4_estimate": {
+   "full": 923,
+   "full_costly": 1162
+  },
+  "kinds": {
+   "tumbler": 256,
+   "pa_P_phi": 256,
+   "pa_P_lc": 128
+  }
+ },
+ "D_phase_ordinary.jsonl": {
+  "states": 384,
+  "runs": 432,
+  "rejected": 0,
+  "routes": {
+   "full_costly": 90,
+   "full": 333,
+   "multiscale_required": 9
+  },
+  "core_h_M4_estimate": {
+   "full_costly": 2152,
+   "full": 1067,
+   "multiscale_required": 1267
+  },
+  "kinds": {
+   "tumbler": 384,
+   "pa_P_par": 48
+  }
+ },
+ "D_phase_slow.jsonl": {
+  "states": 384,
+  "runs": 432,
+  "rejected": 0,
+  "routes": {
+   "full": 414,
+   "full_costly": 18
+  },
+  "core_h_M4_estimate": {
+   "full": 584,
+   "full_costly": 302
+  },
+  "kinds": {
+   "tumbler": 384,
+   "pa_P_par": 48
+  }
+ },
+ "E_sobol_fast.jsonl": {
+  "states": 256,
+  "runs": 512,
+  "rejected": 0,
+  "routes": {
+   "full": 96,
+   "multiscale_required": 154,
+   "full_costly": 262
+  },
+  "core_h_M4_estimate": {
+   "full": 700,
+   "multiscale_required": 57500,
+   "full_costly": 11545
+  },
+  "kinds": {
+   "tumbler": 256,
+   "pa_P_par": 256
+  }
+ },
+ "E_sobol_superfast.jsonl": {
+  "states": 256,
+  "runs": 512,
+  "rejected": 0,
+  "routes": {
+   "multiscale_required": 512
+  },
+  "core_h_M4_estimate": {
+   "multiscale_required": 14006957
+  },
+  "kinds": {
+   "tumbler": 256,
+   "pa_P_par": 256
+  }
+ },
+ "V_convergence.jsonl": {
+  "states": 45,
+  "runs": 90,
+  "rejected": 0,
+  "routes": {
+   "full": 62,
+   "full_costly": 20,
+   "multiscale_required": 8
+  },
+  "core_h_M4_estimate": {
+   "full": 188,
+   "full_costly": 714,
+   "multiscale_required": 1342
+  },
+  "kinds": {
+   "tumbler": 45,
+   "pa_P_par": 45
+  }
+ }
+}

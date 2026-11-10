@@ -20,3 +20,170 @@
  },
  "long_averaging_tumblers": 192
 }
+{
+ "manifest": "research/campaign/manifests/A_morris_ordinary.jsonl",
+ "states": 260,
+ "runs": 520,
+ "rejected": 0,
+ "routes": {
+  "full": 370,
+  "full_costly": 130,
+  "multiscale_required": 20
+ },
+ "core_h_by_route": {
+  "full": 1114.7,
+  "full_costly": 4493.0,
+  "multiscale_required": 4368.3
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 124,
+  "outside_1d_validity": 10
+ },
+ "modes": {
+  "SAM": 161,
+  "LAM": 99
+ },
+ "long_averaging_tumblers": 15
+}
+{
+ "manifest": "research/campaign/manifests/B_sobol_slow.jsonl",
+ "states": 1024,
+ "runs": 2048,
+ "rejected": 0,
+ "routes": {
+  "full": 1900,
+  "full_costly": 148
+ },
+ "core_h_by_route": {
+  "full": 3193.5,
+  "full_costly": 3874.1
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 512,
+  "outside_1d_validity": 8
+ },
+ "modes": {
+  "SAM": 512,
+  "LAM": 512
+ },
+ "long_averaging_tumblers": 801
+}
+{
+ "manifest": "research/campaign/manifests/B_sobol_ordinary.jsonl",
+ "states": 1024,
+ "runs": 2048,
+ "rejected": 0,
+ "routes": {
+  "full": 1582,
+  "full_costly": 420,
+  "multiscale_required": 46
+ },
+ "core_h_by_route": {
+  "full": 4361.3,
+  "full_costly": 13942.9,
+  "multiscale_required": 6973.6
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 512,
+  "outside_1d_validity": 2
+ },
+ "modes": {
+  "SAM": 512,
+  "LAM": 512
+ },
+ "long_averaging_tumblers": 55
+}
+{
+ "manifest": "research/campaign/manifests/C_conventions_slow.jsonl",
+ "states": 256,
+ "runs": 640,
+ "rejected": 0,
+ "routes": {
+  "full": 593,
+  "full_costly": 47
+ },
+ "core_h_by_route": {
+  "full": 923.1,
+  "full_costly": 1162.4
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 160,
+  "outside_1d_validity": 3
+ },
+ "modes": {
+  "SAM": 128,
+  "LAM": 128
+ },
+ "long_averaging_tumblers": 198
+}
+{
+ "manifest": "research/campaign/manifests/C_conventions_ordinary.jsonl",
+ "states": 256,
+ "runs": 640,
+ "rejected": 0,
+ "routes": {
+  "full": 489,
+  "full_costly": 139,
+  "multiscale_required": 12
+ },
+ "core_h_by_route": {
+  "full": 1333.4,
+  "full_costly": 4463.1,
+  "multiscale_required": 1618.4
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 160
+ },
+ "modes": {
+  "SAM": 128,
+  "LAM": 128
+ },
+ "long_averaging_tumblers": 13
+}
+{
+ "manifest": "research/campaign/manifests/D_phase_slow.jsonl",
+ "states": 384,
+ "runs": 432,
+ "rejected": 0,
+ "routes": {
+  "full": 414,
+  "full_costly": 18
+ },
+ "core_h_by_route": {
+  "full": 583.6,
+  "full_costly": 302.1
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 117,
+  "outside_1d_validity": 9
+ },
+ "modes": {
+  "LAM": 248,
+  "SAM": 136
+ },
+ "long_averaging_tumblers": 384
+}
+{
+ "manifest": "research/campaign/manifests/D_phase_ordinary.jsonl",
+ "states": 384,
+ "runs": 432,
+ "rejected": 0,
+ "routes": {
+  "full_costly": 90,
+  "full": 333,
+  "multiscale_required": 9
+ },
+ "core_h_by_route": {
+  "full_costly": 2151.7,
+  "full": 1066.9,
+  "multiscale_required": 1267.2
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 126
+ },
+ "modes": {
+  "LAM": 208,
+  "SAM": 176
+ },
+ "long_averaging_tumblers": 384
+}

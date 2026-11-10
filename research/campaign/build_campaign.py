@@ -28,10 +28,15 @@ sys.path.insert(0, str(RESEARCH))
 from tools.campaign import STRATA, design_morris, design_saltelli, design_sobol, lines_for_unit  # noqa: E402
 
 
+CHECK_EVERY = 50        # every 50th state is also derived through the solver's own Simulation (agreement < 1e-6)
+
+
 def _job(args):
     x, stratum, sid, twins, replicate = args
     try:
-        return lines_for_unit(np.asarray(x), stratum, sid, twins=twins, replicate=replicate)
+        import hashlib
+        check = int(hashlib.md5(sid.encode()).hexdigest(), 16) % CHECK_EVERY == 0
+        return lines_for_unit(np.asarray(x), stratum, sid, twins=twins, replicate=replicate, check=check)
     except Exception as exc:                         # record, never silently drop, an inadmissible point
         return [{'state_id': sid, 'stratum': stratum, 'unit': list(map(float, x)), 'kind': 'rejected',
                  'error': f'{type(exc).__name__}: {exc}'}]
