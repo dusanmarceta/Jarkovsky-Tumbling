@@ -86,16 +86,25 @@ def surface_temperature(T_old, p, q, inv_d, source, rad_coeff, a, theta, T_ref):
                      + ta * p[1]))
     nl = 2.0 * theta * rad_coeff
 
-    # f(x) is monotonic and convex for x > 0, so Newton from the old value converges quickly
-    x = T0
-    for _ in range(50):
+    # S-1 fix (research/proposals/S1_surface_newton.md). f(x) = lin*x + nl*x^4 - R is increasing and convex for
+    # x > 0. If R < 0 there is no non-negative root (this happens in Crank-Nicolson when the explicit half of the
+    # emission term dominates): return NaN so that implicit_column_step redoes the step with backward Euler.
+    # Previously Newton started from T0, could wander without a root and stop at an arbitrary positive value.
+    if R < 0.0:
+        return np.nan
+    if R == 0.0:
+        return 0.0
+    # R/lin and (R/nl)^(1/4) both bound the root from above, and the smaller one is within a factor 2 of it;
+    # Newton from there decreases monotonically to the root
+    x = min(R / lin, (R / nl) ** 0.25)
+    for _ in range(100):
         f = lin * x + nl * x**4 - R
         df = lin + 4.0 * nl * x**3
         dx = f / df
         x -= dx
-        if abs(dx) < 1e-10:
-            break
-    return x
+        if abs(dx) <= 1e-12 * x:
+            return x
+    return np.nan            # not converged: the caller falls back to backward Euler
 
 
 @jit(nopython=True, cache=True)

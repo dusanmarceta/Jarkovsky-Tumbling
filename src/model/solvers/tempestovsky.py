@@ -565,6 +565,10 @@ class YarkovskySolver(TemperatureSolver):
         last_state = simulation.y0
         drift_history = []
         yarkovsky_converged = False
+        # S-1 fix: physical upper bound of the surface temperature (subsolar equilibrium at perihelion)
+        q_m = simulation.a_au * (1.0 - simulation.ecc) * const.au.value
+        T_surface_bound = ((1.0 - simulation.albedo) * const.L_sun.value / (4.0 * np.pi * q_m**2)
+                           / (simulation.emissivity * const.sigma_sb.value)) ** 0.25
 
         for orbit in range(max_orbits):
             counter = 0
@@ -684,6 +688,11 @@ class YarkovskySolver(TemperatureSolver):
             # (0 K is possible in the first orbit: facets without insolation on the first day start at 0 K)
             T_surface_min, T_surface_max = np.min(surface_history), np.max(surface_history)
             temperatures_valid = bool(np.isfinite(T_surface_min) and np.isfinite(T_surface_max) and T_surface_min >= 0)
+            # S-1 fix: no facet can be hotter than the subsolar equilibrium temperature at perihelion (there is no
+            # self-heating or scattering in the orbit loop); a larger value means a failed surface solve.
+            # Not applied with linearized emission, whose temperatures are not bounded in the same way.
+            if not bool(getattr(simulation, 'linearized_emission', False)):
+                temperatures_valid = temperatures_valid and bool(T_surface_max <= 1.05 * T_surface_bound)
 
             if deep_temperature_correction:
                 layer_temperature_mean = layer_temperature_sum / counter
@@ -738,6 +747,9 @@ class YarkovskySolver(TemperatureSolver):
             ff.write(f"valid: {temperatures_valid and bool(np.isfinite(yarkovsky_drift))}\n")
             ff.write(f"T surface min, max last orbit (K): {T_surface_min} {T_surface_max}\n")
             ff.write(f"backward Euler fallback steps: {getattr(self, 'fallback_steps', 0)}\n")
+            facet_steps = max(1, len(drift_history) * simulation.timesteps_per_orbit * len(areas))
+            ff.write(f"backward Euler fallback fraction: {getattr(self, 'fallback_steps', 0) / facet_steps}\n")
+            ff.write(f"T surface bound (K): {T_surface_bound}\n")
             ff.write(f"orbits: {len(drift_history)}\n")
             for k, d in enumerate(drift_history):
                 ff.write(f"orbit {k + 1}: {d}\n")
