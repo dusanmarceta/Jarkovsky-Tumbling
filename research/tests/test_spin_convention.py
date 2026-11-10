@@ -55,8 +55,9 @@ def test_excitation_map_avoids_separatrix_and_pa_branch():
     I1, I2 = I_ELL
     us = np.linspace(1e-9, 1, 2001)
     E = np.array([e_ratio_from_u(u, I1, I2) for u in us])
-    rng = 1 / I1 - 1
+    r_sam, r_lam = 1 / I2 - 1, 1 / I1 - 1 / I2
     assert np.all(np.diff(E) >= 0)
-    assert E.min() > 1 + 0.5e-3 * rng
-    assert np.min(np.abs(E - 1 / I2)) > 0.002 * rng
+    assert E.min() > 1 + 0.5e-3 * r_sam
+    assert np.min(np.abs(E - 1 / I2)) > 0.004 * min(r_sam, r_lam)
     assert E.max() < 1 / I1
+    assert np.all((E < 1 / I2) == (us < 0.5))           # balanced: u < 0.5 is SAM, u > 0.5 is LAM

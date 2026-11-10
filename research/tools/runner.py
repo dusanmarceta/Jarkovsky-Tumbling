@@ -60,11 +60,22 @@ def parse_result(path):
             'T_surface_min_K': float(tmin), 'T_surface_max_K': float(tmax), 'drift_history_m_s': history}
 
 
+def native(v):
+    """numpy scalars/arrays -> plain Python (yaml.safe_dump cannot represent numpy types)."""
+    if hasattr(v, 'tolist'):
+        return v.tolist()
+    if isinstance(v, dict):
+        return {k: native(x) for k, x in v.items()}
+    if isinstance(v, (list, tuple)):
+        return [native(x) for x in v]
+    return v
+
+
 def run_case(config, run_dir, n_threads=1, extra_provenance=None, timeout=None):
     """Write config (dict) into run_dir, run tempest.py there, return the provenance record."""
     run_dir = Path(run_dir).resolve()
     run_dir.mkdir(parents=True, exist_ok=True)
-    cfg = dict(config)
+    cfg = native(dict(config))
     shape_dir = Path(cfg.get('shape_model_directory', 'data/shape_models/'))
     cfg['shape_model_directory'] = str(shape_dir if shape_dir.is_absolute() else REPO / shape_dir) + '/'
     cfg.update({'silent_mode': True, 'remote': False,

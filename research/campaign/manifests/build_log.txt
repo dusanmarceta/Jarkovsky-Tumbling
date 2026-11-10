@@ -1,0 +1,22 @@
+{
+ "manifest": "research/campaign/manifests/A_morris_slow.jsonl",
+ "states": 260,
+ "runs": 520,
+ "rejected": 0,
+ "routes": {
+  "full": 492,
+  "full_costly": 28
+ },
+ "core_h_by_route": {
+  "full": 829.6,
+  "full_costly": 806.9
+ },
+ "flags": {
+  "ecc_needs_stiffness_validation": 192
+ },
+ "modes": {
+  "SAM": 154,
+  "LAM": 106
+ },
+ "long_averaging_tumblers": 192
+}

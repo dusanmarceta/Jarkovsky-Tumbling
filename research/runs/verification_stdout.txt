@@ -1,0 +1,1 @@
+('scaling/rho_half_D_half', 'exit 0 drift 5.893147839019394e-06 orbits 2 valid True 11.02 s')

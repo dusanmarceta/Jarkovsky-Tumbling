@@ -89,15 +89,19 @@ def p_phi_for_period(I1, I2, E_ratio, P_target_h, convention='P_par', psi_0=90.0
     return float(P_target_h * 10.0 / value)
 
 
-def e_ratio_from_u(u, I1, I2, sep_band=0.005, e_min_frac=1e-3):
-    """Normalised excitation u in [0, 1] -> E_ratio in [1 + e_min_frac*range, 1/I1], skipping a band of
-    relative width sep_band (of the full range) around the SAM/LAM separatrix 1/I2. u <= 0 gives 1 (principal axis)."""
+def e_ratio_from_u(u, I1, I2, sep_band=0.01, e_min_frac=1e-3, top_band=1e-3):
+    """Balanced normalised excitation u in [0, 1] -> E_ratio (I3 = 1).
+    u = 0: principal-axis rotation about the short axis (E_ratio = 1, returned exactly for u <= 0);
+    0 < u < 0.5: SAM, E_ratio linear in u from 1 to the separatrix 1/I2;
+    0.5 < u <= 1: LAM, E_ratio linear in u from 1/I2 to 1/I1 (rotation about the long axis).
+    Bands excluded (fractions of each mode's E range): e_min_frac above 1, sep_band/2 on each side of the
+    separatrix (polhode period diverges there), top_band below 1/I1. SAM and LAM get equal shares of u for any shape."""
     if u <= 0.0:
         return 1.0
-    lo, hi, sep = 1.0, 1.0 / I1, 1.0 / I2
-    rng = hi - lo
-    a0, a1 = lo + e_min_frac * rng, sep - 0.5 * sep_band * rng
-    b0, b1 = sep + 0.5 * sep_band * rng, hi - 1e-6 * rng
-    la, lb = max(a1 - a0, 0.0), max(b1 - b0, 0.0)
-    x = u * (la + lb)
-    return float(a0 + x if x <= la else b0 + (x - la))
+    sep, hi = 1.0 / I2, 1.0 / I1
+    r_sam, r_lam = sep - 1.0, hi - sep
+    if u < 0.5:
+        a0, a1 = 1.0 + e_min_frac * r_sam, sep - 0.5 * sep_band * r_sam
+        return float(a0 + (u / 0.5) * (a1 - a0))
+    b0, b1 = sep + 0.5 * sep_band * r_lam, hi - top_band * r_lam
+    return float(b0 + ((u - 0.5) / 0.5) * (b1 - b0))
