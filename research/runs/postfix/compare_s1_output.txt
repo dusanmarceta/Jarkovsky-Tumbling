@@ -1,0 +1,18 @@
+flyby run 0: post -7.578562355734209e-06 pre -7.578562355734209e-06 rel diff 0.00e+00 orbits 4 fallbacks 0  -> PASS
+gamma 0, P 24 h, TI 200, full    post 1.364621150666232e-05 pre 1.364621150666232e-05 rel diff 0.00e+00 -> PASS
+gamma 0, P 24 h, TI 200, lin     post 1.351784666726869e-05 pre 1.351784666726869e-05 rel diff 0.00e+00 -> PASS
+gamma 90, P 24 h, TI 200, full   post -1.003565221336031e-06 pre -1.003565221336031e-06 rel diff 2.22e-16 -> PASS
+gamma 90, P 24 h, TI 200, lin    post -7.188717270151566e-07 pre -7.188717270151566e-07 rel diff 0.00e+00 -> PASS
+benchmark/pa_f1280_L1200     drift post 5.437887e-07 pre -4.606658e+282 | T_max 1002.8 K (bound 880.2) | fallbacks post 436 pre 1804 (fraction 1.0e-04) | valid False -> PASS
+benchmark/pa_f320_L1200      drift post 5.453641e-07 pre 5.420492e-07 | T_max 999.9 K (bound 880.2) | fallbacks post 109 pre 107 (fraction 1.0e-04) | valid False -> PASS
+benchmark/pa_f320_L300       drift post 5.450197e-07 pre 5.427164e-07 | T_max 997.4 K (bound 880.2) | fallbacks post 92 pre 86 (fraction 8.8e-05) | valid False -> PASS
+benchmark/pa_f320_L3000      drift post 5.458178e-07 pre 5.420126e-07 | T_max 1000.8 K (bound 880.2) | fallbacks post 120 pre 114 (fraction 1.1e-04) | valid False -> PASS
+benchmark/tum_f320_L1200     drift post 6.684308e-07 pre 6.947099e-07 | T_max 1000.4 K (bound 880.2) | fallbacks post 103 pre 95 (fraction 9.6e-05) | valid False -> PASS
+benchmark/tum_f320_L300      drift post 6.678101e-07 pre 6.954827e-07 | T_max 999.1 K (bound 880.2) | fallbacks post 76 pre 67 (fraction 7.1e-05) | valid False -> PASS
+benchmark/tum_f320_L3000     drift post 6.691499e-07 pre 6.946672e-07 | T_max 1000.7 K (bound 880.2) | fallbacks post 111 pre 104 (fraction 1.0e-04) | valid False -> PASS
+1280 vs 320 facets (formerly divergent case): rel diff -2.889e-03
+stiffness N   100 (S ~  9.70): drift 6.67810141e-07 error vs N=4000 -3.84e-02 fallback fraction 7.11e-05 valid False (expected False) wall 5 s -> PASS
+stiffness N   300 (S ~  3.23): drift 6.67133819e-07 error vs N=4000 -3.94e-02 fallback fraction 8.73e-06 valid False (expected False) wall 8 s -> PASS
+stiffness N  1000 (S ~  0.97): drift 6.94473683e-07 error vs N=4000 +1.07e-05 fallback fraction 0.00e+00 valid True (expected True) wall 34 s -> PASS
+stiffness N  4000 (S ~  0.24): drift 6.94466236e-07 error vs N=4000 +0.00e+00 fallback fraction 0.00e+00 valid True (expected True) wall 125 s -> PASS
+ALL ACCEPTANCE CRITERIA PASSED

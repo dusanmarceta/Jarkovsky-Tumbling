@@ -75,3 +75,5 @@ temperature_data/
 research/campaign/manifests/*.jsonl
 research/runs/probe/
 research/runs/smoke/
+research/runs/postfix/*/
+research/runs/verification/raw/

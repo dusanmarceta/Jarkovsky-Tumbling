@@ -57,6 +57,7 @@ def parse_result(path):
             'drift_extrapolated_m_s': num('drift extrapolated (m/s)'), 'estimated_error_m_s': num('estimated error (m/s)'),
             'converged': out.get('converged') == 'True', 'valid': out.get('valid') == 'True',
             'orbits': int(num('orbits') or 0), 'fallback_steps': int(num('backward Euler fallback steps') or 0),
+            'fallback_fraction': num('backward Euler fallback fraction'), 'T_surface_bound_K': num('T surface bound (K)'),
             'T_surface_min_K': float(tmin), 'T_surface_max_K': float(tmax), 'drift_history_m_s': history}
 
 

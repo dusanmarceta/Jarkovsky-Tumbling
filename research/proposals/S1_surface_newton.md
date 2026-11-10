@@ -1,4 +1,4 @@
-# Proposed solver correction S-1 (not applied)
+# Solver correction S-1 (APPLIED in commit fc9b41d after approval; validation in research/CHANGELOG.md)
 
 File: `src/model/solvers/tempestovsky_implicit.py`, function `surface_temperature`, nonlinear branch.
 
