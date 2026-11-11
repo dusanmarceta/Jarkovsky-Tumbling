@@ -1,5 +1,8 @@
 # Research working copy: change record
 
+Commit hashes below refer to the original local history; `research/provenance/COMMIT_MAP.md` gives their
+equivalents on the GitHub-based branch `research/superfast-method-github`.
+
 Branch `research/paper1`; baseline commit `f113ce6` contains the repository exactly as received
 (`research/provenance/baseline_sha256.txt` holds checksums of every file). **One reviewed solver change**: fix S-1
 (commit `fc9b41d`, approved by the user), 27 lines in `src/model/solvers/tempestovsky_implicit.py` and
