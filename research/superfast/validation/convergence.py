@@ -27,8 +27,13 @@ VARIANTS = {
     'dz_half': {'_dz_factor': 0.5},
     'tol_tight': {'tol_rel': 5e-5, 'tol_energy': 5e-5},
     'seasonal_steps_x2': {'seasonal_steps': 8000},
-    'seasonal_dz_half': {'seasonal_dz_over_ls': 0.025},
+    'seasonal_dz_half': {'seasonal_dz_over_lq': 0.025},
+    'n_loc_96': {'n_loc': 96},
+    'kappa_linear': {'kappa_interp': 'linear'},
     'coupling_4': {'coupling_iterations': 4},
+    'seasonal_dz_quarter': {'seasonal_dz_over_lq': 0.0125},
+    'window_phi_1deg': {'window_phi_tol_deg': 1.0},
+    'tol_energy_tight': {'tol_energy': 5e-5},
 }
 
 

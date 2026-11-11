@@ -68,11 +68,12 @@ def fast_window(T, normals, sB, uB, flux, sink, const1, rad_coeff, a, theta, q_p
 
 
 @njit(parallel=True, cache=True)
-def seasonal_orbit(T, qnet, const1, rad_coeff, a, theta, Ts_out, Tz_sum):
+def seasonal_orbit(T, qnet, kap, const1, rad_coeff, a, theta, Ts_out, Tz_sum):
     """
-    One orbit of the seasonal columns (in place). qnet (nf, ns + 1): absorbed tumbling-averaged flux minus the
-    extra emission of the fast fluctuation, at the step boundaries (index 0 = start of the orbit); Ts_out (nf, ns):
-    surface temperature after each step; Tz_sum (nf, nl): sum of the column temperatures over the steps (for the
+    One orbit of the seasonal columns (in place). qnet (nf, ns + 1): absorbed tumbling-averaged flux at the step
+    boundaries (index 0 = start of the orbit); kap (nf, ns + 1): emission enhancement of the fast fluctuation,
+    <T^4> / <T>^4 >= 1 (the mean emission is eps sigma kap T^4; 1 in the first pass); Ts_out (nf, ns): surface
+    temperature after each step; Tz_sum (nf, nl): sum of the column temperatures over the steps (for the
     deep-temperature correction). Returns the number of backward-Euler fallback steps.
     """
     nf, nl = T.shape
@@ -88,7 +89,7 @@ def seasonal_orbit(T, qnet, const1, rad_coeff, a, theta, Ts_out, Tz_sum):
         for k in range(ns):
             fb[i] += implicit_column_step(col, col, p, cq, cinv, bq, binv,
                                           (theta * qnet[i, k + 1] + (1.0 - theta) * qnet[i, k]) * const1,
-                                          qnet[i, k + 1] * const1, rad_coeff, a, theta, False, 0.0)
+                                          qnet[i, k + 1] * const1, rad_coeff * kap[i, k + 1], a, theta, False, 0.0)
             Ts_out[i, k] = col[0]
             for z in range(nl):
                 Tz_sum[i, z] += col[z]

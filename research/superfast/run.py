@@ -64,11 +64,12 @@ def run_line(line, root, numerics=None):
     except Exception as e:                       # recorded, not raised: the task list goes on
         status, err = 'failed', repr(e)
     res = {'run_id': line['run_id'], 'state_id': line.get('state_id'), 'kind': line.get('kind'),
-           'stratum': line.get('stratum'), 'status': status, 'error': err, 'method': 'twoscale-v1',
+           'stratum': line.get('stratum'), 'status': status, 'error': err, 'method': 'twoscale-v2',
            'wall_time_s': time.perf_counter() - t0, 'cpu_time_s': time.process_time() - c0,
            'git_commit': git_commit(), 'python': platform.python_version(), 'host': platform.node(),
            'numerics': asdict(num), 'inputs': {k: line[k] for k in ('inputs', 'derived', 'policy') if k in line}}
     if r is not None:
+        res['numerics'] = r['numerics']          # as resolved for this run (n_loc = 0 -> the eccentricity rule)
         last = r['iterations'][-1]
         scale = float(np.mean([p.get('scale', 0.0) for p in last['per_location']])) if last['per_location'] else 0.0
         res['result'] = {'dadt_m_s': r['dadt_m_s'], 'iterations_dadt_m_s': [it['dadt_m_s'] for it in r['iterations']],

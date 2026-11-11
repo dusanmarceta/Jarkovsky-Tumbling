@@ -1,0 +1,21 @@
+{
+ "run_id": "ce15d355e221ebef",
+ "state_id": "sobol4101_fast_00028",
+ "note": "fast non-executable, most expensive",
+ "n_loc": 64,
+ "window": {
+  "periods": 26,
+  "steps": 637168,
+  "phi_mismatch_deg": 1.3744736092166931,
+  "length_s": 173731.32112924394
+ },
+ "n_fast_layers": 226,
+ "cpu_s_one_location_one_pass": 1122.838225,
+ "windows": 4,
+ "converged": true,
+ "energy": 3.425029310097781e-08,
+ "energy_facet": 3.116099585031046e-07,
+ "extrapolated_core_h_3_passes": 59.88470533333333,
+ "extrapolated_core_h_6_passes": 119.76941066666666,
+ "full_cost_estimate_core_h": 3420.6899659081328
+}

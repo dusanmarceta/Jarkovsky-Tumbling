@@ -69,7 +69,7 @@ def run_new(manifest, root, out, indices=None, numerics=None):
                              'cpu_s': time.process_time() - c0,
                              'fast_steps': r['total_fast_steps'], 'window': r['window'], 'n_fast_layers': r['n_fast_layers'],
                              'periods': r['periods'], 'seasonal': r['iterations'][-1].get('seasonal'),
-                             'numerics': r['numerics']}
+                             'numerics': r['numerics'], 'per_location': r['per_location']}
         print(json.dumps({k: res[ln['run_id']][k] for k in ('state_id', 'kind', 'dadt_m_s', 'iterations', 'wall_s', 'fast_steps')}), flush=True)
         json.dump(res, open(out, 'w'), indent=1, default=float)
     return res

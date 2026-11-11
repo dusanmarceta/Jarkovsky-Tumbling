@@ -152,3 +152,26 @@ def test_local_energy_balance(lines, tmp_path):
     assert r['converged']
     imbalance = r['q_mean'] - m.eps * 5.670374419e-8 * (r['D4'] + r['T_mean'] ** 4) - seas['q_s'][k]
     assert np.abs(imbalance).max() < 1e-3 * r['q_mean'].max()
+    assert np.all(r['kappa'] >= 1.0)
+
+
+def test_seasonal_closure(lines, tmp_path):
+    """kappa = 1 is the first pass exactly; a large kappa (strong fast fluctuation, as at low thermal inertia)
+    keeps the seasonal temperatures positive, and the periodic solution conserves energy over the orbit."""
+    ln = lines['PA']
+    cfg = full_config(ln['config_overrides'])
+    mesh_dir = ensure_mesh(ln, tmp_path)
+    cfg['shape_model_directory'] = str(mesh_dir) + '/'
+    m = TwoScaleYarkovsky(cfg, mesh_dir / cfg['shape_model_file'], Numerics(n_loc=8))
+    m.torus_table()
+    s0 = m.seasonal()
+    nf = m.normals.shape[0]
+    s1 = m.seasonal(np.ones((m.num.n_loc, nf)))
+    assert np.array_equal(s0['Tbar'], s1['Tbar'])
+    s5 = m.seasonal(np.full((m.num.n_loc, nf), 5.0), T_start=s0['T_columns'])
+    assert s5['converged'] and s5['T_min_K'] > 0.0
+    assert np.all(s5['Tbar'] < s0['Tbar'])
+    # orbit mean of the ground flux (insulating bottom): time weights r^2 for nodes uniform in f
+    qbar = np.sum(m.w_loc[:, None] * s5['q_s'], axis=0)
+    flux_scale = m.flux_at(m.sim.a_au)
+    assert np.abs(qbar).max() < 2e-2 * flux_scale

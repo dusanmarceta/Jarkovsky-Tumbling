@@ -9,7 +9,7 @@ Acceptance criteria:
   each wave obeys its rule (stratum, eccentricity, route)
   V2 base variants are the production runs themselves (same run_id and solver configuration)
   a written wave manifest holds each run once with its hpc block; task binning skips excluded runs and bins
-  'full_long' runs only when allowed
+  'full_long' runs only when allowed; the deferred wave with hpc.route = 'twoscale' is binned by two-scale estimates
 """
 import json
 
@@ -84,3 +84,21 @@ def test_written_wave_manifest(waves, tmp_path):
     assert len(bins['400h']) == 88 and not skipped
     bins, skipped = task_bins(lines, allow_long=True, excluded={lines[0]['run_id']})
     assert skipped == {'excluded': 1} and len(bins['400h']) == 87
+
+
+def test_deferred_wave_twoscale_route(waves, tmp_path):
+    """The deferred wave written for the two-scale method keeps the frozen lines unchanged (only the hpc block) and
+    is binned only with two-scale cost estimates."""
+    out = tmp_path / 'deferred_twoscale.jsonl'
+    n = W.write_wave(waves, 'deferred', out, 'twoscale')
+    lines = [json.loads(l) for l in open(out)]
+    assert n == len(lines) == EXPECTED['deferred']
+    assert all(ln['hpc']['route'] == 'twoscale' for ln in lines)
+    frozen_lines = {rid: ln for rid, (ln, _, _) in waves['deferred'].items()}
+    assert all(json.dumps({k: v for k, v in ln.items() if k != 'hpc'}, sort_keys=True, default=float)
+               == json.dumps(frozen_lines[ln['run_id']], sort_keys=True, default=float) for ln in lines)
+    bins, skipped = task_bins(lines)
+    assert sum(len(v) for v in bins.values()) == 0 and skipped == {'twoscale': len(lines)}
+    costs = {ln['run_id']: {'twoscale_core_h_estimate': 0.5} for ln in lines}
+    bins, skipped = task_bins(lines, twoscale_costs=costs)
+    assert len(bins['1h']) == len(lines) and not skipped

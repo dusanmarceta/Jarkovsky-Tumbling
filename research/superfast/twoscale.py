@@ -11,15 +11,17 @@ heliocentric position.
      the torque-free motion is tabulated per facet in cos(zeta): one body period sampled uniformly, the
      precession angle averaged analytically (non-resonant motion).
   2. Seasonal problem. Each facet column (depth and seasonal resolution of the full solver's domain) is driven by
-     the tumbling-averaged absorbed flux along the Kepler orbit, minus the extra mean emission of the fast
-     fluctuation, eps sigma (<T^4> - <T>^4), from step 3 (zero in the first pass). Its periodic solution gives, at
+     the tumbling-averaged absorbed flux along the Kepler orbit and emits eps sigma kappa T^4, where
+     kappa = <T^4> / <T>^4 >= 1 is the emission enhancement of the fast fluctuation from step 3 (1 in the first
+     pass). The multiplicative closure has the same fixed point as eps sigma (T^4 + <T^4> - <T>^4) but keeps the
+     temperature positive when the fluctuation is large (low thermal inertia). Its periodic solution gives, at
      each orbital position, the mean surface temperature and the net heat flux into the ground, q_s.
   3. Fast problem (the IAC 2026 frozen-Sun method, extended). At N_loc positions (uniform in true anomaly), the
      Sun is frozen and the body keeps its exact torque-free attitude in absolute time; each facet column (a few
      skin depths of the slowest rotational period, the full solver's layer thickness and time step) starts from
      the seasonal mean temperature and carries the seasonal flux q_s as a constant surface sink. Windows of whole
      body periods with matching precession phase are averaged until the local drift converges. The window means
-     give the local recoil force and <T^4> - <T>^4.
+     give the local recoil force and kappa.
   4. Steps 2-3 are repeated (coupling iterations). The local da/dt (the full solver's own Gauss formula, radial
      and transverse terms) is averaged over time along the orbit (weights r^2 for nodes uniform in f).
 
@@ -30,10 +32,11 @@ import io
 import math
 import time
 import types
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 
 import astropy.constants as const
 import numpy as np
+from scipy.interpolate import CubicSpline
 
 from src.model.simulation import Simulation
 from src.model.solvers.tempestovsky import geometry_for_yarko
@@ -53,23 +56,31 @@ GM = const.GM_sun.value
 @dataclass
 class Numerics:
     mode: str = 'twoscale'            # 'twoscale' (diurnal + seasonal) or 'diurnal' (frozen Sun only)
-    n_loc: int = 24                   # orbital positions, uniform in true anomaly
+    n_loc: int = 0                    # orbital positions, uniform in true anomaly; 0 = auto:
+                                      # 8 ceil(3 sqrt((1 + e) / (1 - e))) (24 for e = 0, 64 for e = 0.71, 72 for e = 0.8)
     fast_depths: float = 8.0          # fast column depth, in skin depths of the slowest rotational period
     window_phi_tol_deg: float = 5.0   # precession-phase mismatch accepted for an averaging window
     window_max_periods: int = 100
+    window_mismatch_per_period_deg: float = 0.2   # near-resonant windows are extended (see _window)
+    window_max_steps: int = 60000     # ... up to this many steps
     warm_windows: int = 2
     max_windows: int = 80
     tol_rel: float = 2e-4             # window-to-window change of the local da/dt
     tol_abs_frac: float = 1e-4        # ... or this fraction of the drift scale of the total emitted force
-    tol_energy: float = 2e-4          # and |<absorbed> - eps sigma <T^4> - sink| / <absorbed> (area weighted)
+    tol_energy: float = 2e-4          # and |sum_i A_i (<absorbed> - eps sigma <T^4> - sink)_i| / sum_i A_i <absorbed>_i
+    tol_energy_facet: float = 5e-3    # per facet (|.|): tol_energy, or this once it has stopped decreasing (tumblers)
     deep_correction: bool = True      # after each window shift each column so that its time mean is uniform
     consecutive: int = 2
     seasonal_steps: int = 4000
-    seasonal_dz_over_ls: float = 0.05
+    seasonal_dz_over_lq: float = 0.05 # seasonal layer thickness / sqrt(kappa / fdot_q), fdot_q = df/dt at perihelion
+                                      # (= 0.05 l_s for a circular orbit; finer for the short perihelion pulse)
+    kappa_interp: str = 'spline'      # kappa(f) between the frozen positions: periodic cubic spline or 'linear'
     seasonal_tol_K: float = 1e-3
     seasonal_min_orbits: int = 3
     seasonal_max_orbits: int = 80
-    coupling_iterations: int = 2
+    coupling_iterations: int = 3      # at least this many passes of steps 4-5 ...
+    coupling_max_iterations: int = 6  # ... and more (up to this) until the drift changes by less than
+    coupling_tol_rel: float = 1e-3    # coupling_tol_rel |da/dt| between the last two passes
     n_tau: int = 256
     n_cz: int = 721
     theta: float = 0.5                # Crank-Nicolson in the fast columns
@@ -89,7 +100,7 @@ def simulation_from_config(cfg):
 class TwoScaleYarkovsky:
     def __init__(self, config, mesh_path, numerics=None):
         t0 = time.perf_counter()
-        self.num = numerics or Numerics()
+        self.num = replace(numerics) if numerics else Numerics()      # own copy (n_loc = 0 is resolved per run)
         self.sim = sim = simulation_from_config(config)
         with contextlib.redirect_stdout(io.StringIO()):
             facets = read_shape_model(str(mesh_path), 1, 2, 1, False)
@@ -120,6 +131,8 @@ class TwoScaleYarkovsky:
         self.window = self._window()
         # orbit and positions (uniform in f; the time average of g(f) is sum r_k^2 g_k / sum r_k^2)
         self.P_orb = orbit.orbital_period(sim.a_au)
+        if not self.num.n_loc:
+            self.num.n_loc = 8 * math.ceil(3 * math.sqrt((1 + sim.ecc) / (1 - sim.ecc)) - 1e-9)
         f = 2 * math.pi * np.arange(self.num.n_loc) / self.num.n_loc
         self.t_loc = orbit.time_of_true_anomaly(f, sim.a_au, sim.ecc)
         self.s_loc, self.r_loc, f_chk = orbit.state_at(self.t_loc, sim.a_au, sim.ecc)
@@ -133,16 +146,35 @@ class TwoScaleYarkovsky:
         T = self.att.period_s
         if self.pa:
             return {'periods': 1, 'steps': int(round(T / self.dt)), 'phi_mismatch_deg': 0.0, 'length_s': T}
+        def mismatch(m):
+            x = (m * self.att.dphi / (2 * math.pi)) % 1.0
+            return min(x, 1 - x) * 360.0
+
         best = None
         for m in range(1, self.num.window_max_periods + 1):
-            x = (m * self.att.dphi / (2 * math.pi)) % 1.0
-            mis = min(x, 1 - x) * 360.0
+            mis = mismatch(m)
             if best is None or mis < best[1]:
                 best = (m, mis)
             if mis <= self.num.window_phi_tol_deg:
                 best = (m, mis)
                 break
         m, mis = best
+        # Near-resonant motion: a window of few periods that closes the precession phase only to within a few
+        # degrees drifts through the slow beat by that much every window, and the column heat storage then changes
+        # by ~(mismatch / m) per window, so neither the energy test nor the beat average is reached. Then take the
+        # shortest window (up to window_max_steps) whose mismatch per period is at most window_mismatch_per_period_deg,
+        # or the one with the smallest mismatch per period.
+        spp = T / self.dt
+        lim = self.num.window_mismatch_per_period_deg
+        if mis / m > lim:
+            m_cap = max(self.num.window_max_periods, int(self.num.window_max_steps // spp))
+            cands = [(mismatch(k) / k, k) for k in range(m, m_cap + 1) if mismatch(k) <= self.num.window_phi_tol_deg]
+            ok = [k for r, k in cands if r <= lim]
+            if ok:
+                m = ok[0]
+            elif cands:
+                m = min(cands)[1]
+            mis = mismatch(m)
         return {'periods': m, 'steps': int(round(m * T / self.dt)), 'phi_mismatch_deg': mis, 'length_s': m * T}
 
     def flux_at(self, r_au):
@@ -176,24 +208,29 @@ class TwoScaleYarkovsky:
         return self.g[:, j] * (1 - w) + self.g[:, j + 1] * w
 
     # -- seasonal problem ------------------------------------------------------------------------------------
-    def seasonal(self, D4_loc=None, T_start=None):
+    def seasonal(self, kappa_loc=None, T_start=None):
+        """kappa_loc (n_loc, nf): <T^4> / <T>^4 of the fast columns at the frozen positions (None: 1)."""
         num, sim = self.num, self.sim
         ns = int(num.seasonal_steps)
         dts = self.P_orb / ns
         l_s = math.sqrt(self.kappa * self.P_orb / (2 * math.pi))
+        l_q = l_s / math.sqrt((1 + sim.ecc) ** 2 / (1 - sim.ecc ** 2) ** 1.5)      # sqrt(kappa / fdot_q)
         depth = sim.n_skin_depths * sim.skin_depth                # the full solver's domain depth
-        nl = max(10, int(math.ceil(depth / (num.seasonal_dz_over_ls * l_s))))
+        nl = max(10, int(math.ceil(depth / (num.seasonal_dz_over_lq * l_q))))
         dzs = depth / nl
         tj = np.arange(ns + 1) * dts
         s, r, f = orbit.state_at(tj, sim.a_au, sim.ecc)
-        qabs = self.flux_at(r)[None, :] * self.g_at(np.einsum('ni,i->n', s, self.att.L_hat))
-        qnet = qabs.copy()
-        if D4_loc is not None:
+        qnet = np.ascontiguousarray(self.flux_at(r)[None, :] * self.g_at(np.einsum('ni,i->n', s, self.att.L_hat)))
+        kap = np.ones_like(qnet)
+        if kappa_loc is not None:
             fl = np.concatenate([self.f_loc, [self.f_loc[0] + 2 * math.pi]])
-            D4 = np.concatenate([D4_loc, D4_loc[:1]], axis=0)               # (n_loc + 1, nf), periodic in f
+            K = np.concatenate([kappa_loc, kappa_loc[:1]], axis=0)          # (n_loc + 1, nf), periodic in f
             fm = np.mod(f, 2 * math.pi)
-            for i in range(qnet.shape[0]):
-                qnet[i] -= self.eps * SIGMA * np.interp(fm, fl, D4[:, i])
+            if num.kappa_interp == 'linear':
+                for i in range(qnet.shape[0]):
+                    kap[i] = np.interp(fm, fl, K[:, i])
+            else:
+                kap = np.ascontiguousarray(np.maximum(CubicSpline(fl, K, bc_type='periodic', axis=0)(fm).T, 1.0))
         hc = self.rho * self.cp * dzs
         c1, rad, a = dts / hc, self.eps * SIGMA * dts / hc, self.kappa * dts / dzs ** 2
         T_q = (self.flux_at(sim.a_au * (1 - sim.ecc)) / (self.eps * SIGMA)) ** 0.25
@@ -208,7 +245,7 @@ class TwoScaleYarkovsky:
         prev = None
         fb = 0
         for n_orb in range(1, num.seasonal_max_orbits + 1):
-            fb += seasonal_orbit(T, qnet, c1, rad, a, theta, Ts, Tz)
+            fb += seasonal_orbit(T, qnet, kap, c1, rad, a, theta, Ts, Tz)
             T += (Ts.mean(axis=1)[:, None] - Tz / ns)               # deep-temperature correction (as the solver)
             change = np.inf if prev is None else float(np.abs(Ts - prev).max())
             prev = Ts.copy()
@@ -221,8 +258,10 @@ class TwoScaleYarkovsky:
         w = x - j
         Tbar = (Tsb[:, j] * (1 - w) + Tsb[:, j + 1] * w).T                       # (n_loc, nf)
         qn = (qnet[:, j] * (1 - w) + qnet[:, j + 1] * w).T
-        qs = qn - self.eps * SIGMA * Tbar ** 4                                    # net heat flux into the ground
+        kn = (kap[:, j] * (1 - w) + kap[:, j + 1] * w).T
+        qs = qn - self.eps * SIGMA * kn * Tbar ** 4                               # net heat flux into the ground
         return {'Tbar': Tbar, 'q_s': qs, 'theta': theta, 'orbits': n_orb, 'last_change_K': change, 'fallbacks': int(fb),
+                'converged': bool(change < num.seasonal_tol_K), 'T_min_K': float(Ts.min()),
                 'layers': nl, 'dz_m': dzs, 'steps_per_orbit': ns, 'T_columns': T}
 
     # -- fast problem at one frozen position ------------------------------------------------------------------
@@ -265,18 +304,28 @@ class TwoScaleYarkovsky:
             dadt = self.solver_dadt(Fs, -Fu, f, r_au)            # R = -F.r_rad = F.s_B; B = F.r_trans = -F.u_B
             scale = 2.0 / self.sim.mean_motion * self.coef * np.dot(self.areas, m[:, 1]) / self.mass
             # heat still going into (or out of) the columns: zero in the attractor
+            # Heat still going into (or out of) the columns, relative to the absorbed flux: net (area-weighted, signed)
+            # and per facet (area-weighted |.|). Both vanish in the periodic attractor of a window that closes
+            # exactly (principal axis). For a tumbler the window closes the precession phase only to within
+            # window_phi_tol_deg, and each column's heat content then changes a little from window to window: the
+            # per-facet value has a floor (~1e-4 - 1e-3) that the deep correction cannot remove.
             imb = m[:, 4] - self.eps * SIGMA * m[:, 1] - sink
             aq = float(np.dot(self.areas[lit], m[lit, 4]) / self.areas[lit].sum()) if lit.any() else 0.0
-            energy = float(np.dot(self.areas[lit], np.abs(imb[lit])) / self.areas[lit].sum()) / max(aq, 1e-30)
-            hist.append({'dadt': dadt, 'scale': scale, 'm': m, 'energy': energy})
-            if num.deep_correction and energy > num.tol_energy:
+            energy = abs(float(np.dot(self.areas[lit], imb[lit]) / self.areas[lit].sum())) / max(aq, 1e-30)
+            energy_facet = float(np.dot(self.areas[lit], np.abs(imb[lit])) / self.areas[lit].sum()) / max(aq, 1e-30)
+            hist.append({'dadt': dadt, 'scale': scale, 'm': m, 'energy': energy, 'energy_facet': energy_facet})
+            if num.deep_correction and energy_facet > num.tol_energy:
                 # in the periodic attractor (insulating bottom, sink at the surface) the time-mean temperature is
                 # the same at every depth: remove the slow relaxation of the deep layers (as the solver does per
                 # orbit). Only while heat is still going into the columns, so the attractor itself is not perturbed.
                 T[lit] += (m[lit, 0][:, None] - Tz[lit] / nW)
             if w >= num.warm_windows and len(hist) >= 2:
                 d = abs(hist[-1]['dadt'] - hist[-2]['dadt'])
-                ok = d <= num.tol_rel * abs(dadt) + num.tol_abs_frac * scale and energy <= num.tol_energy
+                # per-facet floor: accepted once it no longer decreases (less than 20 % over 3 windows, with the deep
+                # correction applied every window), up to tol_energy_facet
+                plateau = len(hist) >= 4 and energy_facet >= 0.8 * hist[-4]['energy_facet']
+                ok = (d <= num.tol_rel * abs(dadt) + num.tol_abs_frac * scale and energy <= num.tol_energy
+                      and (energy_facet <= num.tol_energy or (plateau and energy_facet <= num.tol_energy_facet)))
                 conv_count = conv_count + 1 if ok else 0
                 if conv_count >= num.consecutive:
                     break
@@ -284,11 +333,15 @@ class TwoScaleYarkovsky:
         dadt = float(np.mean([h['dadt'] for h in last]))
         m = np.mean([h['m'] for h in last], axis=0)
         D4 = m[:, 1] - m[:, 0] ** 4
+        kap = np.ones(nf)
+        pos = m[:, 0] > 0.0
+        kap[pos] = np.maximum(m[pos, 1] / m[pos, 0] ** 4, 1.0)
         return {'k': k, 'f_deg': math.degrees(f), 'r_au': r_au, 't_s': t0, 'dadt': dadt, 'windows': len(hist),
+                'kappa_max': float(kap.max()), 'kappa': kap,
                 'scale': float(hist[-1]['scale']),
                 'converged': conv_count >= num.consecutive, 'steps': steps, 'fallbacks': fb,
                 'last_change': abs(hist[-1]['dadt'] - hist[-2]['dadt']) if len(hist) > 1 else None,
-                'energy_imbalance': hist[-1]['energy'],
+                'energy_imbalance': hist[-1]['energy'], 'energy_imbalance_facet': hist[-1]['energy_facet'],
                 'D4': D4, 'T_mean': m[:, 0], 'q_mean': m[:, 4], 'T_final': T}
 
     # -- full run --------------------------------------------------------------------------------------------
@@ -314,7 +367,7 @@ class TwoScaleYarkovsky:
         else:
             seas = self.seasonal()
             prev = None
-            for it in range(num.coupling_iterations):
+            for it in range(max(num.coupling_iterations, num.coupling_max_iterations)):
                 res = []
                 for k in ks:
                     if prev is None:
@@ -328,12 +381,16 @@ class TwoScaleYarkovsky:
                 summ = self._orbit_summary(res, ks)
                 summ['seasonal'] = {k: v for k, v in seas.items() if k not in ('Tbar', 'q_s', 'T_columns')}
                 out['iterations'].append(summ)
-                if it + 1 < num.coupling_iterations:
-                    D4 = np.zeros((num.n_loc, nf))
+                if it + 1 >= num.coupling_iterations:
+                    d = [x['dadt_m_s'] for x in out['iterations'][-2:]]
+                    if None in d or len(d) < 2 or abs(d[1] - d[0]) <= num.coupling_tol_rel * abs(d[1]):
+                        break
+                if it + 1 < max(num.coupling_iterations, num.coupling_max_iterations):
+                    K = np.ones((num.n_loc, nf))
                     for r in res:
-                        D4[r['k']] = r['D4']
+                        K[r['k']] = r['kappa']
                     prev, prev_Tbar = res, seas['Tbar']
-                    seas = self.seasonal(D4, T_start=seas['T_columns'])
+                    seas = self.seasonal(K, T_start=seas['T_columns'])
         last = out['iterations'][-1]
         out.update(dadt_m_s=last['dadt_m_s'], per_location=last['per_location'],
                    coupling_change=(abs(out['iterations'][-1]['dadt_m_s'] - out['iterations'][-2]['dadt_m_s'])
@@ -352,6 +409,6 @@ class TwoScaleYarkovsky:
         else:
             dadt = None
         per = [{k: (float(v) if isinstance(v, (np.floating, float)) else v) for k, v in r.items()
-                if k not in ('D4', 'T_mean', 'q_mean', 'T_final')} for r in res]
+                if k not in ('D4', 'kappa', 'T_mean', 'q_mean', 'T_final')} for r in res]
         return {'dadt_m_s': dadt, 'per_location': per,
                 'all_converged': bool(all(r['converged'] for r in res)), 'fallbacks': int(sum(r['fallbacks'] for r in res))}

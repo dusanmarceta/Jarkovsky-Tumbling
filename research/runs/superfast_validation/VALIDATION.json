@@ -1,0 +1,4552 @@
+{
+ "iac_compare": [
+  {
+   "mode": "pa",
+   "layers": 100,
+   "dadt_m_s": 0.0002908449762315166,
+   "windows": 21,
+   "window": {
+    "periods": 1,
+    "steps": 388,
+    "phi_mismatch_deg": 0.0,
+    "length_s": 60.0
+   },
+   "steps": 8148,
+   "wall_s": 0.6547484579496086
+  },
+  {
+   "mode": "pa",
+   "layers": 200,
+   "dadt_m_s": 0.0002905204258392271,
+   "windows": 21,
+   "window": {
+    "periods": 1,
+    "steps": 1552,
+    "phi_mismatch_deg": 0.0,
+    "length_s": 60.0
+   },
+   "steps": 32592,
+   "wall_s": 2.123242791974917
+  },
+  {
+   "mode": "npa",
+   "layers": 100,
+   "dadt_m_s": 0.00024117234727110676,
+   "windows": 5,
+   "window": {
+    "periods": 41,
+    "steps": 83681,
+    "phi_mismatch_deg": 5.444147098546637,
+    "length_s": 12940.3440334368
+   },
+   "steps": 418405,
+   "wall_s": 17.19368604081683
+  },
+  {
+   "mode": "npa",
+   "layers": 200,
+   "dadt_m_s": 0.00024083459024151955,
+   "windows": 5,
+   "window": {
+    "periods": 41,
+    "steps": 334724,
+    "phi_mismatch_deg": 5.444147098546637,
+    "length_s": 12940.3440334368
+   },
+   "steps": 1673620,
+   "wall_s": 104.74540725001134
+  }
+ ],
+ "overlap": [
+  {
+   "state_id": "sobol2102_ordinary_00327",
+   "tumbler": {
+    "run_id": "9386cdb0cc855235",
+    "kind": "tumbler",
+    "note": "SAM, P_phi 23 h, e 0.14, Gamma 397, D 22 m (small body)",
+    "stratum": "ordinary",
+    "mode": "SAM",
+    "P_phi_h": 23.267477967132436,
+    "ecc": 0.14397342577576638,
+    "Gamma": 396.90586543828096,
+    "D_m": 21.733132492619887,
+    "full_cost_estimate_core_h": 0.09247896390485487,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 1.2903848069449204,
+     "sun_motion_per_slowest_q_deg": 9.4257572580293,
+     "P_slow_over_P_orb": 0.01938816258065163,
+     "fast_layer_over_l_q": 1.2944967467810253,
+     "l_s_over_D": 0.01797998611031518,
+     "l_d_fastest_um": 20131.938824718174,
+     "centrifugal_over_gravity": 0.0070734844171916255,
+     "Gamma": 396.90586543828096,
+     "D_m": 21.733132492619887,
+     "ecc": 0.14397342577576638,
+     "P_phi_s": 83762.92068167677,
+     "P_dominant_s": 83762.92068167677,
+     "P_slowest_s": 611855.4351537309,
+     "mode": "SAM",
+     "damping_time_yr": 5428208423411.057
+    },
+    "full_dadt": 6.679823929088736e-06,
+    "full_accepted": true,
+    "full_wall_s": 244.57,
+    "full_orbits": 4,
+    "full_history": [
+     5.710638392415781e-06,
+     6.745928882496499e-06,
+     6.702977462757176e-06,
+     6.679823929088736e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 9.13824024030806e-05,
+    "new_coupling_change_rel": 0.000952785149563996,
+    "speedup_vs_cost_model": 0.6374359824084812,
+    "new_dadt": 6.7002039595969815e-06,
+    "new_iterations": [
+     6.4647771968430335e-06,
+     6.706587814428735e-06,
+     6.7002039595969815e-06
+    ],
+    "new_cpu_s": 522.286597,
+    "new_wall_s": 311.72675904189236,
+    "new_converged": true,
+    "new_fast_steps": 2333568,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_dt_s": 130927.28831422226,
+     "T_body_s": 221029.81262688074,
+     "P_phi_s": 83762.92068163333,
+     "P_psi_s": 221029.81262620597
+    },
+    "new_window": {
+     "periods": 36,
+     "steps": 6077,
+     "phi_mismatch_deg": 1.7372324926236615,
+     "length_s": 7957073.254567707
+    },
+    "rel_diff": 0.0030509831882687966,
+    "speedup_core_time": 0.4682678081436579,
+    "full_last_orbit_change_rel": 0.0034661892160979223,
+    "full_mean_after_first": 6.709576758114137e-06,
+    "full_orbit_spread_rel": 0.00985232836450078,
+    "rel_diff_to_mean": -0.001396928428580857
+   },
+   "twin": {
+    "run_id": "14c355412872f329",
+    "kind": "pa_P_par",
+    "note": "SAM, P_phi 23 h, e 0.14, Gamma 397, D 22 m (small body)",
+    "stratum": "ordinary",
+    "mode": "SAM",
+    "P_phi_h": 23.267477967132436,
+    "ecc": 0.14397342577576638,
+    "Gamma": 396.90586543828096,
+    "D_m": 21.733132492619887,
+    "full_cost_estimate_core_h": 0.09247896390485487,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 2.050431112120928,
+     "sun_motion_per_slowest_q_deg": 2.050431112120928,
+     "P_slow_over_P_orb": 0.004217601904437174,
+     "fast_layer_over_l_q": 0.6037615184754613,
+     "l_s_over_D": 0.01797998611031518,
+     "l_d_fastest_um": 25377.48460648025,
+     "centrifugal_over_gravity": 0.0028014412372801122,
+     "Gamma": 396.90586543828096,
+     "D_m": 21.733132492619887,
+     "ecc": 0.14397342577576638,
+     "P_phi_s": 83762.92068167677,
+     "P_dominant_s": 133099.9076271352,
+     "P_slowest_s": 133099.9076271352,
+     "mode": "PA"
+    },
+    "full_dadt": 4.854527423783115e-06,
+    "full_accepted": true,
+    "full_wall_s": 231.59,
+    "full_orbits": 4,
+    "full_history": [
+     3.950743778603116e-06,
+     4.923180292032773e-06,
+     4.837470285402712e-06,
+     4.854527423783115e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 3.952693814064803e-05,
+    "new_coupling_change_rel": 0.0003130464703969465,
+    "speedup_vs_cost_model": 10.478058598432478,
+    "new_dadt": 4.897016628582374e-06,
+    "new_iterations": [
+     4.654230269306872e-06,
+     4.893440923892325e-06,
+     4.898549622353427e-06,
+     4.897016628582374e-06
+    ],
+    "new_cpu_s": 31.773468999999977,
+    "new_wall_s": 18.66840466693975,
+    "new_converged": true,
+    "new_fast_steps": 59262,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_rot_s": 133099.9076271352
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 102,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 133099.9076271352
+    },
+    "rel_diff": 0.008752490425967485,
+    "speedup_core_time": 7.288785495848759,
+    "full_last_orbit_change_rel": 0.0035136557879634593,
+    "full_mean_after_first": 4.8717260004062e-06,
+    "full_orbit_spread_rel": 0.017593355337084796,
+    "rel_diff_to_mean": 0.005191307592845806
+   },
+   "delta_full": 1.825296505305621e-06,
+   "delta_new": 1.8031873310146078e-06,
+   "delta_diff_over_twin": -0.00455434120789941,
+   "delta_diff_over_delta": -0.012112648124153025,
+   "delta_full_mean": 1.8378507577079364e-06,
+   "delta_diff_over_twin_mean": -0.0071152250127446415
+  },
+  {
+   "state_id": "sobol2102_ordinary_00353",
+   "tumbler": {
+    "run_id": "6b895a17f536d9db",
+    "kind": "tumbler",
+    "note": "LAM, e 0.38, Gamma 1970, D 179 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 21.62479085514454,
+    "ecc": 0.37830900847911836,
+    "Gamma": 1970.2535254391757,
+    "D_m": 178.62782759594788,
+    "full_cost_estimate_core_h": 0.17367181087045352,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 2.126944627957575,
+     "sun_motion_per_slowest_q_deg": 20.217976783870146,
+     "P_slow_over_P_orb": 0.023448969241224957,
+     "fast_layer_over_l_q": 1.8958836642365673,
+     "l_s_over_D": 0.02769569040243885,
+     "l_d_fastest_um": 245717.7540666325,
+     "centrifugal_over_gravity": 0.020885420734145156,
+     "Gamma": 1970.2535254391757,
+     "D_m": 178.62782759594788,
+     "ecc": 0.37830900847911836,
+     "P_phi_s": 77849.24707852035,
+     "P_dominant_s": 77849.24707852035,
+     "P_slowest_s": 740007.1677402828,
+     "mode": "LAM",
+     "damping_time_yr": 64507580109.08254
+    },
+    "full_dadt": 2.742079257925328e-05,
+    "full_accepted": true,
+    "full_wall_s": 464.82,
+    "full_orbits": 4,
+    "full_history": [
+     2.7043797452405032e-05,
+     2.7468336404762284e-05,
+     2.7411380389657977e-05,
+     2.742079257925328e-05
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 4.96069152608648e-05,
+    "new_coupling_change_rel": 2.9696062137758943e-05,
+    "speedup_vs_cost_model": 0.8100803778233997,
+    "new_dadt": 2.739437135692981e-05,
+    "new_iterations": [
+     2.7399643902833074e-05,
+     2.739355785197577e-05,
+     2.739437135692981e-05
+    ],
+    "new_cpu_s": 771.798128,
+    "new_wall_s": 449.93995800009,
+    "new_converged": true,
+    "new_fast_steps": 2635200,
+    "new_n_loc": 40,
+    "new_periods": {
+     "P_dt_s": 80823.82745695909,
+     "T_body_s": 261005.71650813555,
+     "P_phi_s": 77849.2470785197
+    },
+    "new_window": {
+     "periods": 17,
+     "steps": 5490,
+     "phi_mismatch_deg": 1.4330905644104064,
+     "length_s": 4437097.180638304
+    },
+    "rel_diff": -0.0009635469962111509,
+    "speedup_core_time": 0.6022559308410242,
+    "full_last_orbit_change_rel": 0.00034325009272072364,
+    "full_mean_after_first": 2.7433503124557847e-05,
+    "full_orbit_spread_rel": 0.0020761480896445187,
+    "rel_diff_to_mean": -0.001426422555310003
+   },
+   "twin": {
+    "run_id": "4eb6a6a4d2391ef1",
+    "kind": "pa_P_par",
+    "note": "LAM, e 0.38, Gamma 1970, D 179 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 21.62479085514454,
+    "ecc": 0.37830900847911836,
+    "Gamma": 1970.2535254391757,
+    "D_m": 178.62782759594788,
+    "full_cost_estimate_core_h": 0.17367181087045352,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 2.2930900871894067,
+     "sun_motion_per_slowest_q_deg": 2.2930900871894067,
+     "P_slow_over_P_orb": 0.0026595440036690675,
+     "fast_layer_over_l_q": 0.638488965681296,
+     "l_s_over_D": 0.02769569040243885,
+     "l_d_fastest_um": 255134.39105494102,
+     "centrifugal_over_gravity": 0.01796856364503233,
+     "Gamma": 1970.2535254391757,
+     "D_m": 178.62782759594788,
+     "ecc": 0.37830900847911836,
+     "P_phi_s": 77849.24707852035,
+     "P_dominant_s": 83930.41098692609,
+     "P_slowest_s": 83930.41098692609,
+     "mode": "PA"
+    },
+    "full_dadt": 4.321416439820957e-06,
+    "full_accepted": true,
+    "full_wall_s": 463.33,
+    "full_orbits": 4,
+    "full_history": [
+     4.412430072393326e-06,
+     4.2935021163530765e-06,
+     4.328756957452234e-06,
+     4.321416439820957e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 0.00012549560036148358,
+    "new_coupling_change_rel": 0.00043119101508172475,
+    "speedup_vs_cost_model": 15.63495255496697,
+    "new_dadt": 4.311327047598134e-06,
+    "new_iterations": [
+     4.252537842065698e-06,
+     4.309468042112131e-06,
+     4.311327047598134e-06
+    ],
+    "new_cpu_s": 39.98851400000001,
+    "new_wall_s": 23.6145037910901,
+    "new_converged": true,
+    "new_fast_steps": 101712,
+    "new_n_loc": 40,
+    "new_periods": {
+     "P_rot_s": 83930.41098692609
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 104,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 83930.41098692609
+    },
+    "rel_diff": -0.0023347419447593554,
+    "speedup_core_time": 11.58657708561013,
+    "full_last_orbit_change_rel": 0.0016986369477460241,
+    "full_mean_after_first": 4.314558504542089e-06,
+    "full_orbit_spread_rel": 0.008171135253362157,
+    "rel_diff_to_mean": -0.0007489658421719891
+   },
+   "delta_full": 2.3099376139432325e-05,
+   "delta_new": 2.3083044309331678e-05,
+   "delta_diff_over_twin": -0.003779277079189213,
+   "delta_diff_over_delta": -0.000707024726644767,
+   "delta_full_mean": 2.3118944620015758e-05,
+   "delta_diff_over_twin_mean": -0.008320737949499574
+  },
+  {
+   "state_id": "sobol2102_ordinary_00419",
+   "tumbler": {
+    "run_id": "aa4a98db396c2b44",
+    "kind": "tumbler",
+    "note": "SAM, e 0.71, Gamma 2228, D 36 m",
+    "stratum": "ordinary",
+    "mode": "SAM",
+    "P_phi_h": 19.20712640766831,
+    "ecc": 0.7100237533450127,
+    "Gamma": 2227.84387306686,
+    "D_m": 36.29039920250919,
+    "full_cost_estimate_core_h": 0.1396135568278675,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 6.605605937644318,
+     "sun_motion_per_slowest_q_deg": 43.89850417453765,
+     "P_slow_over_P_orb": 0.014560952531734837,
+     "fast_layer_over_l_q": 2.7936223644092255,
+     "l_s_over_D": 0.08136739075349579,
+     "l_d_fastest_um": 138220.54441159853,
+     "centrifugal_over_gravity": 0.013974634397528508,
+     "Gamma": 2227.84387306686,
+     "D_m": 36.29039920250919,
+     "ecc": 0.7100237533450127,
+     "P_phi_s": 69145.65506760591,
+     "P_dominant_s": 69145.65506760591,
+     "P_slowest_s": 459517.3942087916,
+     "mode": "SAM",
+     "damping_time_yr": 1095107941911.456
+    },
+    "full_dadt": 7.68352733113519e-06,
+    "full_accepted": true,
+    "full_wall_s": 357.19,
+    "full_orbits": 4,
+    "full_history": [
+     7.927933117691556e-06,
+     7.614593848525104e-06,
+     7.690419859569393e-06,
+     7.68352733113519e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 5.2095427427522536e-05,
+    "new_coupling_change_rel": 0.0009905831345332554,
+    "speedup_vs_cost_model": 0.2220461182611289,
+    "new_dadt": 7.780087486464259e-06,
+    "new_iterations": [
+     6.940687322006188e-06,
+     7.850454675720084e-06,
+     7.772380663014974e-06,
+     7.780087486464259e-06
+    ],
+    "new_cpu_s": 2263.533398,
+    "new_wall_s": 1218.5738370830659,
+    "new_converged": true,
+    "new_fast_steps": 8476650,
+    "new_n_loc": 64,
+    "new_periods": {
+     "P_dt_s": 95405.00297879658,
+     "T_body_s": 244179.8013598884,
+     "P_phi_s": 69145.65507320144,
+     "P_psi_s": 244179.80134572324
+    },
+    "new_window": {
+     "periods": 32,
+     "steps": 8190,
+     "phi_mismatch_deg": 1.5339111035558517,
+     "length_s": 7813753.643516429
+    },
+    "rel_diff": 0.01256716494490595,
+    "speedup_core_time": 0.1578019570268342,
+    "full_last_orbit_change_rel": 0.0008970526344420772,
+    "full_mean_after_first": 7.662847013076563e-06,
+    "full_orbit_spread_rel": 0.009895279249982722,
+    "rel_diff_to_mean": 0.015299858288652546
+   },
+   "twin": {
+    "run_id": "98aa108d39b55cca",
+    "kind": "pa_P_par",
+    "note": "SAM, e 0.71, Gamma 2228, D 36 m",
+    "stratum": "ordinary",
+    "mode": "SAM",
+    "P_phi_h": 19.20712640766831,
+    "ecc": 0.7100237533450127,
+    "Gamma": 2227.84387306686,
+    "D_m": 36.29039920250919,
+    "full_cost_estimate_core_h": 0.1396135568278675,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 9.193238585517495,
+     "sun_motion_per_slowest_q_deg": 9.193238585517495,
+     "P_slow_over_P_orb": 0.003049359270293251,
+     "fast_layer_over_l_q": 1.2784304415272671,
+     "l_s_over_D": 0.08136739075349579,
+     "l_d_fastest_um": 163061.16236148358,
+     "centrifugal_over_gravity": 0.007214873423289228,
+     "Gamma": 2227.84387306686,
+     "D_m": 36.29039920250919,
+     "ecc": 0.7100237533450127,
+     "P_phi_s": 69145.65506760591,
+     "P_dominant_s": 96232.27758195499,
+     "P_slowest_s": 96232.27758195499,
+     "mode": "PA"
+    },
+    "full_dadt": 4.651123324012963e-06,
+    "full_accepted": true,
+    "full_wall_s": 340.81,
+    "full_orbits": 4,
+    "full_history": [
+     4.896421255244864e-06,
+     4.5852730535060754e-06,
+     4.658520843591408e-06,
+     4.651123324012963e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 6.971125398260048e-05,
+    "new_coupling_change_rel": 0.0003572006036420402,
+    "speedup_vs_cost_model": 5.889255907312591,
+    "new_dadt": 4.729571221378887e-06,
+    "new_iterations": [
+     3.86296774275606e-06,
+     4.747320548001779e-06,
+     4.7403672842356275e-06,
+     4.731260627074132e-06,
+     4.729571221378887e-06
+    ],
+    "new_cpu_s": 85.34334600000011,
+    "new_wall_s": 47.840850833803415,
+    "new_converged": true,
+    "new_fast_steps": 184729,
+    "new_n_loc": 64,
+    "new_periods": {
+     "P_rot_s": 96232.27758195499
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 101,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 96232.27758195499
+    },
+    "rel_diff": 0.01686644105111368,
+    "speedup_core_time": 3.993398618329302,
+    "full_last_orbit_change_rel": 0.0015904802051265163,
+    "full_mean_after_first": 4.631639073703482e-06,
+    "full_orbit_spread_rel": 0.01581465846533738,
+    "rel_diff_to_mean": 0.021144166485558724
+   },
+   "delta_full": 3.0324040071222275e-06,
+   "delta_new": 3.0505162650853715e-06,
+   "delta_diff_over_twin": 0.00389416850540889,
+   "delta_diff_over_delta": 0.005972903980011769,
+   "delta_full_mean": 3.0312079393730816e-06,
+   "delta_diff_over_twin_mean": 0.004168788933039826
+  },
+  {
+   "state_id": "morris1102_ordinary_00049",
+   "tumbler": {
+    "run_id": "c8746b26057786ba",
+    "kind": "tumbler",
+    "note": "LAM, e 0.80, Gamma 2500, D 697 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 23.999942649753237,
+    "ecc": 0.7999992,
+    "Gamma": 2499.9844635280297,
+    "D_m": 697.1055968511696,
+    "full_cost_estimate_core_h": 0.1576315893191018,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 14.783987710294705,
+     "sun_motion_per_slowest_q_deg": 69.18814671176479,
+     "P_slow_over_P_orb": 0.012812699484500232,
+     "fast_layer_over_l_q": 3.5071850933898086,
+     "l_s_over_D": 0.007402616266935502,
+     "l_d_fastest_um": 270015.17697098665,
+     "centrifugal_over_gravity": 0.013939074858660265,
+     "Gamma": 2499.9844635280297,
+     "D_m": 697.1055968511696,
+     "ecc": 0.7999992,
+     "P_phi_s": 86399.79353911165,
+     "P_dominant_s": 86399.79353911165,
+     "P_slowest_s": 404345.6818546747,
+     "mode": "LAM",
+     "damping_time_yr": 5790108586.779653
+    },
+    "full_dadt": 6.0235959183516585e-06,
+    "full_accepted": true,
+    "full_wall_s": 395.27,
+    "full_orbits": 4,
+    "full_history": [
+     6.323729550935257e-06,
+     6.012729913997783e-06,
+     6.024861407523235e-06,
+     6.0235959183516585e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 2.9607958920992876e-05,
+    "new_coupling_change_rel": 0.00022543600839575192,
+    "speedup_vs_cost_model": 0.12226523694819225,
+    "new_dadt": 6.110500484747501e-06,
+    "new_iterations": [
+     6.28314314039937e-06,
+     6.093339331931048e-06,
+     6.111878011586083e-06,
+     6.110500484747501e-06
+    ],
+    "new_cpu_s": 4641.333348,
+    "new_wall_s": 2465.9384357919917,
+    "new_converged": true,
+    "new_fast_steps": 13952256,
+    "new_n_loc": 72,
+    "new_periods": {
+     "P_dt_s": 90927.89440891104,
+     "T_body_s": 404345.6818546821,
+     "P_phi_s": 86399.79353911192
+    },
+    "new_window": {
+     "periods": 25,
+     "steps": 11784,
+     "phi_mismatch_deg": 0.5574917865152429,
+     "length_s": 10108642.046367053
+    },
+    "rel_diff": 0.014427356611202535,
+    "speedup_core_time": 0.08516302759643972,
+    "full_last_orbit_change_rel": 0.00021008865613331815,
+    "full_mean_after_first": 6.020395746624226e-06,
+    "full_orbit_spread_rel": 0.002015065792353314,
+    "rel_diff_to_mean": 0.01496658058962308
+   },
+   "twin": {
+    "run_id": "af8a7c45e8bc0774",
+    "kind": "pa_P_par",
+    "note": "LAM, e 0.80, Gamma 2500, D 697 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 23.999942649753237,
+    "ecc": 0.7999992,
+    "Gamma": 2499.9844635280297,
+    "D_m": 697.1055968511696,
+    "full_cost_estimate_core_h": 0.1576315893191018,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 15.81335382427752,
+     "sun_motion_per_slowest_q_deg": 15.81335382427752,
+     "P_slow_over_P_orb": 0.00292841707751782,
+     "fast_layer_over_l_q": 1.676697944625687,
+     "l_s_over_D": 0.007402616266935502,
+     "l_d_fastest_um": 279257.1962470004,
+     "centrifugal_over_gravity": 0.01218341841274411,
+     "Gamma": 2499.9844635280297,
+     "D_m": 697.1055968511696,
+     "ecc": 0.7999992,
+     "P_phi_s": 86399.79353911165,
+     "P_dominant_s": 92415.56015547202,
+     "P_slowest_s": 92415.56015547202,
+     "mode": "PA"
+    },
+    "full_dadt": 2.9259239853469967e-06,
+    "full_accepted": true,
+    "full_wall_s": 339.3,
+    "full_orbits": 4,
+    "full_history": [
+     3.076171400174219e-06,
+     2.8881627062689513e-06,
+     2.922292716304794e-06,
+     2.9259239853469967e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 5,
+    "new_energy_facet_max": 0.00012982558699546303,
+    "new_coupling_change_rel": 0.00015198732651028918,
+    "speedup_vs_cost_model": 6.961078623740308,
+    "new_dadt": 2.9566177192418103e-06,
+    "new_iterations": [
+     2.9361754478499196e-06,
+     2.95616835081915e-06,
+     2.9566177192418103e-06
+    ],
+    "new_cpu_s": 81.52094699999998,
+    "new_wall_s": 41.71893329080194,
+    "new_converged": true,
+    "new_fast_steps": 157248,
+    "new_n_loc": 72,
+    "new_periods": {
+     "P_rot_s": 92415.56015547203
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 108,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 92415.56015547203
+    },
+    "rel_diff": 0.010490270440560945,
+    "speedup_core_time": 4.162120442491917,
+    "full_last_orbit_change_rel": 0.001241067457797272,
+    "full_mean_after_first": 2.912126469306914e-06,
+    "full_orbit_spread_rel": 0.012966909052899924,
+    "rel_diff_to_mean": 0.015277925050241725
+   },
+   "delta_full": 3.097671933004662e-06,
+   "delta_new": 3.153882765505691e-06,
+   "delta_diff_over_twin": 0.019211309925525267,
+   "delta_diff_over_delta": 0.018146154181829754,
+   "delta_full_mean": 3.1082692773173115e-06,
+   "delta_diff_over_twin_mean": 0.015663292329208336
+  },
+  {
+   "state_id": "sobol2102_ordinary_00930",
+   "tumbler": {
+    "run_id": "820a7b277a488a7a",
+    "kind": "tumbler",
+    "note": "LAM, e 0.47, Gamma 498, D 117 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 23.92770726654612,
+    "ecc": 0.47145622596144676,
+    "Gamma": 497.5045840252339,
+    "D_m": 116.50750988101984,
+    "full_cost_estimate_core_h": 0.1885196242344423,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 3.102031119279152,
+     "sun_motion_per_slowest_q_deg": 17.317400938769904,
+     "P_slow_over_P_orb": 0.01523800037591303,
+     "fast_layer_over_l_q": 1.754624518589611,
+     "l_s_over_D": 0.0036725902928693237,
+     "l_d_fastest_um": 22355.079179090208,
+     "centrifugal_over_gravity": 0.00584298811477635,
+     "Gamma": 497.5045840252339,
+     "D_m": 116.50750988101984,
+     "ecc": 0.47145622596144676,
+     "P_phi_s": 86139.74615956603,
+     "P_dominant_s": 86139.74615956603,
+     "P_slowest_s": 480883.80278909457,
+     "mode": "LAM",
+     "damping_time_yr": 205422805476.45306
+    },
+    "full_dadt": -1.695803079567877e-05,
+    "full_accepted": true,
+    "full_wall_s": 402.83,
+    "full_orbits": 4,
+    "full_history": [
+     -1.6940316987965238e-05,
+     -1.6959823217560188e-05,
+     -1.6957752313629528e-05,
+     -1.695803079567877e-05
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 0.00019403911815835795,
+    "new_coupling_change_rel": 3.151714078891355e-05,
+    "speedup_vs_cost_model": 1.1025764424297793,
+    "new_dadt": -1.6944567437030112e-05,
+    "new_iterations": [
+     -1.693002833940185e-05,
+     -1.6945101481347632e-05,
+     -1.6944567437030112e-05
+    ],
+    "new_cpu_s": 615.5316050000001,
+    "new_wall_s": 333.78409762494266,
+    "new_converged": true,
+    "new_fast_steps": 2701039,
+    "new_n_loc": 48,
+    "new_periods": {
+     "P_dt_s": 87760.96996317898,
+     "T_body_s": 146107.54273362976,
+     "P_phi_s": 86139.74615956096
+    },
+    "new_window": {
+     "periods": 23,
+     "steps": 4633,
+     "phi_mismatch_deg": 4.276977477227035,
+     "length_s": 3360473.4828734845
+    },
+    "rel_diff": -0.0007939222903221577,
+    "speedup_core_time": 0.654442431107985,
+    "full_last_orbit_change_rel": 1.642183886784423e-05,
+    "full_mean_after_first": -1.6958535442289498e-05,
+    "full_orbit_spread_rel": 0.00012211572972839577,
+    "rel_diff_to_mean": -0.0008236563414877329
+   },
+   "twin": {
+    "run_id": "91691ff4fcd152da",
+    "kind": "pa_P_par",
+    "note": "LAM, e 0.47, Gamma 498, D 117 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 23.92770726654612,
+    "ecc": 0.47145622596144676,
+    "Gamma": 497.5045840252339,
+    "D_m": 116.50750988101984,
+    "full_cost_estimate_core_h": 0.1885196242344423,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 3.2486284446258558,
+     "sun_motion_per_slowest_q_deg": 3.2486284446258558,
+     "P_slow_over_P_orb": 0.0028585468244016316,
+     "fast_layer_over_l_q": 0.7599637184820991,
+     "l_s_over_D": 0.0036725902928693237,
+     "l_d_fastest_um": 22877.215257623644,
+     "centrifugal_over_gravity": 0.005327546122726718,
+     "Gamma": 497.5045840252339,
+     "D_m": 116.50750988101984,
+     "ecc": 0.47145622596144676,
+     "P_phi_s": 86139.74615956603,
+     "P_dominant_s": 90210.58101178725,
+     "P_slowest_s": 90210.58101178725,
+     "mode": "PA"
+    },
+    "full_dadt": -1.2093656511766506e-05,
+    "full_accepted": true,
+    "full_wall_s": 392.79,
+    "full_orbits": 4,
+    "full_history": [
+     -1.21181994880861e-05,
+     -1.2097501314022308e-05,
+     -1.2094189747082148e-05,
+     -1.2093730466129547e-05
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 8.416853987815717e-05,
+    "new_coupling_change_rel": 8.623181115393221e-05,
+    "speedup_vs_cost_model": 15.719300929512345,
+    "new_dadt": -1.208273653440319e-05,
+    "new_iterations": [
+     -1.2109670954442415e-05,
+     -1.2083778450658248e-05,
+     -1.208273653440319e-05
+    ],
+    "new_cpu_s": 43.17435299999988,
+    "new_wall_s": 24.10798858292401,
+    "new_converged": true,
+    "new_fast_steps": 96100,
+    "new_n_loc": 48,
+    "new_periods": {
+     "P_rot_s": 90210.58101178726
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 124,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 90210.58101178726
+    },
+    "rel_diff": -0.000902950844741679,
+    "speedup_core_time": 9.09776227567327,
+    "full_last_orbit_change_rel": 3.797678093516445e-05,
+    "full_mean_after_first": -1.2095140509078002e-05,
+    "full_orbit_spread_rel": 0.00031176553012601864,
+    "rel_diff_to_mean": -0.0010255337393973996
+   },
+   "delta_full": -4.864374283912265e-06,
+   "delta_new": -4.8618309026269215e-06,
+   "delta_diff_over_twin": 0.00021030705501424716,
+   "delta_diff_over_delta": 0.0005228588790453691,
+   "delta_full_mean": -4.863394933211496e-06,
+   "delta_diff_over_twin_mean": 0.0001293106585574819
+  },
+  {
+   "state_id": "sobol2102_ordinary_00561",
+   "tumbler": {
+    "run_id": "8952c23fd6550a65",
+    "kind": "tumbler",
+    "note": "LAM, e 0.06, Gamma 24 (low), D 53 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 21.75649720594463,
+    "ecc": 0.05770446136593819,
+    "Gamma": 23.52459602997016,
+    "D_m": 53.38276843431892,
+    "full_cost_estimate_core_h": 1.794549025587967,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 1.0045770982308184,
+     "sun_motion_per_slowest_q_deg": 4.094730500034246,
+     "P_slow_over_P_orb": 0.010116292010096303,
+     "fast_layer_over_l_q": 0.8532091405346891,
+     "l_s_over_D": 0.0004971238542467865,
+     "l_d_fastest_um": 1322.085219897503,
+     "centrifugal_over_gravity": 0.009269865479761576,
+     "Gamma": 23.52459602997016,
+     "D_m": 53.38276843431892,
+     "ecc": 0.05770446136593819,
+     "P_phi_s": 78323.38994140067,
+     "P_dominant_s": 78323.38994140067,
+     "P_slowest_s": 319251.92623238516,
+     "mode": "LAM",
+     "damping_time_yr": 735559783928.0437
+    },
+    "full_dadt": 6.179207821727097e-06,
+    "full_accepted": true,
+    "full_wall_s": 5664.8,
+    "full_orbits": 8,
+    "full_history": [
+     6.191749442559041e-06,
+     6.144366028993824e-06,
+     6.106153149931536e-06,
+     6.05758840108524e-06,
+     5.994180355647241e-06,
+     6.037175851700015e-06,
+     6.155869917906631e-06,
+     6.179207821727097e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 8.048797655774863e-06,
+    "new_coupling_change_rel": 7.2794484745071606e-06,
+    "speedup_vs_cost_model": 1.6294887212711162,
+    "new_dadt": 6.09792958479761e-06,
+    "new_iterations": [
+     6.102923613735156e-06,
+     6.097885195233396e-06,
+     6.09792958479761e-06
+    ],
+    "new_cpu_s": 3964.664749,
+    "new_wall_s": 2154.852383250138,
+    "new_converged": true,
+    "new_fast_steps": 20365824,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_dt_s": 80623.74599220506,
+     "T_body_s": 103785.51869687614,
+     "P_phi_s": 78323.38994139041
+    },
+    "new_window": {
+     "periods": 40,
+     "steps": 53036,
+     "phi_mismatch_deg": 1.291940419881712,
+     "length_s": 4151420.7478750455
+    },
+    "rel_diff": -0.013153504344634581,
+    "speedup_core_time": 1.4288219455198128,
+    "full_last_orbit_change_rel": 0.003776843973171792,
+    "full_mean_after_first": 6.096363075284511e-06,
+    "full_orbit_spread_rel": 0.030350466957911774,
+    "rel_diff_to_mean": 0.0002569580410078931
+   },
+   "twin": {
+    "run_id": "27ea64c0ccd6ff41",
+    "kind": "pa_P_par",
+    "note": "LAM, e 0.06, Gamma 24 (low), D 53 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 21.75649720594463,
+    "ecc": 0.05770446136593819,
+    "Gamma": 23.52459602997016,
+    "D_m": 53.38276843431892,
+    "full_cost_estimate_core_h": 1.794549025587967,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 1.1359735697666646,
+     "sun_motion_per_slowest_q_deg": 1.1359735697666646,
+     "P_slow_over_P_orb": 0.002806494920096688,
+     "fast_layer_over_l_q": 0.4493936704363839,
+     "l_s_over_D": 0.0004971238542467865,
+     "l_d_fastest_um": 1405.8918943198441,
+     "centrifugal_over_gravity": 0.007249424384732378,
+     "Gamma": 23.52459602997016,
+     "D_m": 53.38276843431892,
+     "ecc": 0.05770446136593819,
+     "P_phi_s": 78323.38994140067,
+     "P_dominant_s": 88567.91681260911,
+     "P_slowest_s": 88567.91681260911,
+     "mode": "PA"
+    },
+    "full_dadt": 3.2870137607799987e-06,
+    "full_accepted": true,
+    "full_wall_s": 3889.45,
+    "full_orbits": 5,
+    "full_history": [
+     3.3110398284435537e-06,
+     3.2694753959802416e-06,
+     3.315344977336271e-06,
+     3.2690783216427153e-06,
+     3.2870137607799987e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 3.243693341278168e-05,
+    "new_coupling_change_rel": 0.0003208023268569171,
+    "speedup_vs_cost_model": 63.19290310437451,
+    "new_dadt": 3.293893937250961e-06,
+    "new_iterations": [
+     3.2827538254825613e-06,
+     3.292837248411471e-06,
+     3.293893937250961e-06
+    ],
+    "new_cpu_s": 102.23262700000032,
+    "new_wall_s": 55.30331366718747,
+    "new_converged": true,
+    "new_fast_steps": 463710,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_rot_s": 88567.91681260912
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 1131,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 88567.91681260912
+    },
+    "rel_diff": 0.0020931389314686744,
+    "speedup_core_time": 38.04509493823325,
+    "full_last_orbit_change_rel": 0.005456453925227091,
+    "full_mean_after_first": 3.285228113934807e-06,
+    "full_orbit_spread_rel": 0.014083239911806605,
+    "rel_diff_to_mean": 0.0026378147926460205
+   },
+   "delta_full": 2.892194060947098e-06,
+   "delta_new": 2.804035647546649e-06,
+   "delta_diff_over_twin": -0.026820214278485275,
+   "delta_diff_over_delta": -0.030481500045533023,
+   "delta_full_mean": 2.8111349613497045e-06,
+   "delta_diff_over_twin_mean": -0.0021609804728453526
+  },
+  {
+   "state_id": "sobol2101_slow_00729",
+   "tumbler": {
+    "run_id": "e285ed8960b9a98d",
+    "kind": "tumbler",
+    "note": "SAM, P_phi 90 h, e 0.28, Gamma 1657, D 3.7 km (frozen-Sun limit)",
+    "stratum": "slow",
+    "mode": "SAM",
+    "P_phi_h": 90.0438195979133,
+    "ecc": 0.27912024259567264,
+    "Gamma": 1656.875586431341,
+    "D_m": 3667.057554434562,
+    "full_cost_estimate_core_h": 0.024425068349559646,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 6.8329490354734235,
+     "sun_motion_per_slowest_q_deg": 28.169876526824382,
+     "P_slow_over_P_orb": 0.042346839461964915,
+     "fast_layer_over_l_q": 2.237872345171611,
+     "l_s_over_D": 0.0004359950929797948,
+     "l_d_fastest_um": 162041.23672030965,
+     "centrifugal_over_gravity": 0.0004629237597349533,
+     "Gamma": 1656.875586431341,
+     "D_m": 3667.057554434562,
+     "ecc": 0.27912024259567264,
+     "P_phi_s": 324157.75055248785,
+     "P_dominant_s": 324157.75055248785,
+     "P_slowest_s": 1336389.8604936753,
+     "mode": "SAM",
+     "damping_time_yr": 11050438475.424011
+    },
+    "full_dadt": -3.2173607469814644e-07,
+    "full_accepted": false,
+    "full_wall_s": 134.75,
+    "full_orbits": 12,
+    "full_history": [
+     -3.2531740148854113e-07,
+     -3.253840181192789e-07,
+     -3.227290479727943e-07,
+     -3.3195491989801666e-07,
+     -3.460695566643592e-07,
+     -3.6025728507968904e-07,
+     -3.682521397131887e-07,
+     -3.6688184652984774e-07,
+     -3.5424449466651876e-07,
+     -3.421220360322226e-07,
+     -3.2796188672604736e-07,
+     -3.2173607469814644e-07
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 9.3872576615243e-05,
+    "new_coupling_change_rel": 2.7142180751924813e-05,
+    "speedup_vs_cost_model": 0.047984249585730304,
+    "new_dadt": -3.4423193309087804e-07,
+    "new_iterations": [
+     -3.452164232185753e-07,
+     -3.442225898855295e-07,
+     -3.4423193309087804e-07
+    ],
+    "new_cpu_s": 1832.481425,
+    "new_wall_s": 932.8230433750432,
+    "new_converged": true,
+    "new_fast_steps": 6668928,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_dt_s": 377062.20035873546,
+     "T_body_s": 1336389.8604822652,
+     "P_phi_s": 324157.75055242673,
+     "P_psi_s": 1336389.860493862
+    },
+    "new_window": {
+     "periods": 49,
+     "steps": 17367,
+     "phi_mismatch_deg": 3.595529438066478,
+     "length_s": 65483103.163631
+    },
+    "rel_diff": 0.0699202239408101,
+    "speedup_core_time": 0.07353416965740867,
+    "full_last_orbit_change_rel": 0.019350680627722557,
+    "full_mean_after_first": -3.4250848237273723e-07,
+    "full_orbit_spread_rel": 0.13580996503444492,
+    "rel_diff_to_mean": 0.005031848280666162
+   },
+   "twin": {
+    "run_id": "56c555102ca0b2fc",
+    "kind": "pa_P_par",
+    "note": "SAM, P_phi 90 h, e 0.28, Gamma 1657, D 3.7 km (frozen-Sun limit)",
+    "stratum": "slow",
+    "mode": "SAM",
+    "P_phi_h": 90.0438195979133,
+    "ecc": 0.27912024259567264,
+    "Gamma": 1656.875586431341,
+    "D_m": 3667.057554434562,
+    "full_cost_estimate_core_h": 0.024425068349559646,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 8.7382032942304,
+     "sun_motion_per_slowest_q_deg": 8.7382032942304,
+     "P_slow_over_P_orb": 0.013135850692651305,
+     "fast_layer_over_l_q": 1.2463898680136956,
+     "l_s_over_D": 0.0004359950929797948,
+     "l_d_fastest_um": 183245.16758424972,
+     "centrifugal_over_gravity": 0.0002830619837496498,
+     "Gamma": 1656.875586431341,
+     "D_m": 3667.057554434562,
+     "ecc": 0.27912024259567264,
+     "P_phi_s": 324157.75055248785,
+     "P_dominant_s": 414543.75102503767,
+     "P_slowest_s": 414543.75102503767,
+     "mode": "PA"
+    },
+    "full_dadt": -3.9305543010552823e-07,
+    "full_accepted": true,
+    "full_wall_s": 44.65,
+    "full_orbits": 4,
+    "full_history": [
+     -3.9297638531334875e-07,
+     -3.9405274222369204e-07,
+     -3.932047817932323e-07,
+     -3.9305543010552823e-07
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 5,
+    "new_energy_facet_max": 0.00011635909042362235,
+    "new_coupling_change_rel": 3.764412084743169e-05,
+    "speedup_vs_cost_model": 3.3542366090275424,
+    "new_dadt": -3.9302019192835156e-07,
+    "new_iterations": [
+     -3.9608110875177126e-07,
+     -3.9300539702875113e-07,
+     -3.9302019192835156e-07
+    ],
+    "new_cpu_s": 26.21468199999981,
+    "new_wall_s": 13.428715832997113,
+    "new_converged": true,
+    "new_fast_steps": 60390,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_rot_s": 414543.75102503767
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 110,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 414543.75102503767
+    },
+    "rel_diff": -8.965192814458511e-05,
+    "speedup_core_time": 1.703244006545657,
+    "full_last_orbit_change_rel": 0.0003799761465297128,
+    "full_mean_after_first": -3.934376513741508e-07,
+    "full_orbit_spread_rel": 0.0025348669978089763,
+    "rel_diff_to_mean": -0.0010610561656750894
+   },
+   "delta_full": 7.131935540738179e-08,
+   "delta_new": 4.878825883747353e-08,
+   "delta_diff_over_twin": -0.0573229494981384,
+   "delta_diff_over_delta": -0.31591839888637324,
+   "delta_full_mean": 5.092916900141359e-08,
+   "delta_diff_over_twin_mean": -0.005441548759918
+  },
+  {
+   "state_id": "sobol4101_fast_00228",
+   "tumbler": {
+    "run_id": "b31461b499de92a6",
+    "kind": "tumbler",
+    "note": "SAM, P_phi 1.5 h, e 0, Gamma 143, D 149 m (fast stratum)",
+    "stratum": "fast",
+    "mode": "SAM",
+    "P_phi_h": 1.5025819338604867,
+    "ecc": 0.0037655465304851535,
+    "Gamma": 142.51528734426574,
+    "D_m": 148.57003266693118,
+    "full_cost_estimate_core_h": 3.666952025379052,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.06217342632522697,
+     "sun_motion_per_slowest_q_deg": 0.35856468706276534,
+     "P_slow_over_P_orb": 0.0009885330840845525,
+     "fast_layer_over_l_q": 0.25247977579157826,
+     "l_s_over_D": 0.001677850438206863,
+     "l_d_fastest_um": 3263.644249378161,
+     "centrifugal_over_gravity": 3.013384480491461,
+     "Gamma": 142.51528734426574,
+     "D_m": 148.57003266693118,
+     "ecc": 0.0037655465304851535,
+     "P_phi_s": 5409.294961897752,
+     "P_dominant_s": 5409.294961897752,
+     "P_slowest_s": 31196.320838056694,
+     "mode": "SAM",
+     "damping_time_yr": 31282776.127299365
+    },
+    "full_dadt": 2.8168214824672713e-06,
+    "full_accepted": true,
+    "full_wall_s": 7857.01,
+    "full_orbits": 4,
+    "full_history": [
+     2.809036389925284e-06,
+     2.815625242366622e-06,
+     2.81866347193967e-06,
+     2.8168214824672713e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 6.750525191553924e-05,
+    "new_coupling_change_rel": 2.822167388732658e-05,
+    "speedup_vs_cost_model": 40.86604107039657,
+    "new_dadt": 2.8198499160006004e-06,
+    "new_iterations": [
+     2.804768139497781e-06,
+     2.819929496885341e-06,
+     2.8198499160006004e-06
+    ],
+    "new_cpu_s": 323.03171399999974,
+    "new_wall_s": 165.62331666704267,
+    "new_converged": true,
+    "new_fast_steps": 1770624,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_dt_s": 8798.721667435559,
+     "T_body_s": 13087.984783471105,
+     "P_phi_s": 5409.294961890544,
+     "P_psi_s": 13087.984783910495
+    },
+    "new_window": {
+     "periods": 31,
+     "steps": 4611,
+     "phi_mismatch_deg": 2.0235931983648925,
+     "length_s": 405727.5282876043
+    },
+    "rel_diff": 0.0010751244096152135,
+    "speedup_core_time": 24.322720214399773,
+    "full_last_orbit_change_rel": 0.0006539248169838627,
+    "full_mean_after_first": 2.8170367322578543e-06,
+    "full_orbit_spread_rel": 0.00107851968639848,
+    "rel_diff_to_mean": 0.0009986322544297543
+   },
+   "twin": {
+    "run_id": "fb81945944c0a60b",
+    "kind": "pa_P_par",
+    "note": "SAM, P_phi 1.5 h, e 0, Gamma 143, D 149 m (fast stratum)",
+    "stratum": "fast",
+    "mode": "SAM",
+    "P_phi_h": 1.5025819338604867,
+    "ecc": 0.0037655465304851535,
+    "Gamma": 142.51528734426574,
+    "D_m": 148.57003266693118,
+    "full_cost_estimate_core_h": 3.666952025379052,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.10448480046220764,
+     "sun_motion_per_slowest_q_deg": 0.10448480046220764,
+     "P_slow_over_P_orb": 0.0002880559234289161,
+     "fast_layer_over_l_q": 0.1362916962224952,
+     "l_s_over_D": 0.001677850438206863,
+     "l_d_fastest_um": 4230.843595816299,
+     "centrifugal_over_gravity": 1.0669840200841794,
+     "Gamma": 142.51528734426574,
+     "D_m": 148.57003266693118,
+     "ecc": 0.0037655465304851535,
+     "P_phi_s": 5409.294961897752,
+     "P_dominant_s": 9090.525295785175,
+     "P_slowest_s": 9090.525295785175,
+     "mode": "PA"
+    },
+    "full_dadt": 2.243929350101153e-06,
+    "full_accepted": true,
+    "full_wall_s": 7730.61,
+    "full_orbits": 4,
+    "full_history": [
+     2.232977387740493e-06,
+     2.239404112931709e-06,
+     2.2444256829489537e-06,
+     2.243929350101153e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 8.15962066331663e-05,
+    "new_coupling_change_rel": 0.0003260673330578353,
+    "speedup_vs_cost_model": 641.3054608382711,
+    "new_dadt": 2.2484678327621873e-06,
+    "new_iterations": [
+     2.232899496583351e-06,
+     2.247734680852492e-06,
+     2.2484678327621873e-06
+    ],
+    "new_cpu_s": 20.584617000000435,
+    "new_wall_s": 10.487789999926463,
+    "new_converged": true,
+    "new_fast_steps": 47483,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_rot_s": 9090.525295785175
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 103,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 9090.525295785175
+    },
+    "rel_diff": 0.0020225604076304915,
+    "speedup_core_time": 375.5527732189448,
+    "full_last_orbit_change_rel": 0.00022118915988976275,
+    "full_mean_after_first": 2.2425863819939385e-06,
+    "full_orbit_spread_rel": 0.002239186885982961,
+    "rel_diff_to_mean": 0.0026226194966096905
+   },
+   "delta_full": 5.728921323661184e-07,
+   "delta_new": 5.713820832384132e-07,
+   "delta_diff_over_twin": -0.0006729486058182795,
+   "delta_diff_over_delta": -0.00263583498950944,
+   "delta_full_mean": 5.744503502639158e-07,
+   "delta_diff_over_twin_mean": -0.0013681823140184277
+  }
+ ],
+ "overlap_preliminary": [
+  {
+   "state_id": "sobol2102_ordinary_00327",
+   "tumbler": {
+    "run_id": "9386cdb0cc855235",
+    "kind": "tumbler",
+    "note": "SAM, P_phi 23 h, e 0.14, Gamma 397, D 22 m (small body)",
+    "stratum": "ordinary",
+    "mode": "SAM",
+    "P_phi_h": 23.267477967132436,
+    "ecc": 0.14397342577576638,
+    "Gamma": 396.90586543828096,
+    "D_m": 21.733132492619887,
+    "full_cost_estimate_core_h": 0.09247896390485487,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 1.2903848069449204,
+     "sun_motion_per_slowest_q_deg": 9.4257572580293,
+     "P_slow_over_P_orb": 0.01938816258065163,
+     "fast_layer_over_l_q": 1.2944967467810253,
+     "l_s_over_D": 0.01797998611031518,
+     "l_d_fastest_um": 20131.938824718174,
+     "centrifugal_over_gravity": 0.0070734844171916255,
+     "Gamma": 396.90586543828096,
+     "D_m": 21.733132492619887,
+     "ecc": 0.14397342577576638,
+     "P_phi_s": 83762.92068167677,
+     "P_dominant_s": 83762.92068167677,
+     "P_slowest_s": 611855.4351537309,
+     "mode": "SAM",
+     "damping_time_yr": 5428208423411.057
+    },
+    "full_dadt": 6.679823929088736e-06,
+    "full_accepted": true,
+    "full_wall_s": 244.57,
+    "full_orbits": 4,
+    "full_history": [
+     5.710638392415781e-06,
+     6.745928882496499e-06,
+     6.702977462757176e-06,
+     6.679823929088736e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 7.230364511062123e-06,
+    "speedup_vs_cost_model": 0.8000119314378132,
+    "new_dadt": 6.646940740977038e-06,
+    "new_iterations": [
+     6.463448119876466e-06,
+     6.646988800781479e-06,
+     6.646940740977038e-06
+    ],
+    "new_cpu_s": 416.14913099999995,
+    "new_wall_s": 286.009857499972,
+    "new_converged": true,
+    "new_fast_steps": 1750176,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_dt_s": 130927.28831422226,
+     "T_body_s": 221029.81262688074,
+     "P_phi_s": 83762.92068163333,
+     "P_psi_s": 221029.81262620597
+    },
+    "new_window": {
+     "periods": 36,
+     "steps": 6077,
+     "phi_mismatch_deg": 1.7372324926236615,
+     "length_s": 7957073.254567707
+    },
+    "rel_diff": -0.004922762704642758,
+    "speedup_core_time": 0.5876979711871608,
+    "full_last_orbit_change_rel": 0.0034661892160979223,
+    "full_mean_after_first": 6.709576758114137e-06,
+    "full_orbit_spread_rel": 0.00985232836450078,
+    "rel_diff_to_mean": -0.00933531568311674
+   },
+   "twin": {
+    "run_id": "14c355412872f329",
+    "kind": "pa_P_par",
+    "note": "SAM, P_phi 23 h, e 0.14, Gamma 397, D 22 m (small body)",
+    "stratum": "ordinary",
+    "mode": "SAM",
+    "P_phi_h": 23.267477967132436,
+    "ecc": 0.14397342577576638,
+    "Gamma": 396.90586543828096,
+    "D_m": 21.733132492619887,
+    "full_cost_estimate_core_h": 0.09247896390485487,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 2.050431112120928,
+     "sun_motion_per_slowest_q_deg": 2.050431112120928,
+     "P_slow_over_P_orb": 0.004217601904437174,
+     "fast_layer_over_l_q": 0.6037615184754613,
+     "l_s_over_D": 0.01797998611031518,
+     "l_d_fastest_um": 25377.48460648025,
+     "centrifugal_over_gravity": 0.0028014412372801122,
+     "Gamma": 396.90586543828096,
+     "D_m": 21.733132492619887,
+     "ecc": 0.14397342577576638,
+     "P_phi_s": 83762.92068167677,
+     "P_dominant_s": 133099.9076271352,
+     "P_slowest_s": 133099.9076271352,
+     "mode": "PA"
+    },
+    "full_dadt": 4.854527423783115e-06,
+    "full_accepted": true,
+    "full_wall_s": 231.59,
+    "full_orbits": 4,
+    "full_history": [
+     3.950743778603116e-06,
+     4.923180292032773e-06,
+     4.837470285402712e-06,
+     4.854527423783115e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 0.0007267632829718263,
+    "speedup_vs_cost_model": 15.077408404513786,
+    "new_dadt": 4.8310806528370175e-06,
+    "new_iterations": [
+     4.643218365004676e-06,
+     4.82756960080146e-06,
+     4.8310806528370175e-06
+    ],
+    "new_cpu_s": 22.081001000000015,
+    "new_wall_s": 13.797794624930248,
+    "new_converged": true,
+    "new_fast_steps": 34884,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_rot_s": 133099.9076271352
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 102,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 133099.9076271352
+    },
+    "rel_diff": -0.004829877122792148,
+    "speedup_core_time": 10.488202052071816,
+    "full_last_orbit_change_rel": 0.0035136557879634593,
+    "full_mean_after_first": 4.8717260004062e-06,
+    "full_orbit_spread_rel": 0.017593355337084796,
+    "rel_diff_to_mean": -0.008343110340317539
+   },
+   "delta_full": 1.825296505305621e-06,
+   "delta_new": 1.8158600881400204e-06,
+   "delta_diff_over_twin": -0.0019438384711496439,
+   "delta_diff_over_delta": -0.005169799612376177,
+   "delta_full_mean": 1.8378507577079364e-06,
+   "delta_diff_over_twin_mean": -0.004513938092183844
+  },
+  {
+   "state_id": "sobol2102_ordinary_00353",
+   "tumbler": {
+    "run_id": "6b895a17f536d9db",
+    "kind": "tumbler",
+    "note": "LAM, e 0.38, Gamma 1970, D 179 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 21.62479085514454,
+    "ecc": 0.37830900847911836,
+    "Gamma": 1970.2535254391757,
+    "D_m": 178.62782759594788,
+    "full_cost_estimate_core_h": 0.17367181087045352,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 2.126944627957575,
+     "sun_motion_per_slowest_q_deg": 20.217976783870146,
+     "P_slow_over_P_orb": 0.023448969241224957,
+     "fast_layer_over_l_q": 1.8958836642365673,
+     "l_s_over_D": 0.02769569040243885,
+     "l_d_fastest_um": 245717.7540666325,
+     "centrifugal_over_gravity": 0.020885420734145156,
+     "Gamma": 1970.2535254391757,
+     "D_m": 178.62782759594788,
+     "ecc": 0.37830900847911836,
+     "P_phi_s": 77849.24707852035,
+     "P_dominant_s": 77849.24707852035,
+     "P_slowest_s": 740007.1677402828,
+     "mode": "LAM",
+     "damping_time_yr": 64507580109.08254
+    },
+    "full_dadt": 2.742079257925328e-05,
+    "full_accepted": true,
+    "full_wall_s": 464.82,
+    "full_orbits": 4,
+    "full_history": [
+     2.7043797452405032e-05,
+     2.7468336404762284e-05,
+     2.7411380389657977e-05,
+     2.742079257925328e-05
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 2.4343061062538022e-05,
+    "speedup_vs_cost_model": 1.283326886613648,
+    "new_dadt": 2.7393683192102148e-05,
+    "new_iterations": [
+     2.739988134416935e-05,
+     2.7393016345999475e-05,
+     2.7393683192102148e-05
+    ],
+    "new_cpu_s": 487.185709,
+    "new_wall_s": 288.6717081251554,
+    "new_converged": true,
+    "new_fast_steps": 1581120,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_dt_s": 80823.82745695909,
+     "T_body_s": 261005.71650813555,
+     "P_phi_s": 77849.2470785197
+    },
+    "new_window": {
+     "periods": 17,
+     "steps": 5490,
+     "phi_mismatch_deg": 1.4330905644104064,
+     "length_s": 4437097.180638304
+    },
+    "rel_diff": -0.000988643456339977,
+    "speedup_core_time": 0.9540920257166247,
+    "full_last_orbit_change_rel": 0.00034325009272072364,
+    "full_mean_after_first": 2.7433503124557847e-05,
+    "full_orbit_spread_rel": 0.0020761480896445187,
+    "rel_diff_to_mean": -0.0014515073876968376
+   },
+   "twin": {
+    "run_id": "4eb6a6a4d2391ef1",
+    "kind": "pa_P_par",
+    "note": "LAM, e 0.38, Gamma 1970, D 179 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 21.62479085514454,
+    "ecc": 0.37830900847911836,
+    "Gamma": 1970.2535254391757,
+    "D_m": 178.62782759594788,
+    "full_cost_estimate_core_h": 0.17367181087045352,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 2.2930900871894067,
+     "sun_motion_per_slowest_q_deg": 2.2930900871894067,
+     "P_slow_over_P_orb": 0.0026595440036690675,
+     "fast_layer_over_l_q": 0.638488965681296,
+     "l_s_over_D": 0.02769569040243885,
+     "l_d_fastest_um": 255134.39105494102,
+     "centrifugal_over_gravity": 0.01796856364503233,
+     "Gamma": 1970.2535254391757,
+     "D_m": 178.62782759594788,
+     "ecc": 0.37830900847911836,
+     "P_phi_s": 77849.24707852035,
+     "P_dominant_s": 83930.41098692609,
+     "P_slowest_s": 83930.41098692609,
+     "mode": "PA"
+    },
+    "full_dadt": 4.321416439820957e-06,
+    "full_accepted": true,
+    "full_wall_s": 463.33,
+    "full_orbits": 4,
+    "full_history": [
+     4.412430072393326e-06,
+     4.2935021163530765e-06,
+     4.328756957452234e-06,
+     4.321416439820957e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 0.0002896359717953654,
+    "speedup_vs_cost_model": 23.642486844194064,
+    "new_dadt": 4.307217017312267e-06,
+    "new_iterations": [
+     4.250480716044078e-06,
+     4.305969492325725e-06,
+     4.307217017312267e-06
+    ],
+    "new_cpu_s": 26.444702000000007,
+    "new_wall_s": 18.27428666688502,
+    "new_converged": true,
+    "new_fast_steps": 60944,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_rot_s": 83930.41098692609
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 104,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 83930.41098692609
+    },
+    "rel_diff": -0.0032858260032161413,
+    "speedup_core_time": 17.520711710043088,
+    "full_last_orbit_change_rel": 0.0016986369477460241,
+    "full_mean_after_first": 4.314558504542089e-06,
+    "full_orbit_spread_rel": 0.008171135253362157,
+    "rel_diff_to_mean": -0.0017015616365133601
+   },
+   "delta_full": 2.3099376139432325e-05,
+   "delta_new": 2.308646617478988e-05,
+   "delta_diff_over_twin": -0.002987438221292868,
+   "delta_diff_over_delta": -0.0005588880221057669,
+   "delta_full_mean": 2.3118944620015758e-05,
+   "delta_diff_over_twin_mean": -0.007527640473917774
+  },
+  {
+   "state_id": "sobol2102_ordinary_00419",
+   "tumbler": {
+    "run_id": "aa4a98db396c2b44",
+    "kind": "tumbler",
+    "note": "SAM, e 0.71, Gamma 2228, D 36 m",
+    "stratum": "ordinary",
+    "mode": "SAM",
+    "P_phi_h": 19.20712640766831,
+    "ecc": 0.7100237533450127,
+    "Gamma": 2227.84387306686,
+    "D_m": 36.29039920250919,
+    "full_cost_estimate_core_h": 0.1396135568278675,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 6.605605937644318,
+     "sun_motion_per_slowest_q_deg": 43.89850417453765,
+     "P_slow_over_P_orb": 0.014560952531734837,
+     "fast_layer_over_l_q": 2.7936223644092255,
+     "l_s_over_D": 0.08136739075349579,
+     "l_d_fastest_um": 138220.54441159853,
+     "centrifugal_over_gravity": 0.013974634397528508,
+     "Gamma": 2227.84387306686,
+     "D_m": 36.29039920250919,
+     "ecc": 0.7100237533450127,
+     "P_phi_s": 69145.65506760591,
+     "P_dominant_s": 69145.65506760591,
+     "P_slowest_s": 459517.3942087916,
+     "mode": "SAM",
+     "damping_time_yr": 1095107941911.456
+    },
+    "full_dadt": 7.68352733113519e-06,
+    "full_accepted": true,
+    "full_wall_s": 357.19,
+    "full_orbits": 4,
+    "full_history": [
+     7.927933117691556e-06,
+     7.614593848525104e-06,
+     7.690419859569393e-06,
+     7.68352733113519e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 0.0008071885269351135,
+    "speedup_vs_cost_model": 0.8029432203365614,
+    "new_dadt": 7.633428202974136e-06,
+    "new_iterations": [
+     6.8166113100496605e-06,
+     7.627266587307513e-06,
+     7.633428202974136e-06
+    ],
+    "new_cpu_s": 625.9580899999999,
+    "new_wall_s": 326.8578987501096,
+    "new_converged": true,
+    "new_fast_steps": 2383290,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_dt_s": 95405.00297879658,
+     "T_body_s": 244179.8013598884,
+     "P_phi_s": 69145.65507320144,
+     "P_psi_s": 244179.80134572324
+    },
+    "new_window": {
+     "periods": 32,
+     "steps": 8190,
+     "phi_mismatch_deg": 1.5339111035558517,
+     "length_s": 7813753.643516429
+    },
+    "rel_diff": -0.006520329270912062,
+    "speedup_core_time": 0.5706292573037918,
+    "full_last_orbit_change_rel": 0.0008970526344420772,
+    "full_mean_after_first": 7.662847013076563e-06,
+    "full_orbit_spread_rel": 0.009895279249982722,
+    "rel_diff_to_mean": -0.003839148824480554
+   },
+   "twin": {
+    "run_id": "98aa108d39b55cca",
+    "kind": "pa_P_par",
+    "note": "SAM, e 0.71, Gamma 2228, D 36 m",
+    "stratum": "ordinary",
+    "mode": "SAM",
+    "P_phi_h": 19.20712640766831,
+    "ecc": 0.7100237533450127,
+    "Gamma": 2227.84387306686,
+    "D_m": 36.29039920250919,
+    "full_cost_estimate_core_h": 0.1396135568278675,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 9.193238585517495,
+     "sun_motion_per_slowest_q_deg": 9.193238585517495,
+     "P_slow_over_P_orb": 0.003049359270293251,
+     "fast_layer_over_l_q": 1.2784304415272671,
+     "l_s_over_D": 0.08136739075349579,
+     "l_d_fastest_um": 163061.16236148358,
+     "centrifugal_over_gravity": 0.007214873423289228,
+     "Gamma": 2227.84387306686,
+     "D_m": 36.29039920250919,
+     "ecc": 0.7100237533450127,
+     "P_phi_s": 69145.65506760591,
+     "P_dominant_s": 96232.27758195499,
+     "P_slowest_s": 96232.27758195499,
+     "mode": "PA"
+    },
+    "full_dadt": 4.651123324012963e-06,
+    "full_accepted": true,
+    "full_wall_s": 340.81,
+    "full_orbits": 4,
+    "full_history": [
+     4.896421255244864e-06,
+     4.5852730535060754e-06,
+     4.658520843591408e-06,
+     4.651123324012963e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 0.0030586435741616846,
+    "speedup_vs_cost_model": 23.02536046382717,
+    "new_dadt": 4.513550251442378e-06,
+    "new_iterations": [
+     3.700723898404658e-06,
+     4.499744909969148e-06,
+     4.513550251442378e-06
+    ],
+    "new_cpu_s": 21.82848799999988,
+    "new_wall_s": 11.091478459071368,
+    "new_converged": true,
+    "new_fast_steps": 49288,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_rot_s": 96232.27758195499
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 101,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 96232.27758195499
+    },
+    "rel_diff": -0.02957846158589661,
+    "speedup_core_time": 15.61308323325014,
+    "full_last_orbit_change_rel": 0.0015904802051265163,
+    "full_mean_after_first": 4.631639073703482e-06,
+    "full_orbit_spread_rel": 0.01581465846533738,
+    "rel_diff_to_mean": -0.02549611927482931
+   },
+   "delta_full": 3.0324040071222275e-06,
+   "delta_new": 3.1198779515317585e-06,
+   "delta_diff_over_twin": 0.01880705763227517,
+   "delta_diff_over_delta": 0.028846401800050527,
+   "delta_full_mean": 3.0312079393730816e-06,
+   "delta_diff_over_twin_mean": 0.01914441318670714
+  },
+  {
+   "state_id": "morris1102_ordinary_00049",
+   "tumbler": {
+    "run_id": "c8746b26057786ba",
+    "kind": "tumbler",
+    "note": "LAM, e 0.80, Gamma 2500, D 697 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 23.999942649753237,
+    "ecc": 0.7999992,
+    "Gamma": 2499.9844635280297,
+    "D_m": 697.1055968511696,
+    "full_cost_estimate_core_h": 0.1576315893191018,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 14.783987710294705,
+     "sun_motion_per_slowest_q_deg": 69.18814671176479,
+     "P_slow_over_P_orb": 0.012812699484500232,
+     "fast_layer_over_l_q": 3.5071850933898086,
+     "l_s_over_D": 0.007402616266935502,
+     "l_d_fastest_um": 270015.17697098665,
+     "centrifugal_over_gravity": 0.013939074858660265,
+     "Gamma": 2499.9844635280297,
+     "D_m": 697.1055968511696,
+     "ecc": 0.7999992,
+     "P_phi_s": 86399.79353911165,
+     "P_dominant_s": 86399.79353911165,
+     "P_slowest_s": 404345.6818546747,
+     "mode": "LAM",
+     "damping_time_yr": 5790108586.779653
+    },
+    "full_dadt": 6.0235959183516585e-06,
+    "full_accepted": true,
+    "full_wall_s": 395.27,
+    "full_orbits": 4,
+    "full_history": [
+     6.323729550935257e-06,
+     6.012729913997783e-06,
+     6.024861407523235e-06,
+     6.0235959183516585e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 0.0008594705949255992,
+    "speedup_vs_cost_model": 0.5561268660081835,
+    "new_dadt": 6.1112535966961536e-06,
+    "new_iterations": [
+     6.282330278268046e-06,
+     6.10600115393166e-06,
+     6.1112535966961536e-06
+    ],
+    "new_cpu_s": 1020.4033579999998,
+    "new_wall_s": 515.1079796671402,
+    "new_converged": true,
+    "new_fast_steps": 3535200,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_dt_s": 90927.89440891104,
+     "T_body_s": 404345.6818546821,
+     "P_phi_s": 86399.79353911192
+    },
+    "new_window": {
+     "periods": 25,
+     "steps": 11784,
+     "phi_mismatch_deg": 0.5574917865152429,
+     "length_s": 10108642.046367053
+    },
+    "rel_diff": 0.014552383581613482,
+    "speedup_core_time": 0.3873664241704701,
+    "full_last_orbit_change_rel": 0.00021008865613331815,
+    "full_mean_after_first": 6.020395746624226e-06,
+    "full_orbit_spread_rel": 0.002015065792353314,
+    "rel_diff_to_mean": 0.015091674018751
+   },
+   "twin": {
+    "run_id": "af8a7c45e8bc0774",
+    "kind": "pa_P_par",
+    "note": "LAM, e 0.80, Gamma 2500, D 697 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 23.999942649753237,
+    "ecc": 0.7999992,
+    "Gamma": 2499.9844635280297,
+    "D_m": 697.1055968511696,
+    "full_cost_estimate_core_h": 0.1576315893191018,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 15.81335382427752,
+     "sun_motion_per_slowest_q_deg": 15.81335382427752,
+     "P_slow_over_P_orb": 0.00292841707751782,
+     "fast_layer_over_l_q": 1.676697944625687,
+     "l_s_over_D": 0.007402616266935502,
+     "l_d_fastest_um": 279257.1962470004,
+     "centrifugal_over_gravity": 0.01218341841274411,
+     "Gamma": 2499.9844635280297,
+     "D_m": 697.1055968511696,
+     "ecc": 0.7999992,
+     "P_phi_s": 86399.79353911165,
+     "P_dominant_s": 92415.56015547202,
+     "P_slowest_s": 92415.56015547202,
+     "mode": "PA"
+    },
+    "full_dadt": 2.9259239853469967e-06,
+    "full_accepted": true,
+    "full_wall_s": 339.3,
+    "full_orbits": 4,
+    "full_history": [
+     3.076171400174219e-06,
+     2.8881627062689513e-06,
+     2.922292716304794e-06,
+     2.9259239853469967e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 0.0003145583658238495,
+    "speedup_vs_cost_model": 25.909934975094753,
+    "new_dadt": 2.9405346262344143e-06,
+    "new_iterations": [
+     2.921885185841909e-06,
+     2.9396096564677376e-06,
+     2.9405346262344143e-06
+    ],
+    "new_cpu_s": 21.901781000000028,
+    "new_wall_s": 11.052289167186245,
+    "new_converged": true,
+    "new_fast_steps": 51948,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_rot_s": 92415.56015547203
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 108,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 92415.56015547203
+    },
+    "rel_diff": 0.004993513488589452,
+    "speedup_core_time": 15.491890819289974,
+    "full_last_orbit_change_rel": 0.001241067457797272,
+    "full_mean_after_first": 2.912126469306914e-06,
+    "full_orbit_spread_rel": 0.012966909052899924,
+    "rel_diff_to_mean": 0.009755124726523734
+   },
+   "delta_full": 3.097671933004662e-06,
+   "delta_new": 3.1707189704617392e-06,
+   "delta_diff_over_twin": 0.02496545973952037,
+   "delta_diff_over_delta": 0.02358126975254726,
+   "delta_full_mean": 3.1082692773173115e-06,
+   "delta_diff_over_twin_mean": 0.021444705030029414
+  },
+  {
+   "state_id": "sobol2102_ordinary_00930",
+   "tumbler": {
+    "run_id": "820a7b277a488a7a",
+    "kind": "tumbler",
+    "note": "LAM, e 0.47, Gamma 498, D 117 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 23.92770726654612,
+    "ecc": 0.47145622596144676,
+    "Gamma": 497.5045840252339,
+    "D_m": 116.50750988101984,
+    "full_cost_estimate_core_h": 0.1885196242344423,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 3.102031119279152,
+     "sun_motion_per_slowest_q_deg": 17.317400938769904,
+     "P_slow_over_P_orb": 0.01523800037591303,
+     "fast_layer_over_l_q": 1.754624518589611,
+     "l_s_over_D": 0.0036725902928693237,
+     "l_d_fastest_um": 22355.079179090208,
+     "centrifugal_over_gravity": 0.00584298811477635,
+     "Gamma": 497.5045840252339,
+     "D_m": 116.50750988101984,
+     "ecc": 0.47145622596144676,
+     "P_phi_s": 86139.74615956603,
+     "P_dominant_s": 86139.74615956603,
+     "P_slowest_s": 480883.80278909457,
+     "mode": "LAM",
+     "damping_time_yr": 205422805476.45306
+    },
+    "full_dadt": -1.695803079567877e-05,
+    "full_accepted": true,
+    "full_wall_s": 402.83,
+    "full_orbits": 4,
+    "full_history": [
+     -1.6940316987965238e-05,
+     -1.6959823217560188e-05,
+     -1.6957752313629528e-05,
+     -1.695803079567877e-05
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 1.6794217204713978e-05,
+    "speedup_vs_cost_model": 2.479806251939746,
+    "new_dadt": -1.6945789494868767e-05,
+    "new_iterations": [
+     -1.6931078491762658e-05,
+     -1.694607408613825e-05,
+     -1.6945789494868767e-05
+    ],
+    "new_cpu_s": 273.6788999999999,
+    "new_wall_s": 138.735779624898,
+    "new_converged": true,
+    "new_fast_steps": 1352836,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_dt_s": 87760.96996317898,
+     "T_body_s": 146107.54273362976,
+     "P_phi_s": 86139.74615956096
+    },
+    "new_window": {
+     "periods": 23,
+     "steps": 4633,
+     "phi_mismatch_deg": 4.276977477227035,
+     "length_s": 3360473.4828734845
+    },
+    "rel_diff": -0.0007218586260100412,
+    "speedup_core_time": 1.4719074068187212,
+    "full_last_orbit_change_rel": 1.642183886784423e-05,
+    "full_mean_after_first": -1.6958535442289498e-05,
+    "full_orbit_spread_rel": 0.00012211572972839577,
+    "rel_diff_to_mean": -0.0007515948216227919
+   },
+   "twin": {
+    "run_id": "91691ff4fcd152da",
+    "kind": "pa_P_par",
+    "note": "LAM, e 0.47, Gamma 498, D 117 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 23.92770726654612,
+    "ecc": 0.47145622596144676,
+    "Gamma": 497.5045840252339,
+    "D_m": 116.50750988101984,
+    "full_cost_estimate_core_h": 0.1885196242344423,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 3.2486284446258558,
+     "sun_motion_per_slowest_q_deg": 3.2486284446258558,
+     "P_slow_over_P_orb": 0.0028585468244016316,
+     "fast_layer_over_l_q": 0.7599637184820991,
+     "l_s_over_D": 0.0036725902928693237,
+     "l_d_fastest_um": 22877.215257623644,
+     "centrifugal_over_gravity": 0.005327546122726718,
+     "Gamma": 497.5045840252339,
+     "D_m": 116.50750988101984,
+     "ecc": 0.47145622596144676,
+     "P_phi_s": 86139.74615956603,
+     "P_dominant_s": 90210.58101178725,
+     "P_slowest_s": 90210.58101178725,
+     "mode": "PA"
+    },
+    "full_dadt": -1.2093656511766506e-05,
+    "full_accepted": true,
+    "full_wall_s": 392.79,
+    "full_orbits": 4,
+    "full_history": [
+     -1.21181994880861e-05,
+     -1.2097501314022308e-05,
+     -1.2094189747082148e-05,
+     -1.2093730466129547e-05
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 6.0980911263096796e-05,
+    "speedup_vs_cost_model": 31.866126581748148,
+    "new_dadt": -1.2084433993897394e-05,
+    "new_iterations": [
+     -1.2109113906827827e-05,
+     -1.208517091369444e-05,
+     -1.2084433993897394e-05
+    ],
+    "new_cpu_s": 21.29755699999987,
+    "new_wall_s": 10.83561695809476,
+    "new_converged": true,
+    "new_fast_steps": 48360,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_rot_s": 90210.58101178726
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 124,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 90210.58101178726
+    },
+    "rel_diff": -0.0007625913519322403,
+    "speedup_core_time": 18.44296038273321,
+    "full_last_orbit_change_rel": 3.797678093516445e-05,
+    "full_mean_after_first": -1.2095140509078002e-05,
+    "full_orbit_spread_rel": 0.00031176553012601864,
+    "rel_diff_to_mean": -0.000885191467810742
+   },
+   "delta_full": -4.864374283912265e-06,
+   "delta_new": -4.861355500971373e-06,
+   "delta_diff_over_twin": 0.0002496170565085161,
+   "delta_diff_over_delta": 0.0006205901858489989,
+   "delta_full_mean": -4.863394933211496e-06,
+   "delta_diff_over_twin_mean": 0.00016861583696296668
+  },
+  {
+   "state_id": "sobol2102_ordinary_00561",
+   "tumbler": {
+    "run_id": "8952c23fd6550a65",
+    "kind": "tumbler",
+    "note": "LAM, e 0.06, Gamma 24 (low), D 53 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 21.75649720594463,
+    "ecc": 0.05770446136593819,
+    "Gamma": 23.52459602997016,
+    "D_m": 53.38276843431892,
+    "full_cost_estimate_core_h": 1.794549025587967,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 1.0045770982308184,
+     "sun_motion_per_slowest_q_deg": 4.094730500034246,
+     "P_slow_over_P_orb": 0.010116292010096303,
+     "fast_layer_over_l_q": 0.8532091405346891,
+     "l_s_over_D": 0.0004971238542467865,
+     "l_d_fastest_um": 1322.085219897503,
+     "centrifugal_over_gravity": 0.009269865479761576,
+     "Gamma": 23.52459602997016,
+     "D_m": 53.38276843431892,
+     "ecc": 0.05770446136593819,
+     "P_phi_s": 78323.38994140067,
+     "P_dominant_s": 78323.38994140067,
+     "P_slowest_s": 319251.92623238516,
+     "mode": "LAM",
+     "damping_time_yr": 735559783928.0437
+    },
+    "full_dadt": 6.179207821727097e-06,
+    "full_accepted": true,
+    "full_wall_s": 5664.8,
+    "full_orbits": 8,
+    "full_history": [
+     6.191749442559041e-06,
+     6.144366028993824e-06,
+     6.106153149931536e-06,
+     6.05758840108524e-06,
+     5.994180355647241e-06,
+     6.037175851700015e-06,
+     6.155869917906631e-06,
+     6.179207821727097e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 4.312598594079376e-06,
+    "speedup_vs_cost_model": 2.3147746314196374,
+    "new_dadt": 6.097841009320827e-06,
+    "new_iterations": [
+     6.10314811942377e-06,
+     6.097814711780263e-06,
+     6.097841009320827e-06
+    ],
+    "new_cpu_s": 2790.931093,
+    "new_wall_s": 1412.569946374977,
+    "new_converged": true,
+    "new_fast_steps": 15274368,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_dt_s": 80623.74599220506,
+     "T_body_s": 103785.51869687614,
+     "P_phi_s": 78323.38994139041
+    },
+    "new_window": {
+     "periods": 40,
+     "steps": 53036,
+     "phi_mismatch_deg": 1.291940419881712,
+     "length_s": 4151420.7478750455
+    },
+    "rel_diff": -0.013167838783504138,
+    "speedup_core_time": 2.029716897779389,
+    "full_last_orbit_change_rel": 0.003776843973171792,
+    "full_mean_after_first": 6.096363075284511e-06,
+    "full_orbit_spread_rel": 0.030350466957911774,
+    "rel_diff_to_mean": 0.00024242880846570003
+   },
+   "twin": {
+    "run_id": "27ea64c0ccd6ff41",
+    "kind": "pa_P_par",
+    "note": "LAM, e 0.06, Gamma 24 (low), D 53 m",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 21.75649720594463,
+    "ecc": 0.05770446136593819,
+    "Gamma": 23.52459602997016,
+    "D_m": 53.38276843431892,
+    "full_cost_estimate_core_h": 1.794549025587967,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 1.1359735697666646,
+     "sun_motion_per_slowest_q_deg": 1.1359735697666646,
+     "P_slow_over_P_orb": 0.002806494920096688,
+     "fast_layer_over_l_q": 0.4493936704363839,
+     "l_s_over_D": 0.0004971238542467865,
+     "l_d_fastest_um": 1405.8918943198441,
+     "centrifugal_over_gravity": 0.007249424384732378,
+     "Gamma": 23.52459602997016,
+     "D_m": 53.38276843431892,
+     "ecc": 0.05770446136593819,
+     "P_phi_s": 78323.38994140067,
+     "P_dominant_s": 88567.91681260911,
+     "P_slowest_s": 88567.91681260911,
+     "mode": "PA"
+    },
+    "full_dadt": 3.2870137607799987e-06,
+    "full_accepted": true,
+    "full_wall_s": 3889.45,
+    "full_orbits": 5,
+    "full_history": [
+     3.3110398284435537e-06,
+     3.2694753959802416e-06,
+     3.315344977336271e-06,
+     3.2690783216427153e-06,
+     3.2870137607799987e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": NaN,
+    "speedup_vs_cost_model": 3.6214395342226813,
+    "new_dadt": NaN,
+    "new_iterations": [
+     3.2837682803677588e-06,
+     NaN,
+     NaN
+    ],
+    "new_cpu_s": 1783.9249920000002,
+    "new_wall_s": 906.8177811251953,
+    "new_converged": false,
+    "new_fast_steps": 4464057,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_rot_s": 88567.91681260912
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 1131,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 88567.91681260912
+    },
+    "rel_diff": NaN,
+    "speedup_core_time": 2.1802766469679007,
+    "full_last_orbit_change_rel": 0.005456453925227091,
+    "full_mean_after_first": 3.285228113934807e-06,
+    "full_orbit_spread_rel": 0.014083239911806605,
+    "rel_diff_to_mean": NaN
+   },
+   "delta_full": 2.892194060947098e-06,
+   "delta_new": NaN,
+   "delta_diff_over_twin": NaN,
+   "delta_diff_over_delta": NaN,
+   "delta_full_mean": 2.8111349613497045e-06,
+   "delta_diff_over_twin_mean": NaN
+  },
+  {
+   "state_id": "sobol2101_slow_00729",
+   "tumbler": {
+    "run_id": "e285ed8960b9a98d",
+    "kind": "tumbler",
+    "note": "SAM, P_phi 90 h, e 0.28, Gamma 1657, D 3.7 km (frozen-Sun limit)",
+    "stratum": "slow",
+    "mode": "SAM",
+    "P_phi_h": 90.0438195979133,
+    "ecc": 0.27912024259567264,
+    "Gamma": 1656.875586431341,
+    "D_m": 3667.057554434562,
+    "full_cost_estimate_core_h": 0.024425068349559646,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 6.8329490354734235,
+     "sun_motion_per_slowest_q_deg": 28.169876526824382,
+     "P_slow_over_P_orb": 0.042346839461964915,
+     "fast_layer_over_l_q": 2.237872345171611,
+     "l_s_over_D": 0.0004359950929797948,
+     "l_d_fastest_um": 162041.23672030965,
+     "centrifugal_over_gravity": 0.0004629237597349533,
+     "Gamma": 1656.875586431341,
+     "D_m": 3667.057554434562,
+     "ecc": 0.27912024259567264,
+     "P_phi_s": 324157.75055248785,
+     "P_dominant_s": 324157.75055248785,
+     "P_slowest_s": 1336389.8604936753,
+     "mode": "SAM",
+     "damping_time_yr": 11050438475.424011
+    },
+    "full_dadt": -3.2173607469814644e-07,
+    "full_accepted": false,
+    "full_wall_s": 134.75,
+    "full_orbits": 12,
+    "full_history": [
+     -3.2531740148854113e-07,
+     -3.253840181192789e-07,
+     -3.227290479727943e-07,
+     -3.3195491989801666e-07,
+     -3.460695566643592e-07,
+     -3.6025728507968904e-07,
+     -3.682521397131887e-07,
+     -3.6688184652984774e-07,
+     -3.5424449466651876e-07,
+     -3.421220360322226e-07,
+     -3.2796188672604736e-07,
+     -3.2173607469814644e-07
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 1.8578510927237303e-05,
+    "speedup_vs_cost_model": 0.07537398460513059,
+    "new_dadt": -3.443344381093634e-07,
+    "new_iterations": [
+     -3.45234300629029e-07,
+     -3.4434083533048445e-07,
+     -3.443344381093634e-07
+    ],
+    "new_cpu_s": 1166.5861440000008,
+    "new_wall_s": 590.9305791659281,
+    "new_converged": true,
+    "new_fast_steps": 5001696,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_dt_s": 377062.20035873546,
+     "T_body_s": 1336389.8604822652,
+     "P_phi_s": 324157.75055242673,
+     "P_psi_s": 1336389.860493862
+    },
+    "new_window": {
+     "periods": 49,
+     "steps": 17367,
+     "phi_mismatch_deg": 3.595529438066478,
+     "length_s": 65483103.163631
+    },
+    "rel_diff": 0.07023882364580603,
+    "speedup_core_time": 0.11550797229424312,
+    "full_last_orbit_change_rel": 0.019350680627722557,
+    "full_mean_after_first": -3.4250848237273723e-07,
+    "full_orbit_spread_rel": 0.13580996503444492,
+    "rel_diff_to_mean": 0.005331125594253416
+   },
+   "twin": {
+    "run_id": "56c555102ca0b2fc",
+    "kind": "pa_P_par",
+    "note": "SAM, P_phi 90 h, e 0.28, Gamma 1657, D 3.7 km (frozen-Sun limit)",
+    "stratum": "slow",
+    "mode": "SAM",
+    "P_phi_h": 90.0438195979133,
+    "ecc": 0.27912024259567264,
+    "Gamma": 1656.875586431341,
+    "D_m": 3667.057554434562,
+    "full_cost_estimate_core_h": 0.024425068349559646,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 8.7382032942304,
+     "sun_motion_per_slowest_q_deg": 8.7382032942304,
+     "P_slow_over_P_orb": 0.013135850692651305,
+     "fast_layer_over_l_q": 1.2463898680136956,
+     "l_s_over_D": 0.0004359950929797948,
+     "l_d_fastest_um": 183245.16758424972,
+     "centrifugal_over_gravity": 0.0002830619837496498,
+     "Gamma": 1656.875586431341,
+     "D_m": 3667.057554434562,
+     "ecc": 0.27912024259567264,
+     "P_phi_s": 324157.75055248785,
+     "P_dominant_s": 414543.75102503767,
+     "P_slowest_s": 414543.75102503767,
+     "mode": "PA"
+    },
+    "full_dadt": -3.9305543010552823e-07,
+    "full_accepted": true,
+    "full_wall_s": 44.65,
+    "full_orbits": 4,
+    "full_history": [
+     -3.9297638531334875e-07,
+     -3.9405274222369204e-07,
+     -3.932047817932323e-07,
+     -3.9305543010552823e-07
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 6.663984711784645e-05,
+    "speedup_vs_cost_model": 5.028951481044098,
+    "new_dadt": -3.931891259009972e-07,
+    "new_iterations": [
+     -3.960711364094565e-07,
+     -3.9321532796423564e-07,
+     -3.931891259009972e-07
+    ],
+    "new_cpu_s": 17.48480699999891,
+    "new_wall_s": 8.854454583954066,
+    "new_converged": true,
+    "new_fast_steps": 45210,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_rot_s": 414543.75102503767
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 110,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 414543.75102503767
+    },
+    "rel_diff": 0.00034014488855449443,
+    "speedup_core_time": 2.5536455735543884,
+    "full_last_orbit_change_rel": 0.0003799761465297128,
+    "full_mean_after_first": -3.934376513741508e-07,
+    "full_orbit_spread_rel": 0.0025348669978089763,
+    "rel_diff_to_mean": -0.0006316768928585903
+   },
+   "delta_full": 7.131935540738179e-08,
+   "delta_new": 4.885468779163379e-08,
+   "delta_diff_over_twin": -0.057153942917711746,
+   "delta_diff_over_delta": -0.31498696934973747,
+   "delta_full_mean": 5.092916900141359e-08,
+   "delta_diff_over_twin_mean": -0.005272706367919557
+  },
+  {
+   "state_id": "sobol4101_fast_00228",
+   "tumbler": {
+    "run_id": "b31461b499de92a6",
+    "kind": "tumbler",
+    "note": "SAM, P_phi 1.5 h, e 0, Gamma 143, D 149 m (fast stratum)",
+    "stratum": "fast",
+    "mode": "SAM",
+    "P_phi_h": 1.5025819338604867,
+    "ecc": 0.0037655465304851535,
+    "Gamma": 142.51528734426574,
+    "D_m": 148.57003266693118,
+    "full_cost_estimate_core_h": 3.666952025379052,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.06217342632522697,
+     "sun_motion_per_slowest_q_deg": 0.35856468706276534,
+     "P_slow_over_P_orb": 0.0009885330840845525,
+     "fast_layer_over_l_q": 0.25247977579157826,
+     "l_s_over_D": 0.001677850438206863,
+     "l_d_fastest_um": 3263.644249378161,
+     "centrifugal_over_gravity": 3.013384480491461,
+     "Gamma": 142.51528734426574,
+     "D_m": 148.57003266693118,
+     "ecc": 0.0037655465304851535,
+     "P_phi_s": 5409.294961897752,
+     "P_dominant_s": 5409.294961897752,
+     "P_slowest_s": 31196.320838056694,
+     "mode": "SAM",
+     "damping_time_yr": 31282776.127299365
+    },
+    "full_dadt": 2.8168214824672713e-06,
+    "full_accepted": true,
+    "full_wall_s": 7857.01,
+    "full_orbits": 4,
+    "full_history": [
+     2.809036389925284e-06,
+     2.815625242366622e-06,
+     2.81866347193967e-06,
+     2.8168214824672713e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 1.6498155607076832e-05,
+    "speedup_vs_cost_model": 58.06874926007536,
+    "new_dadt": 2.817227206581727e-06,
+    "new_iterations": [
+     2.8050871620461886e-06,
+     2.8171807275288924e-06,
+     2.817227206581727e-06
+    ],
+    "new_cpu_s": 227.33445199999915,
+    "new_wall_s": 117.02816970902495,
+    "new_converged": true,
+    "new_fast_steps": 1327968,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_dt_s": 8798.721667435559,
+     "T_body_s": 13087.984783471105,
+     "P_phi_s": 5409.294961890544,
+     "P_psi_s": 13087.984783910495
+    },
+    "new_window": {
+     "periods": 31,
+     "steps": 4611,
+     "phi_mismatch_deg": 2.0235931983648925,
+     "length_s": 405727.5282876043
+    },
+    "rel_diff": 0.00014403614747382498,
+    "speedup_core_time": 34.56145749523275,
+    "full_last_orbit_change_rel": 0.0006539248169838627,
+    "full_mean_after_first": 2.8170367322578543e-06,
+    "full_orbit_spread_rel": 0.00107851968639848,
+    "rel_diff_to_mean": 6.761513674691244e-05
+   },
+   "twin": {
+    "run_id": "fb81945944c0a60b",
+    "kind": "pa_P_par",
+    "note": "SAM, P_phi 1.5 h, e 0, Gamma 143, D 149 m (fast stratum)",
+    "stratum": "fast",
+    "mode": "SAM",
+    "P_phi_h": 1.5025819338604867,
+    "ecc": 0.0037655465304851535,
+    "Gamma": 142.51528734426574,
+    "D_m": 148.57003266693118,
+    "full_cost_estimate_core_h": 3.666952025379052,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.10448480046220764,
+     "sun_motion_per_slowest_q_deg": 0.10448480046220764,
+     "P_slow_over_P_orb": 0.0002880559234289161,
+     "fast_layer_over_l_q": 0.1362916962224952,
+     "l_s_over_D": 0.001677850438206863,
+     "l_d_fastest_um": 4230.843595816299,
+     "centrifugal_over_gravity": 1.0669840200841794,
+     "Gamma": 142.51528734426574,
+     "D_m": 148.57003266693118,
+     "ecc": 0.0037655465304851535,
+     "P_phi_s": 5409.294961897752,
+     "P_dominant_s": 9090.525295785175,
+     "P_slowest_s": 9090.525295785175,
+     "mode": "PA"
+    },
+    "full_dadt": 2.243929350101153e-06,
+    "full_accepted": true,
+    "full_wall_s": 7730.61,
+    "full_orbits": 4,
+    "full_history": [
+     2.232977387740493e-06,
+     2.239404112931709e-06,
+     2.2444256829489537e-06,
+     2.243929350101153e-06
+    ],
+    "new_windows_median": null,
+    "new_windows_max": null,
+    "new_energy_facet_max": null,
+    "new_coupling_change_rel": 0.00014650955261932347,
+    "speedup_vs_cost_model": 793.8905071654257,
+    "new_dadt": 2.2505170879558374e-06,
+    "new_iterations": [
+     2.23826283153143e-06,
+     2.250187365704119e-06,
+     2.2505170879558374e-06
+    ],
+    "new_cpu_s": 16.628271999999924,
+    "new_wall_s": 8.429753999924287,
+    "new_converged": true,
+    "new_fast_steps": 35844,
+    "new_n_loc": 24,
+    "new_periods": {
+     "P_rot_s": 9090.525295785175
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 103,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 9090.525295785175
+    },
+    "rel_diff": 0.002935804487065319,
+    "speedup_core_time": 464.9075983361371,
+    "full_last_orbit_change_rel": 0.00022118915988976275,
+    "full_mean_after_first": 2.2425863819939385e-06,
+    "full_orbit_spread_rel": 0.002239186885982961,
+    "rel_diff_to_mean": 0.003536410470328155
+   },
+   "delta_full": 5.728921323661184e-07,
+   "delta_new": 5.667101186258897e-07,
+   "delta_diff_over_twin": -0.0027549948218958424,
+   "delta_diff_over_delta": -0.010790886086524289,
+   "delta_full_mean": 5.744503502639158e-07,
+   "delta_diff_over_twin_mean": -0.0034514753590647157
+  }
+ ],
+ "scaled": [
+  {
+   "state_id": "sobol2102_ordinary_00419",
+   "tumbler": {},
+   "twin": {
+    "run_id": "98aa108d39b55cca_P4",
+    "kind": "pa_P_par",
+    "note": "overlap scaling test: PA twin of sobol2102_ordinary_00419 with the rotation period / 4 (same steps per rotation, same dz / l_d and domain depth); not a campaign configuration",
+    "stratum": "ordinary",
+    "mode": "SAM",
+    "P_phi_h": 19.20712640766831,
+    "ecc": 0.7100237533450127,
+    "Gamma": 2227.84387306686,
+    "D_m": 36.29039920250919,
+    "full_cost_estimate_core_h": 0.1396135568278675,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 2.2983096463793737,
+     "sun_motion_per_slowest_q_deg": 2.2983096463793737,
+     "P_slow_over_P_orb": 0.0007623398175733128,
+     "fast_layer_over_l_q": 0.6392152207636336,
+     "l_s_over_D": 0.08136739075349579,
+     "l_d_fastest_um": 81530.58118074179,
+     "centrifugal_over_gravity": 0.11543797477262764,
+     "Gamma": 2227.84387306686,
+     "D_m": 36.29039920250919,
+     "ecc": 0.7100237533450127,
+     "P_phi_s": 69145.65506760591,
+     "P_dominant_s": 24058.069395488747,
+     "P_slowest_s": 24058.069395488747,
+     "mode": "PA"
+    },
+    "full_dadt": -6.191202255511607e-07,
+    "full_accepted": true,
+    "full_wall_s": 2032.37,
+    "full_orbits": 4,
+    "full_history": [
+     -6.231294192567929e-07,
+     -6.770946486789289e-07,
+     -6.141326870551383e-07,
+     -6.191202255511607e-07
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 0.00010955129401801449,
+    "new_coupling_change_rel": 0.0004016710070489925,
+    "speedup_vs_cost_model": 5.60764295828134,
+    "new_dadt": -5.758128860865889e-07,
+    "new_iterations": [
+     -9.498904626311764e-07,
+     -6.002629405206897e-07,
+     -5.767912036098491e-07,
+     -5.760441734284151e-07,
+     -5.758128860865889e-07
+    ],
+    "new_cpu_s": 89.629245,
+    "new_wall_s": 50.11533341696486,
+    "new_converged": true,
+    "new_fast_steps": 218261,
+    "new_n_loc": 64,
+    "new_periods": {
+     "P_rot_s": 24058.069395488747
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 101,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 24058.069395488747
+    },
+    "rel_diff": -0.06994980567145614,
+    "speedup_core_time": 22.675299786358792,
+    "full_last_orbit_change_rel": 0.008055848105401948,
+    "full_mean_after_first": -6.367825204284094e-07,
+    "full_orbit_spread_rel": 0.09887514120430245,
+    "rel_diff_to_mean": -0.09574640067193085
+   }
+  },
+  {
+   "state_id": "morris1102_ordinary_00049",
+   "tumbler": {},
+   "twin": {
+    "run_id": "af8a7c45e8bc0774_P4",
+    "kind": "pa_P_par",
+    "note": "overlap scaling test: PA twin of morris1102_ordinary_00049 with the rotation period / 4 (same steps per rotation, same dz / l_d and domain depth); not a campaign configuration",
+    "stratum": "ordinary",
+    "mode": "LAM",
+    "P_phi_h": 23.999942649753237,
+    "ecc": 0.7999992,
+    "Gamma": 2499.9844635280297,
+    "D_m": 697.1055968511696,
+    "full_cost_estimate_core_h": 0.1576315893191018,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 3.95333845606938,
+     "sun_motion_per_slowest_q_deg": 3.95333845606938,
+     "P_slow_over_P_orb": 0.000732104269379455,
+     "fast_layer_over_l_q": 0.8383489723128436,
+     "l_s_over_D": 0.007402616266935502,
+     "l_d_fastest_um": 139628.5981235002,
+     "centrifugal_over_gravity": 0.19493469460390575,
+     "Gamma": 2499.9844635280297,
+     "D_m": 697.1055968511696,
+     "ecc": 0.7999992,
+     "P_phi_s": 86399.79353911165,
+     "P_dominant_s": 23103.890038868005,
+     "P_slowest_s": 23103.890038868005,
+     "mode": "PA"
+    },
+    "full_dadt": 3.043242284838513e-06,
+    "full_accepted": true,
+    "full_wall_s": 2274.42,
+    "full_orbits": 4,
+    "full_history": [
+     3.1667174655844284e-06,
+     3.0013571543350506e-06,
+     3.0391456928345964e-06,
+     3.043242284838513e-06
+    ],
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 0.0001482342250814921,
+    "new_coupling_change_rel": 0.0002629232069125121,
+    "speedup_vs_cost_model": 6.4134554304079545,
+    "new_dadt": 3.051432690830768e-06,
+    "new_iterations": [
+     3.025135295008356e-06,
+     3.0506303983620172e-06,
+     3.051432690830768e-06
+    ],
+    "new_cpu_s": 88.48174399999999,
+    "new_wall_s": 49.968629790935665,
+    "new_converged": true,
+    "new_fast_steps": 187920,
+    "new_n_loc": 72,
+    "new_periods": {
+     "P_rot_s": 23103.89003886801
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 108,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 23103.89003886801
+    },
+    "rel_diff": 0.0026913420706131674,
+    "speedup_core_time": 25.70496350071943,
+    "full_last_orbit_change_rel": 0.0013461274589690049,
+    "full_mean_after_first": 3.0279150440027196e-06,
+    "full_orbit_spread_rel": 0.013832993956162271,
+    "rel_diff_to_mean": 0.007766944080755955
+   }
+  }
+ ],
+ "convergence": {
+  "14c355412872f329": {
+   "state_id": "sobol2102_ordinary_00327",
+   "kind": "pa_P_par",
+   "variants": {
+    "base": {
+     "dadt_m_s": 4.898549622353427e-06,
+     "iterations": [
+      4.654230269306872e-06,
+      4.893440923892325e-06,
+      4.898549622353427e-06
+     ],
+     "all_converged": true,
+     "wall_s": 36.01790879108012,
+     "cpu_s": 24.592596,
+     "fast_steps": 46206,
+     "n_fast_layers": 81
+    },
+    "n_loc_12": {
+     "dadt_m_s": 4.883775073286924e-06,
+     "iterations": [
+      4.643107405050148e-06,
+      4.876572683618171e-06,
+      4.883775073286924e-06
+     ],
+     "all_converged": true,
+     "wall_s": 19.79899683292024,
+     "cpu_s": 18.95623,
+     "fast_steps": 17646,
+     "n_fast_layers": 81
+    },
+    "n_loc_48": {
+     "dadt_m_s": 4.894037862147832e-06,
+     "iterations": [
+      4.649992970547555e-06,
+      4.889690883338176e-06,
+      4.894037862147832e-06
+     ],
+     "all_converged": true,
+     "wall_s": 50.275959874968976,
+     "cpu_s": 28.31245299999999,
+     "fast_steps": 69462,
+     "n_fast_layers": 81
+    },
+    "n_loc_96": {
+     "dadt_m_s": 4.893095743302636e-06,
+     "iterations": [
+      4.64892560600719e-06,
+      4.888206723111315e-06,
+      4.893095743302636e-06
+     ],
+     "all_converged": true,
+     "wall_s": 58.82178529095836,
+     "cpu_s": 42.389416999999995,
+     "fast_steps": 138618,
+     "n_fast_layers": 81
+    },
+    "kappa_linear": {
+     "dadt_m_s": 4.902389840723452e-06,
+     "iterations": [
+      4.654230269306872e-06,
+      4.898127383878107e-06,
+      4.902389840723452e-06
+     ],
+     "all_converged": true,
+     "wall_s": 27.29620874999091,
+     "cpu_s": 25.08458499999999,
+     "fast_steps": 46206,
+     "n_fast_layers": 81
+    },
+    "seasonal_dz_half": {
+     "dadt_m_s": 4.884349319013286e-06,
+     "iterations": [
+      4.659346820592443e-06,
+      4.8791215349115396e-06,
+      4.884349319013286e-06
+     ],
+     "all_converged": true,
+     "wall_s": 41.60441204183735,
+     "cpu_s": 38.52561399999999,
+     "fast_steps": 46206,
+     "n_fast_layers": 81
+    },
+    "seasonal_steps_x2": {
+     "dadt_m_s": 4.888974357402768e-06,
+     "iterations": [
+      4.654249783203571e-06,
+      4.883797684052926e-06,
+      4.888974357402768e-06
+     ],
+     "all_converged": true,
+     "wall_s": 45.23270295816474,
+     "cpu_s": 40.720529,
+     "fast_steps": 46206,
+     "n_fast_layers": 81
+    },
+    "dt_half": {
+     "dadt_m_s": 4.8968182375135885e-06,
+     "iterations": [
+      4.652511422837125e-06,
+      4.892304820865053e-06,
+      4.8968182375135885e-06
+     ],
+     "all_converged": true,
+     "wall_s": 36.42662191693671,
+     "cpu_s": 30.760536000000002,
+     "fast_steps": 92616,
+     "n_fast_layers": 81
+    },
+    "dz_half": {
+     "dadt_m_s": 4.876056136252631e-06,
+     "iterations": [
+      4.631806617767161e-06,
+      4.870943982886299e-06,
+      4.876056136252631e-06
+     ],
+     "all_converged": true,
+     "wall_s": 37.584659750107676,
+     "cpu_s": 29.35651100000004,
+     "fast_steps": 46206,
+     "n_fast_layers": 162
+    },
+    "fast_depths_12": {
+     "dadt_m_s": 4.8983805558524805e-06,
+     "iterations": [
+      4.65504464950413e-06,
+      4.893760962935643e-06,
+      4.8983805558524805e-06
+     ],
+     "all_converged": true,
+     "wall_s": 34.607458542101085,
+     "cpu_s": 26.964634999999987,
+     "fast_steps": 46206,
+     "n_fast_layers": 122
+    },
+    "tol_tight": {
+     "dadt_m_s": 4.897782026573972e-06,
+     "iterations": [
+      4.649814021606936e-06,
+      4.898138188446063e-06,
+      4.897782026573972e-06
+     ],
+     "all_converged": true,
+     "wall_s": 37.844457749975845,
+     "cpu_s": 25.68708300000003,
+     "fast_steps": 53346,
+     "n_fast_layers": 81
+    },
+    "coupling_4": {
+     "dadt_m_s": 4.897016628582374e-06,
+     "iterations": [
+      4.654230269306872e-06,
+      4.893440923892325e-06,
+      4.898549622353427e-06,
+      4.897016628582374e-06
+     ],
+     "all_converged": true,
+     "wall_s": 37.08960249996744,
+     "cpu_s": 28.387023,
+     "fast_steps": 59262,
+     "n_fast_layers": 81
+    }
+   }
+  },
+  "b31461b499de92a6": {
+   "state_id": "sobol4101_fast_00228",
+   "kind": "tumbler",
+   "variants": {
+    "base": {
+     "dadt_m_s": 2.8198499160006004e-06,
+     "iterations": [
+      2.804768139497781e-06,
+      2.819929496885341e-06,
+      2.8198499160006004e-06
+     ],
+     "all_converged": true,
+     "wall_s": 239.4817447080277,
+     "cpu_s": 382.86329800000004,
+     "fast_steps": 1770624,
+     "n_fast_layers": 98
+    },
+    "n_loc_96": {
+     "dadt_m_s": 2.8200157280095787e-06,
+     "iterations": [
+      2.804963015716156e-06,
+      2.8201004656086565e-06,
+      2.8200157280095787e-06
+     ],
+     "all_converged": true,
+     "wall_s": 599.8067920000758,
+     "cpu_s": 1082.9465109999999,
+     "fast_steps": 5311872,
+     "n_fast_layers": 98
+    },
+    "dt_half": {
+     "dadt_m_s": 2.8196665788868947e-06,
+     "iterations": [
+      2.804583778350784e-06,
+      2.81974617884289e-06,
+      2.8196665788868947e-06
+     ],
+     "all_converged": true,
+     "wall_s": 361.7109106250573,
+     "cpu_s": 704.1715099999999,
+     "fast_steps": 3541248,
+     "n_fast_layers": 98
+    },
+    "dz_half": {
+     "dadt_m_s": 2.8140007530805327e-06,
+     "iterations": [
+      2.798925477350583e-06,
+      2.8140792188750376e-06,
+      2.8140007530805327e-06
+     ],
+     "all_converged": true,
+     "wall_s": 314.74482729192823,
+     "cpu_s": 614.3219520000002,
+     "fast_steps": 1770624,
+     "n_fast_layers": 196
+    },
+    "fast_depths_12": {
+     "dadt_m_s": 2.819678159813838e-06,
+     "iterations": [
+      2.8045650764569757e-06,
+      2.819823021853273e-06,
+      2.819678159813838e-06
+     ],
+     "all_converged": true,
+     "wall_s": 245.4954318748787,
+     "cpu_s": 479.8356819999999,
+     "fast_steps": 1862844,
+     "n_fast_layers": 147
+    },
+    "tol_tight": {
+     "dadt_m_s": 2.8198290762333725e-06,
+     "iterations": [
+      2.804754630250314e-06,
+      2.8199678254318603e-06,
+      2.8198290762333725e-06
+     ],
+     "all_converged": true,
+     "wall_s": 189.67215595813468,
+     "cpu_s": 369.73190699999986,
+     "fast_steps": 2028840,
+     "n_fast_layers": 98
+    },
+    "tol_energy_tight": {
+     "dadt_m_s": 2.8198290762333725e-06,
+     "iterations": [
+      2.804754630250314e-06,
+      2.8199678254318603e-06,
+      2.8198290762333725e-06
+     ],
+     "all_converged": true,
+     "wall_s": 189.9829585000407,
+     "cpu_s": 369.51533199999994,
+     "fast_steps": 2028840,
+     "n_fast_layers": 98
+    },
+    "window_phi_1deg": {
+     "dadt_m_s": 2.8198499160006004e-06,
+     "iterations": [
+      2.804768139497781e-06,
+      2.819929496885341e-06,
+      2.8198499160006004e-06
+     ],
+     "all_converged": true,
+     "wall_s": 167.51024062512442,
+     "cpu_s": 325.182049,
+     "fast_steps": 1770624,
+     "n_fast_layers": 98
+    },
+    "seasonal_dz_half": {
+     "dadt_m_s": 2.8196514482875837e-06,
+     "iterations": [
+      2.80456891501077e-06,
+      2.819731005997593e-06,
+      2.8196514482875837e-06
+     ],
+     "all_converged": true,
+     "wall_s": 172.34503079089336,
+     "cpu_s": 334.9123819999995,
+     "fast_steps": 1770624,
+     "n_fast_layers": 98
+    },
+    "seasonal_steps_x2": {
+     "dadt_m_s": 2.8216407140445703e-06,
+     "iterations": [
+      2.804062409220488e-06,
+      2.8217273476200525e-06,
+      2.8216407140445703e-06
+     ],
+     "all_converged": true,
+     "wall_s": 173.05312487506308,
+     "cpu_s": 335.93488200000047,
+     "fast_steps": 1770624,
+     "n_fast_layers": 98
+    },
+    "coupling_4": {
+     "dadt_m_s": 2.8198505426365366e-06,
+     "iterations": [
+      2.804768139497781e-06,
+      2.819929496885341e-06,
+      2.8198499160006004e-06,
+      2.8198505426365366e-06
+     ],
+     "all_converged": true,
+     "wall_s": 225.1054390000645,
+     "cpu_s": 437.44919500000015,
+     "fast_steps": 2360832,
+     "n_fast_layers": 98
+    }
+   }
+  },
+  "808727d1bd85b809": {
+   "state_id": "sobol4102_superfast_00238",
+   "kind": "pa_P_par",
+   "variants": {
+    "base": {
+     "dadt_m_s": -0.0002765117773607182,
+     "iterations": [
+      -0.00027653270678689145,
+      -0.0002764962020215749,
+      -0.0002765117773607182
+     ],
+     "all_converged": true,
+     "wall_s": 32.75777820800431,
+     "cpu_s": 43.780081,
+     "fast_steps": 106812,
+     "n_fast_layers": 84
+    },
+    "n_loc_96": {
+     "dadt_m_s": -0.0002765183665351114,
+     "iterations": [
+      -0.0002765465366159844,
+      -0.00027650323368715095,
+      -0.0002765183665351114
+     ],
+     "all_converged": true,
+     "wall_s": 63.548260709038004,
+     "cpu_s": 64.439486,
+     "fast_steps": 213840,
+     "n_fast_layers": 84
+    },
+    "dt_half": {
+     "dadt_m_s": -0.0002765141259093981,
+     "iterations": [
+      -0.0002765342797424813,
+      -0.00027649841411888905,
+      -0.0002765141259093981
+     ],
+     "all_converged": true,
+     "wall_s": 46.18285887502134,
+     "cpu_s": 60.967513999999994,
+     "fast_steps": 213624,
+     "n_fast_layers": 84
+    },
+    "dz_half": {
+     "dadt_m_s": -0.00027619815070794955,
+     "iterations": [
+      -0.00027621911014868484,
+      -0.0002761826088960635,
+      -0.00027619815070794955
+     ],
+     "all_converged": true,
+     "wall_s": 45.7179385421332,
+     "cpu_s": 57.785143000000005,
+     "fast_steps": 106812,
+     "n_fast_layers": 167
+    },
+    "fast_depths_12": {
+     "dadt_m_s": -0.0002765170755064233,
+     "iterations": [
+      -0.0002765406434723757,
+      -0.0002765031846214586,
+      -0.0002765170755064233
+     ],
+     "all_converged": true,
+     "wall_s": 42.15134037495591,
+     "cpu_s": 51.64328299999997,
+     "fast_steps": 107244,
+     "n_fast_layers": 125
+    },
+    "tol_tight": {
+     "dadt_m_s": -0.0002765216383866684,
+     "iterations": [
+      -0.0002765386094761519,
+      -0.00027651867991200285,
+      -0.0002765216383866684
+     ],
+     "all_converged": true,
+     "wall_s": 39.575128791853786,
+     "cpu_s": 50.213798,
+     "fast_steps": 137376,
+     "n_fast_layers": 84
+    },
+    "tol_energy_tight": {
+     "dadt_m_s": -0.0002765216383866684,
+     "iterations": [
+      -0.0002765386094761519,
+      -0.00027651867991200285,
+      -0.0002765216383866684
+     ],
+     "all_converged": true,
+     "wall_s": 43.62416862510145,
+     "cpu_s": 51.13092799999998,
+     "fast_steps": 137376,
+     "n_fast_layers": 84
+    },
+    "window_phi_1deg": {
+     "dadt_m_s": -0.0002765117773607182,
+     "iterations": [
+      -0.00027653270678689145,
+      -0.0002764962020215749,
+      -0.0002765117773607182
+     ],
+     "all_converged": true,
+     "wall_s": 36.41750495904125,
+     "cpu_s": 44.157748000000026,
+     "fast_steps": 106812,
+     "n_fast_layers": 84
+    },
+    "seasonal_dz_half": {
+     "dadt_m_s": -0.0002765117931076093,
+     "iterations": [
+      -0.0002765327212577802,
+      -0.000276496217621241,
+      -0.0002765117931076093
+     ],
+     "all_converged": true,
+     "wall_s": 51.235026333946735,
+     "cpu_s": 64.50330499999995,
+     "fast_steps": 106812,
+     "n_fast_layers": 84
+    },
+    "seasonal_steps_x2": {
+     "dadt_m_s": -0.0002765118017571251,
+     "iterations": [
+      -0.00027653276926895394,
+      -0.0002764962287898988,
+      -0.0002765118017571251
+     ],
+     "all_converged": true,
+     "wall_s": 39.961933417012915,
+     "cpu_s": 67.717242,
+     "fast_steps": 106812,
+     "n_fast_layers": 84
+    },
+    "coupling_4": {
+     "dadt_m_s": -0.0002765180050277872,
+     "iterations": [
+      -0.00027653270678689145,
+      -0.0002764962020215749,
+      -0.0002765117773607182,
+      -0.0002765180050277872
+     ],
+     "all_converged": true,
+     "wall_s": 36.35242274985649,
+     "cpu_s": 51.080560000000105,
+     "fast_steps": 127548,
+     "n_fast_layers": 84
+    }
+   }
+  }
+ },
+ "convergence_development": {
+  "98aa108d39b55cca": {
+   "state_id": "sobol2102_ordinary_00419",
+   "kind": "pa_P_par",
+   "variants": {
+    "base": {
+     "dadt_m_s": 4.703224391238152e-06,
+     "iterations": [
+      3.830299330801274e-06,
+      4.715207754009249e-06,
+      4.703224391238152e-06
+     ],
+     "all_converged": true,
+     "wall_s": 13.44466270902194,
+     "cpu_s": 39.377584999999996,
+     "fast_steps": 49793,
+     "n_fast_layers": 81
+    },
+    "n_loc_12": {
+     "dadt_m_s": 4.4102246851440195e-06,
+     "iterations": [
+      3.516389665884953e-06,
+      4.4173689500308825e-06,
+      4.4102246851440195e-06
+     ],
+     "all_converged": true,
+     "wall_s": 11.959937458857894,
+     "cpu_s": 34.923817,
+     "fast_steps": 25149,
+     "n_fast_layers": 81
+    },
+    "n_loc_48": {
+     "dadt_m_s": 4.7463737293972e-06,
+     "iterations": [
+      3.867621997297984e-06,
+      4.752478422416902e-06,
+      4.7463737293972e-06
+     ],
+     "all_converged": true,
+     "wall_s": 19.235458040842786,
+     "cpu_s": 55.17433299999999,
+     "fast_steps": 99687,
+     "n_fast_layers": 81
+    },
+    "n_loc_96": {
+     "dadt_m_s": 4.742670773302005e-06,
+     "iterations": [
+      3.86388279381565e-06,
+      4.7483229308701755e-06,
+      4.742670773302005e-06
+     ],
+     "all_converged": true,
+     "wall_s": 28.932345583103597,
+     "cpu_s": 79.48209800000001,
+     "fast_steps": 199778,
+     "n_fast_layers": 81
+    },
+    "kappa_linear": {
+     "dadt_m_s": 4.688988246485384e-06,
+     "iterations": [
+      3.830299330801274e-06,
+      4.699345864558123e-06,
+      4.688988246485384e-06
+     ],
+     "all_converged": true,
+     "wall_s": 16.17588174995035,
+     "cpu_s": 45.344966,
+     "fast_steps": 49793,
+     "n_fast_layers": 81
+    },
+    "seasonal_dz_half": {
+     "dadt_m_s": 4.707310995849044e-06,
+     "iterations": [
+      3.8345378823682055e-06,
+      4.719316485997597e-06,
+      4.707310995849044e-06
+     ],
+     "all_converged": true,
+     "wall_s": 26.690767500083894,
+     "cpu_s": 76.33140000000003,
+     "fast_steps": 49793,
+     "n_fast_layers": 81
+    },
+    "seasonal_dz_quarter": {
+     "dadt_m_s": 4.707997999805655e-06,
+     "iterations": [
+      3.835261673608184e-06,
+      4.7200089234797815e-06,
+      4.707997999805655e-06
+     ],
+     "all_converged": true,
+     "wall_s": 47.71279349992983,
+     "cpu_s": 137.311394,
+     "fast_steps": 49793,
+     "n_fast_layers": 81
+    },
+    "seasonal_steps_x2": {
+     "dadt_m_s": 4.710359063164645e-06,
+     "iterations": [
+      3.7506905663360157e-06,
+      4.728018259453995e-06,
+      4.710359063164645e-06
+     ],
+     "all_converged": true,
+     "wall_s": 27.377403707941994,
+     "cpu_s": 78.39402099999995,
+     "fast_steps": 49793,
+     "n_fast_layers": 81
+    }
+   }
+  }
+ },
+ "superfast_demo": [
+  {
+   "state_id": "sobol4102_superfast_00238",
+   "tumbler": {
+    "run_id": "18a2704b225c874e",
+    "kind": "tumbler",
+    "note": "superfast shortest P_phi",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.0013955154734822755,
+    "ecc": 0.5018141299486161,
+    "Gamma": 13.019221774938828,
+    "D_m": 3.197482199887937,
+    "full_cost_estimate_core_h": 218080.78678270648,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.00019973237820513541,
+     "sun_motion_per_slowest_q_deg": 0.0023158246273575823,
+     "P_slow_over_P_orb": 1.8457895487817277e-06,
+     "fast_layer_over_l_q": 0.02029063655139686,
+     "l_s_over_D": 0.0035223640161146774,
+     "l_d_fastest_um": 4.4937506057294545,
+     "centrifugal_over_gravity": 1727809.6482604737,
+     "Gamma": 13.019221774938828,
+     "D_m": 3.197482199887937,
+     "ecc": 0.5018141299486161,
+     "P_phi_s": 5.023855704536191,
+     "P_dominant_s": 5.023855704536191,
+     "P_slowest_s": 58.249788388874514,
+     "mode": "LAM",
+     "damping_time_yr": 54.10544008164098
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 15,
+    "new_energy_facet_max": 0.00030794816789859954,
+    "new_coupling_change_rel": 2.2684811993710644e-06,
+    "speedup_vs_cost_model": 2207182.2922057435,
+    "new_dadt": -0.0007136840010716627,
+    "new_iterations": [
+     -0.0007136645724670734,
+     -0.0007136856200504015,
+     -0.0007136840010716627
+    ],
+    "new_cpu_s": 355.69822899999997,
+    "new_wall_s": 216.85063670785166,
+    "new_converged": true,
+    "new_fast_steps": 1707540,
+    "new_n_loc": 48,
+    "new_periods": {
+     "P_dt_s": 5.170936053755733,
+     "T_body_s": 7.2242494893552385,
+     "P_phi_s": 5.023855704535206
+    },
+    "new_window": {
+     "periods": 16,
+     "steps": 2235,
+     "phi_mismatch_deg": 2.8169250804492663,
+     "length_s": 115.58799182968382
+    }
+   },
+   "twin": {
+    "run_id": "808727d1bd85b809",
+    "kind": "pa_P_par",
+    "note": "superfast shortest P_phi",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.0013955154734822755,
+    "ecc": 0.5018141299486161,
+    "Gamma": 13.019221774938828,
+    "D_m": 3.197482199887937,
+    "full_cost_estimate_core_h": 218080.78678270648,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.00022226616665938642,
+     "sun_motion_per_slowest_q_deg": 0.00022226616665938642,
+     "P_slow_over_P_orb": 1.7715355585271016e-07,
+     "fast_layer_over_l_q": 0.006286074408708498,
+     "l_s_over_D": 0.0035223640161146774,
+     "l_d_fastest_um": 4.740470075514902,
+     "centrifugal_over_gravity": 1395231.0165496727,
+     "Gamma": 13.019221774938828,
+     "D_m": 3.197482199887937,
+     "ecc": 0.5018141299486161,
+     "P_phi_s": 5.023855704536191,
+     "P_dominant_s": 5.590646640928245,
+     "P_slowest_s": 5.590646640928245,
+     "mode": "PA"
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 0.00011662676216440021,
+    "new_coupling_change_rel": 5.6327941225245954e-05,
+    "speedup_vs_cost_model": 18632955.293076422,
+    "new_dadt": -0.0002765117773607182,
+    "new_iterations": [
+     -0.00027653270678689145,
+     -0.0002764962020215749,
+     -0.0002765117773607182
+    ],
+    "new_cpu_s": 42.13453100000004,
+    "new_wall_s": 42.69525591703132,
+    "new_converged": true,
+    "new_fast_steps": 106812,
+    "new_n_loc": 48,
+    "new_periods": {
+     "P_rot_s": 5.590646640928246
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 108,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 5.590646640928246
+    }
+   }
+  },
+  {
+   "state_id": "sobol4102_superfast_00070",
+   "tumbler": {
+    "run_id": "192bf033a53fb634",
+    "kind": "tumbler",
+    "note": "superfast 10th percentile P_phi",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.0022705757556734456,
+    "ecc": 0.6817935436964035,
+    "Gamma": 416.1680356834258,
+    "D_m": 11.776235400291872,
+    "full_cost_estimate_core_h": 90490.8734098168,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.0006736769502395694,
+     "sun_motion_per_slowest_q_deg": 0.008813548153330018,
+     "P_slow_over_P_orb": 3.3886399067357936e-06,
+     "fast_layer_over_l_q": 0.03958386789697533,
+     "l_s_over_D": 0.028333428550389953,
+     "l_d_fastest_um": 169.8137583070871,
+     "centrifugal_over_gravity": 604884.919003612,
+     "Gamma": 416.1680356834258,
+     "D_m": 11.776235400291872,
+     "ecc": 0.6817935436964035,
+     "P_phi_s": 8.174072720424403,
+     "P_dominant_s": 8.174072720424403,
+     "P_slowest_s": 106.93936241200232,
+     "mode": "LAM",
+     "damping_time_yr": 17.180993283151484
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 6,
+    "new_energy_facet_max": 0.00023988288013038314,
+    "new_coupling_change_rel": 8.46241725959976e-07,
+    "speedup_vs_cost_model": 97910.93477601907,
+    "new_dadt": -7.253734156028654e-06,
+    "new_iterations": [
+     -7.2550021074393925e-06,
+     -7.253740294441166e-06,
+     -7.253734156028654e-06
+    ],
+    "new_cpu_s": 3327.1783689999997,
+    "new_wall_s": 1698.7360862079076,
+    "new_converged": true,
+    "new_fast_steps": 17811200,
+    "new_n_loc": 56,
+    "new_periods": {
+     "P_dt_s": 9.304328008682482,
+     "T_body_s": 15.187282423199356,
+     "P_phi_s": 8.174072720441796
+    },
+    "new_window": {
+     "periods": 155,
+     "steps": 25300,
+     "phi_mismatch_deg": 4.5877302739904735,
+     "length_s": 2354.0287755959002
+    }
+   },
+   "twin": {
+    "run_id": "e7528af871c892a1",
+    "kind": "pa_P_par",
+    "note": "superfast 10th percentile P_phi",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.0022705757556734456,
+    "ecc": 0.6817935436964035,
+    "Gamma": 416.1680356834258,
+    "D_m": 11.776235400291872,
+    "full_cost_estimate_core_h": 90490.8734098168,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.0009132101545679924,
+     "sun_motion_per_slowest_q_deg": 0.0009132101545679924,
+     "P_slow_over_P_orb": 3.511117564877946e-07,
+     "fast_layer_over_l_q": 0.012741724300367295,
+     "l_s_over_D": 0.028333428550389953,
+     "l_d_fastest_um": 197.71171155966715,
+     "centrifugal_over_gravity": 329180.9310784099,
+     "Gamma": 416.1680356834258,
+     "D_m": 11.776235400291872,
+     "ecc": 0.6817935436964035,
+     "P_phi_s": 8.174072720424403,
+     "P_dominant_s": 11.08045363555075,
+     "P_slowest_s": 11.08045363555075,
+     "mode": "PA"
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 5,
+    "new_energy_facet_max": 0.002523102251618094,
+    "new_coupling_change_rel": 2.4086006827190522e-05,
+    "speedup_vs_cost_model": 4487233.260767819,
+    "new_dadt": -3.161473342826352e-05,
+    "new_iterations": [
+     -3.1619957887149594e-05,
+     -3.161397195557833e-05,
+     -3.161473342826352e-05
+    ],
+    "new_cpu_s": 72.59866499999998,
+    "new_wall_s": 40.903762582922354,
+    "new_converged": true,
+    "new_fast_steps": 210273,
+    "new_n_loc": 56,
+    "new_periods": {
+     "P_rot_s": 11.08045363555075
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 119,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 11.08045363555075
+    }
+   }
+  },
+  {
+   "state_id": "sobol4102_superfast_00231",
+   "tumbler": {
+    "run_id": "467b658779e1e7a5",
+    "kind": "tumbler",
+    "note": "superfast median P_phi",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.015447494698166779,
+    "ecc": 0.44181404262781143,
+    "Gamma": 1401.7400900598418,
+    "D_m": 96.99006814277855,
+    "full_cost_estimate_core_h": 5868.660167832867,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.0018265735007872443,
+     "sun_motion_per_slowest_q_deg": 0.007512110210763339,
+     "P_slow_over_P_orb": 7.247249021584545e-06,
+     "fast_layer_over_l_q": 0.0365446505331588,
+     "l_s_over_D": 0.014798942799508715,
+     "l_d_fastest_um": 1905.400392190197,
+     "centrifugal_over_gravity": 16690.994464801723,
+     "Gamma": 1401.7400900598418,
+     "D_m": 96.99006814277855,
+     "ecc": 0.44181404262781143,
+     "P_phi_s": 55.610980913400404,
+     "P_dominant_s": 55.610980913400404,
+     "P_slowest_s": 228.7101052161709,
+     "mode": "LAM",
+     "damping_time_yr": 79.7577458859233
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 0.00017011991439704917,
+    "new_coupling_change_rel": 3.622035913479703e-05,
+    "speedup_vs_cost_model": 25008.78327973616,
+    "new_dadt": 1.3417713640962586e-06,
+    "new_iterations": [
+     1.3415824931314423e-06,
+     1.3417227646555743e-06,
+     1.3417713640962586e-06
+    ],
+    "new_cpu_s": 844.7902630000003,
+    "new_wall_s": 429.9212061660364,
+    "new_converged": true,
+    "new_fast_steps": 5212588,
+    "new_n_loc": 40,
+    "new_periods": {
+     "P_dt_s": 57.98546036089118,
+     "T_body_s": 74.37438606262862,
+     "P_phi_s": 55.61098091335363
+    },
+    "new_window": {
+     "periods": 80,
+     "steps": 10261,
+     "phi_mismatch_deg": 2.745252397461968,
+     "length_s": 5949.950885010289
+    }
+   },
+   "twin": {
+    "run_id": "b2720213936c74ce",
+    "kind": "pa_P_par",
+    "note": "superfast median P_phi",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.015447494698166779,
+    "ecc": 0.44181404262781143,
+    "Gamma": 1401.7400900598418,
+    "D_m": 96.99006814277855,
+    "full_cost_estimate_core_h": 5868.660167832867,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.0021861219449915976,
+     "sun_motion_per_slowest_q_deg": 0.0021861219449915976,
+     "P_slow_over_P_orb": 2.1090438881214103e-06,
+     "fast_layer_over_l_q": 0.019714239562412784,
+     "l_s_over_D": 0.014798942799508715,
+     "l_d_fastest_um": 2084.5142377313687,
+     "centrifugal_over_gravity": 11652.195188377382,
+     "Gamma": 1401.7400900598418,
+     "D_m": 96.99006814277855,
+     "ecc": 0.44181404262781143,
+     "P_phi_s": 55.610980913400404,
+     "P_dominant_s": 66.55762043240877,
+     "P_slowest_s": 66.55762043240877,
+     "mode": "PA"
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 5.0,
+    "new_windows_max": 5,
+    "new_energy_facet_max": 0.0027413583956002524,
+    "new_coupling_change_rel": 4.104129700004509e-05,
+    "speedup_vs_cost_model": 462147.4824208089,
+    "new_dadt": -2.967664918247557e-06,
+    "new_iterations": [
+     -2.9684300805126265e-06,
+     -2.9675431214302504e-06,
+     -2.967664918247557e-06
+    ],
+    "new_cpu_s": 45.71522600000003,
+    "new_wall_s": 26.040609792107716,
+    "new_converged": true,
+    "new_fast_steps": 140300,
+    "new_n_loc": 40,
+    "new_periods": {
+     "P_rot_s": 66.55762043240877
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 115,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 66.55762043240877
+    }
+   }
+  },
+  {
+   "state_id": "sobol4102_superfast_00062",
+   "tumbler": {
+    "run_id": "9af1f041f3df0203",
+    "kind": "tumbler",
+    "note": "superfast LAM, highest e",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.003228588397788862,
+    "ecc": 0.7977508805692196,
+    "Gamma": 1114.2257877275595,
+    "D_m": 32.89939259986868,
+    "full_cost_estimate_core_h": 61226.76934627019,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.001954520859840919,
+     "sun_motion_per_slowest_q_deg": 0.03609672039904295,
+     "P_slow_over_P_orb": 6.801903226599992e-06,
+     "fast_layer_over_l_q": 0.0801081515022075,
+     "l_s_over_D": 0.058707670640541,
+     "l_d_fastest_um": 1172.163885935918,
+     "centrifugal_over_gravity": 646832.7804173004,
+     "Gamma": 1114.2257877275595,
+     "D_m": 32.89939259986868,
+     "ecc": 0.7977508805692196,
+     "P_phi_s": 11.622918232039902,
+     "P_dominant_s": 11.622918232039902,
+     "P_slowest_s": 214.65579532214898,
+     "mode": "LAM",
+     "damping_time_yr": 6.328714747671089
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 6,
+    "new_energy_facet_max": 0.0002182933327886804,
+    "new_coupling_change_rel": 9.486872296117525e-06,
+    "speedup_vs_cost_model": 121496.49058677327,
+    "new_dadt": -1.587746796068834e-05,
+    "new_iterations": [
+     -1.5878370358175524e-05,
+     -1.587761858819927e-05,
+     -1.587746796068834e-05
+    ],
+    "new_cpu_s": 1814.1789,
+    "new_wall_s": 977.4711231670808,
+    "new_converged": true,
+    "new_fast_steps": 7548260,
+    "new_n_loc": 72,
+    "new_periods": {
+     "P_dt_s": 12.079173437529477,
+     "T_body_s": 24.576578855841788,
+     "P_phi_s": 11.622918232049164
+    },
+    "new_window": {
+     "periods": 35,
+     "steps": 7121,
+     "phi_mismatch_deg": 2.6113822028906952,
+     "length_s": 860.1802599544626
+    }
+   },
+   "twin": {
+    "run_id": "25efce5b7edbf572",
+    "kind": "pa_P_par",
+    "note": "superfast LAM, highest e",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.003228588397788862,
+    "ecc": 0.7977508805692196,
+    "Gamma": 1114.2257877275595,
+    "D_m": 32.89939259986868,
+    "full_cost_estimate_core_h": 61226.76934627019,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.002126223699112296,
+     "sun_motion_per_slowest_q_deg": 0.002126223699112296,
+     "P_slow_over_P_orb": 4.0065600640685206e-07,
+     "fast_layer_over_l_q": 0.01944228544597426,
+     "l_s_over_D": 0.058707670640541,
+     "l_d_fastest_um": 1222.5669722041632,
+     "centrifugal_over_gravity": 546581.25281666,
+     "Gamma": 1114.2257877275595,
+     "D_m": 32.89939259986868,
+     "ecc": 0.7977508805692196,
+     "P_phi_s": 11.622918232039902,
+     "P_dominant_s": 12.643980786073088,
+     "P_slowest_s": 12.643980786073088,
+     "mode": "PA"
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 5,
+    "new_energy_facet_max": 0.001192445679053961,
+    "new_coupling_change_rel": 2.1208931772062018e-05,
+    "speedup_vs_cost_model": 2664502.426699995,
+    "new_dadt": -5.619752044231779e-05,
+    "new_iterations": [
+     -5.6195173782331244e-05,
+     -5.619871233169461e-05,
+     -5.619752044231779e-05
+    ],
+    "new_cpu_s": 82.72327599999971,
+    "new_wall_s": 46.14853687514551,
+    "new_converged": true,
+    "new_fast_steps": 221445,
+    "new_n_loc": 72,
+    "new_periods": {
+     "P_rot_s": 12.643980786073087
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 105,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 12.643980786073087
+    }
+   }
+  },
+  {
+   "state_id": "sobol4102_superfast_00149",
+   "tumbler": {
+    "run_id": "cbaca9eb23b10308",
+    "kind": "tumbler",
+    "note": "superfast lowest Gamma",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.006377675059783357,
+    "ecc": 0.6170423351228238,
+    "Gamma": 5.083571931844678,
+    "D_m": 22.05015846010992,
+    "full_cost_estimate_core_h": 68413.08023091154,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.001405367047171067,
+     "sun_motion_per_slowest_q_deg": 0.026100001000172613,
+     "P_slow_over_P_orb": 1.35114972642118e-05,
+     "fast_layer_over_l_q": 0.06811819002292575,
+     "l_s_over_D": 0.00034835754140141603,
+     "l_d_fastest_um": 6.551901996067024,
+     "centrifugal_over_gravity": 144494.40898301598,
+     "Gamma": 5.083571931844678,
+     "D_m": 22.05015846010992,
+     "ecc": 0.6170423351228238,
+     "P_phi_s": 22.959630215220088,
+     "P_dominant_s": 22.959630215220088,
+     "P_slowest_s": 426.39847916392404,
+     "mode": "LAM",
+     "damping_time_yr": 108.59678576067523
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 9.413997933140414e-05,
+    "new_coupling_change_rel": 1.4264344736668702e-07,
+    "speedup_vs_cost_model": 63053.469776818005,
+    "new_dadt": 0.0001527646967581307,
+    "new_iterations": [
+     0.0001527755184575775,
+     0.00015276471854901367,
+     0.0001527646967581307
+    ],
+    "new_cpu_s": 3906.0037409999995,
+    "new_wall_s": 2072.6255571660586,
+    "new_converged": true,
+    "new_fast_steps": 18830784,
+    "new_n_loc": 56,
+    "new_periods": {
+     "P_dt_s": 24.45752988376169,
+     "T_body_s": 43.573048762691,
+     "P_phi_s": 22.95963021522129
+    },
+    "new_window": {
+     "periods": 49,
+     "steps": 28022,
+     "phi_mismatch_deg": 2.606289002850417,
+     "length_s": 2135.079389371859
+    }
+   },
+   "twin": {
+    "run_id": "08ba7197b4760f7d",
+    "kind": "pa_P_par",
+    "note": "superfast lowest Gamma",
+    "stratum": "superfast",
+    "mode": "LAM",
+    "P_phi_h": 0.006377675059783357,
+    "ecc": 0.6170423351228238,
+    "Gamma": 5.083571931844678,
+    "D_m": 22.05015846010992,
+    "full_cost_estimate_core_h": 68413.08023091154,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.0016379599802356874,
+     "sun_motion_per_slowest_q_deg": 0.0016379599802356874,
+     "P_slow_over_P_orb": 8.479421817530405e-07,
+     "fast_layer_over_l_q": 0.017064535887084672,
+     "l_s_over_D": 0.00034835754140141603,
+     "l_d_fastest_um": 7.0733337893796735,
+     "centrifugal_over_gravity": 106371.18610752211,
+     "Gamma": 5.083571931844678,
+     "D_m": 22.05015846010992,
+     "ecc": 0.6170423351228238,
+     "P_phi_s": 22.959630215220088,
+     "P_dominant_s": 26.759525583897453,
+     "P_slowest_s": 26.759525583897453,
+     "mode": "PA"
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 8.182972827544538e-05,
+    "new_coupling_change_rel": 2.9839648047759215e-06,
+    "speedup_vs_cost_model": 2998116.466135127,
+    "new_dadt": 8.510299760649662e-05,
+    "new_iterations": [
+     8.510921762676336e-05,
+     8.510325155084626e-05,
+     8.510299760649662e-05
+    ],
+    "new_cpu_s": 82.14727200000016,
+    "new_wall_s": 42.213657750049606,
+    "new_converged": true,
+    "new_fast_steps": 303264,
+    "new_n_loc": 56,
+    "new_periods": {
+     "P_rot_s": 26.759525583897453
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 351,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 26.759525583897453
+    }
+   }
+  },
+  {
+   "state_id": "sobol4102_superfast_00116",
+   "tumbler": {
+    "run_id": "34ef7f343edcb0a5",
+    "kind": "tumbler",
+    "note": "superfast smallest D",
+    "stratum": "superfast",
+    "mode": "SAM",
+    "P_phi_h": 0.02740525995882207,
+    "ecc": 0.37345364987850194,
+    "Gamma": 32.742750639012826,
+    "D_m": 3.0241024470307196,
+    "full_cost_estimate_core_h": 2575.8805869476146,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.002659524255167198,
+     "sun_motion_per_slowest_q_deg": 0.09987762112686975,
+     "P_slow_over_P_orb": 0.00011740551333191863,
+     "fast_layer_over_l_q": 0.13325298077691708,
+     "l_s_over_D": 0.012949846106469742,
+     "l_d_fastest_um": 69.24323295777282,
+     "centrifugal_over_gravity": 6194.210434773904,
+     "Gamma": 32.742750639012826,
+     "D_m": 3.0241024470307196,
+     "ecc": 0.37345364987850194,
+     "P_phi_s": 98.65893585175945,
+     "P_dominant_s": 98.65893585175945,
+     "P_slowest_s": 3705.106203350904,
+     "mode": "SAM",
+     "damping_time_yr": 458101.81741103134
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 2.992479594110244e-05,
+    "new_coupling_change_rel": 1.814965573162681e-06,
+    "speedup_vs_cost_model": 651.6329356395788,
+    "new_dadt": -0.0007685632097820246,
+    "new_iterations": [
+     -0.0007685076118210863,
+     -0.0007685618148662581,
+     -0.0007685632097820246
+    ],
+    "new_cpu_s": 14230.665158000002,
+    "new_wall_s": 7435.511616250034,
+    "new_converged": true,
+    "new_fast_steps": 17680206,
+    "new_n_loc": 40,
+    "new_periods": {
+     "P_dt_s": 100.71457481161765,
+     "T_body_s": 3705.1062033506523,
+     "P_phi_s": 98.6589358517595,
+     "P_psi_s": 3705.1062033506128
+    },
+    "new_window": {
+     "periods": 9,
+     "steps": 33109,
+     "phi_mismatch_deg": 2.7895657256726736,
+     "length_s": 33345.95583015587
+    }
+   },
+   "twin": {
+    "run_id": "433863fee9428c90",
+    "kind": "pa_P_par",
+    "note": "superfast smallest D",
+    "stratum": "superfast",
+    "mode": "SAM",
+    "P_phi_h": 0.02740525995882207,
+    "ecc": 0.37345364987850194,
+    "Gamma": 32.742750639012826,
+    "D_m": 3.0241024470307196,
+    "full_cost_estimate_core_h": 2575.8805869476146,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.00271613523382316,
+     "sun_motion_per_slowest_q_deg": 0.00271613523382316,
+     "P_slow_over_P_orb": 3.1927998265081755e-06,
+     "fast_layer_over_l_q": 0.02197447623482282,
+     "l_s_over_D": 0.012949846106469742,
+     "l_d_fastest_um": 69.9763126166485,
+     "centrifugal_over_gravity": 5938.695910973064,
+     "Gamma": 32.742750639012826,
+     "D_m": 3.0241024470307196,
+     "ecc": 0.37345364987850194,
+     "P_phi_s": 98.65893585175945,
+     "P_dominant_s": 100.75900277195109,
+     "P_slowest_s": 100.75900277195109,
+     "mode": "PA"
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 8.112444722449105e-05,
+    "new_coupling_change_rel": 5.437303418292113e-06,
+    "speedup_vs_cost_model": 339107.28301212075,
+    "new_dadt": -0.0007624350327370081,
+    "new_iterations": [
+     -0.0007624452387196978,
+     -0.0007624308871463984,
+     -0.0007624350327370081
+    ],
+    "new_cpu_s": 27.345830000000205,
+    "new_wall_s": 13.828830917133018,
+    "new_converged": true,
+    "new_fast_steps": 78000,
+    "new_n_loc": 40,
+    "new_periods": {
+     "P_rot_s": 100.75900277195109
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 100,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 100.75900277195109
+    }
+   }
+  },
+  {
+   "state_id": "sobol4101_fast_00024",
+   "tumbler": {
+    "run_id": "b7de281d7d8c2433",
+    "kind": "tumbler",
+    "note": "fast non-executable, cheapest",
+    "stratum": "fast",
+    "mode": "LAM",
+    "P_phi_h": 0.24472608886846597,
+    "ecc": 0.20248324871063234,
+    "Gamma": 217.52995589852515,
+    "D_m": 87.39180298162003,
+    "full_cost_estimate_core_h": 97.86866488889913,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.01547401089807183,
+     "sun_motion_per_slowest_q_deg": 0.11234518884842767,
+     "P_slow_over_P_orb": 0.00020268526687122494,
+     "fast_layer_over_l_q": 0.14132535240099936,
+     "l_s_over_D": 0.005952483770585669,
+     "l_d_fastest_um": 2748.57961338776,
+     "centrifugal_over_gravity": 155.30919538003698,
+     "Gamma": 217.52995589852515,
+     "D_m": 87.39180298162003,
+     "ecc": 0.20248324871063234,
+     "P_phi_s": 881.0139199264775,
+     "P_dominant_s": 881.0139199264775,
+     "P_slowest_s": 6396.38138193162,
+     "mode": "LAM",
+     "damping_time_yr": 390618.35398870136
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 7,
+    "new_energy_facet_max": 0.0002651539830570968,
+    "new_coupling_change_rel": 2.2482777427578286e-06,
+    "speedup_vs_cost_model": 605.2484880920534,
+    "new_dadt": 6.0370197879654895e-06,
+    "new_iterations": [
+     6.0304368454832285e-06,
+     6.037006215068268e-06,
+     6.0370197879654895e-06
+    ],
+    "new_cpu_s": 582.1199070000002,
+    "new_wall_s": 297.9122766251676,
+    "new_converged": true,
+    "new_fast_steps": 2744690,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_dt_s": 914.3090493191974,
+     "T_body_s": 1548.7137364111104,
+     "P_phi_s": 881.0139199264767
+    },
+    "new_window": {
+     "periods": 33,
+     "steps": 5590,
+     "phi_mismatch_deg": 3.5737692991520476,
+     "length_s": 51107.553301566644
+    }
+   },
+   "twin": {
+    "run_id": "9c928163075921b3",
+    "kind": "pa_P_par",
+    "note": "fast non-executable, cheapest",
+    "stratum": "fast",
+    "mode": "LAM",
+    "P_phi_h": 0.24472608886846597,
+    "ecc": 0.20248324871063234,
+    "Gamma": 217.52995589852515,
+    "D_m": 87.39180298162003,
+    "full_cost_estimate_core_h": 97.86866488889913,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.017011416539435317,
+     "sun_motion_per_slowest_q_deg": 0.017011416539435317,
+     "P_slow_over_P_orb": 3.0690798035017706e-05,
+     "fast_layer_over_l_q": 0.0549937173439342,
+     "l_s_over_D": 0.005952483770585669,
+     "l_d_fastest_um": 2881.8880829913405,
+     "centrifugal_over_gravity": 128.5055867503552,
+     "Gamma": 217.52995589852515,
+     "D_m": 87.39180298162003,
+     "ecc": 0.20248324871063234,
+     "P_phi_s": 881.0139199264775,
+     "P_dominant_s": 968.5462203453368,
+     "P_slowest_s": 968.5462203453368,
+     "mode": "PA"
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 5.523046717786746e-05,
+    "new_coupling_change_rel": 0.0007748278199975994,
+    "speedup_vs_cost_model": 8355.292688356101,
+    "new_dadt": -3.2465746278301515e-07,
+    "new_iterations": [
+     -3.343230681686459e-07,
+     -3.261546723632965e-07,
+     -3.252935659332386e-07,
+     -3.2490901641714927e-07,
+     -3.2465746278301515e-07
+    ],
+    "new_cpu_s": 42.16814499999964,
+    "new_wall_s": 21.665505666052923,
+    "new_converged": true,
+    "new_fast_steps": 101548,
+    "new_n_loc": 32,
+    "new_periods": {
+     "P_rot_s": 968.5462203453368
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 106,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 968.5462203453368
+    }
+   }
+  },
+  {
+   "state_id": "sobol4101_fast_00028",
+   "tumbler": {
+    "run_id": "ce15d355e221ebef",
+    "kind": "tumbler",
+    "note": "fast non-executable, most expensive",
+    "stratum": "fast",
+    "mode": "LAM",
+    "P_phi_h": 0.22445508534022054,
+    "ecc": 0.7413786709308625,
+    "Gamma": 5.589174205972564,
+    "D_m": 157.71885488063901,
+    "full_cost_estimate_core_h": 3420.6899659081328,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.0924852304502435,
+     "sun_motion_per_slowest_q_deg": 0.764795294375656,
+     "P_slow_over_P_orb": 0.0002117349764138255,
+     "fast_layer_over_l_q": 0.36873591605637857,
+     "l_s_over_D": 3.406930016488316e-05,
+     "l_d_fastest_um": 27.19010090773615,
+     "centrifugal_over_gravity": 74.22464755583651,
+     "Gamma": 5.589174205972564,
+     "D_m": 157.71885488063901,
+     "ecc": 0.7413786709308625,
+     "P_phi_s": 808.0383072247939,
+     "P_dominant_s": 808.0383072247939,
+     "P_slowest_s": 6681.973889585155,
+     "mode": "LAM",
+     "damping_time_yr": 92528.25111644858
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null
+   },
+   "twin": {
+    "run_id": "6e62a5c182bec795",
+    "kind": "pa_P_par",
+    "note": "fast non-executable, most expensive",
+    "stratum": "fast",
+    "mode": "LAM",
+    "P_phi_h": 0.22445508534022054,
+    "ecc": 0.7413786709308625,
+    "Gamma": 5.589174205972564,
+    "D_m": 157.71885488063901,
+    "full_cost_estimate_core_h": 3420.6899659081328,
+    "diagnostics": {
+     "sun_motion_per_rotation_q_deg": 0.09685340180097274,
+     "sun_motion_per_slowest_q_deg": 0.09685340180097274,
+     "P_slow_over_P_orb": 2.6814041478470274e-05,
+     "fast_layer_over_l_q": 0.13122007369472152,
+     "l_s_over_D": 3.406930016488316e-05,
+     "l_d_fastest_um": 27.824801025124554,
+     "centrifugal_over_gravity": 67.68043664645396,
+     "Gamma": 5.589174205972564,
+     "D_m": 157.71885488063901,
+     "ecc": 0.7413786709308625,
+     "P_phi_s": 808.0383072247939,
+     "P_dominant_s": 846.2027770188116,
+     "P_slowest_s": 846.2027770188116,
+     "mode": "PA"
+    },
+    "full_dadt": null,
+    "full_accepted": null,
+    "full_wall_s": null,
+    "full_orbits": null,
+    "full_history": null,
+    "new_windows_median": 4.0,
+    "new_windows_max": 4,
+    "new_energy_facet_max": 2.6910630332871705e-05,
+    "new_coupling_change_rel": 0.00013961898741310518,
+    "speedup_vs_cost_model": 26192.58197258746,
+    "new_dadt": 1.546781158618176e-06,
+    "new_iterations": [
+     1.546189236436267e-06,
+     1.546997118637292e-06,
+     1.546781158618176e-06
+    ],
+    "new_cpu_s": 470.15158300000076,
+    "new_wall_s": 239.69523583282717,
+    "new_converged": true,
+    "new_fast_steps": 2584799,
+    "new_n_loc": 64,
+    "new_periods": {
+     "P_rot_s": 846.2027770188117
+    },
+    "new_window": {
+     "periods": 1,
+     "steps": 3103,
+     "phi_mismatch_deg": 0.0,
+     "length_s": 846.2027770188117
+    }
+   }
+  }
+ ],
+ "cost_calibration": {
+  "runs": [
+   {
+    "run_id": "9386cdb0cc855235",
+    "cpu_s": 522.286597,
+    "cells": 77661143040,
+    "windows_per_loc_iter": 4.0,
+    "iterations": 3,
+    "core_s_per_cell": 6.725198426850247e-09
+   },
+   {
+    "run_id": "14c355412872f329",
+    "cpu_s": 31.773468999999977,
+    "cells": 1536071040,
+    "windows_per_loc_iter": 4.5390625,
+    "iterations": 4,
+    "core_s_per_cell": 2.068489553712306e-08
+   },
+   {
+    "run_id": "c8746b26057786ba",
+    "cpu_s": 4641.333348,
+    "cells": 754538004480,
+    "windows_per_loc_iter": 4.111111111111111,
+    "iterations": 4,
+    "core_s_per_cell": 6.1512254126929465e-09
+   },
+   {
+    "run_id": "af8a7c45e8bc0774",
+    "cpu_s": 81.52094699999998,
+    "cells": 4075868160,
+    "windows_per_loc_iter": 6.7407407407407405,
+    "iterations": 3,
+    "core_s_per_cell": 2.000087927279767e-08
+   },
+   {
+    "run_id": "8952c23fd6550a65",
+    "cpu_s": 3964.664749,
+    "cells": 593052794880,
+    "windows_per_loc_iter": 4.0,
+    "iterations": 3,
+    "core_s_per_cell": 6.685180110823391e-09
+   },
+   {
+    "run_id": "27ea64c0ccd6ff41",
+    "cpu_s": 102.23262700000032,
+    "cells": 12464524800,
+    "windows_per_loc_iter": 4.270833333333333,
+    "iterations": 3,
+    "core_s_per_cell": 8.201887247237883e-09
+   },
+   {
+    "run_id": "e285ed8960b9a98d",
+    "cpu_s": 1832.481425,
+    "cells": 322242600960,
+    "windows_per_loc_iter": 4.0,
+    "iterations": 3,
+    "core_s_per_cell": 5.686651670327928e-09
+   },
+   {
+    "run_id": "56c555102ca0b2fc",
+    "cpu_s": 26.21468199999981,
+    "cells": 1623283200,
+    "windows_per_loc_iter": 5.71875,
+    "iterations": 3,
+    "core_s_per_cell": 1.614917347755451e-08
+   },
+   {
+    "run_id": "b31461b499de92a6",
+    "cpu_s": 323.03171399999974,
+    "cells": 55526768640,
+    "windows_per_loc_iter": 4.0,
+    "iterations": 3,
+    "core_s_per_cell": 5.8175853180711896e-09
+   },
+   {
+    "run_id": "fb81945944c0a60b",
+    "cpu_s": 20.584617000000435,
+    "cells": 1245953920,
+    "windows_per_loc_iter": 4.802083333333333,
+    "iterations": 3,
+    "core_s_per_cell": 1.6521170381646567e-08
+   },
+   {
+    "run_id": "6b895a17f536d9db",
+    "cpu_s": 771.798128,
+    "cells": 121430016000,
+    "windows_per_loc_iter": 4.0,
+    "iterations": 3,
+    "core_s_per_cell": 6.3559089706452815e-09
+   },
+   {
+    "run_id": "4eb6a6a4d2391ef1",
+    "cpu_s": 39.98851400000001,
+    "cells": 2668922880,
+    "windows_per_loc_iter": 8.15,
+    "iterations": 3,
+    "core_s_per_cell": 1.4983015919890503e-08
+   },
+   {
+    "run_id": "aa4a98db396c2b44",
+    "cpu_s": 2263.533398,
+    "cells": 349916112000,
+    "windows_per_loc_iter": 4.04296875,
+    "iterations": 4,
+    "core_s_per_cell": 6.468788719280237e-09
+   },
+   {
+    "run_id": "98aa108d39b55cca",
+    "cpu_s": 85.34334600000011,
+    "cells": 4788175680,
+    "windows_per_loc_iter": 5.715625,
+    "iterations": 5,
+    "core_s_per_cell": 1.782377082705539e-08
+   },
+   {
+    "run_id": "820a7b277a488a7a",
+    "cpu_s": 615.5316050000001,
+    "cells": 89890577920,
+    "windows_per_loc_iter": 4.048611111111111,
+    "iterations": 3,
+    "core_s_per_cell": 6.847565331572408e-09
+   },
+   {
+    "run_id": "91691ff4fcd152da",
+    "cpu_s": 43.17435299999988,
+    "cells": 2521664000,
+    "windows_per_loc_iter": 5.381944444444445,
+    "iterations": 3,
+    "core_s_per_cell": 1.712137421956291e-08
+   },
+   {
+    "run_id": "34ef7f343edcb0a5",
+    "cpu_s": 14230.665158000002,
+    "cells": 2749625637120,
+    "windows_per_loc_iter": 4.45,
+    "iterations": 3,
+    "core_s_per_cell": 5.17549188001659e-09
+   },
+   {
+    "run_id": "433863fee9428c90",
+    "cpu_s": 27.345830000000205,
+    "cells": 2021760000,
+    "windows_per_loc_iter": 6.5,
+    "iterations": 3,
+    "core_s_per_cell": 1.3525754787907668e-08
+   },
+   {
+    "run_id": "18a2704b225c874e",
+    "cpu_s": 355.69822899999997,
+    "cells": 51909216000,
+    "windows_per_loc_iter": 5.305555555555555,
+    "iterations": 3,
+    "core_s_per_cell": 6.85231364311108e-09
+   },
+   {
+    "run_id": "808727d1bd85b809",
+    "cpu_s": 42.13453100000004,
+    "cells": 2871106560,
+    "windows_per_loc_iter": 6.868055555555555,
+    "iterations": 3,
+    "core_s_per_cell": 1.4675363007076977e-08
+   },
+   {
+    "run_id": "192bf033a53fb634",
+    "cpu_s": 3327.1783689999997,
+    "cells": 587057152000,
+    "windows_per_loc_iter": 4.190476190476191,
+    "iterations": 3,
+    "core_s_per_cell": 5.667554441104909e-09
+   },
+   {
+    "run_id": "e7528af871c892a1",
+    "cpu_s": 72.59866499999998,
+    "cells": 5921287680,
+    "windows_per_loc_iter": 10.517857142857142,
+    "iterations": 3,
+    "core_s_per_cell": 1.226062115597126e-08
+   },
+   {
+    "run_id": "467b658779e1e7a5",
+    "cpu_s": 844.7902630000003,
+    "cells": 151790562560,
+    "windows_per_loc_iter": 4.233333333333333,
+    "iterations": 3,
+    "core_s_per_cell": 5.565499256029639e-09
+   },
+   {
+    "run_id": "b2720213936c74ce",
+    "cpu_s": 45.71522600000003,
+    "cells": 3861056000,
+    "windows_per_loc_iter": 10.166666666666666,
+    "iterations": 3,
+    "core_s_per_cell": 1.1840083645510459e-08
+   },
+   {
+    "run_id": "9af1f041f3df0203",
+    "cpu_s": 1814.1789,
+    "cells": 277775968000,
+    "windows_per_loc_iter": 4.907407407407407,
+    "iterations": 3,
+    "core_s_per_cell": 6.53108659133536e-09
+   },
+   {
+    "run_id": "25efce5b7edbf572",
+    "cpu_s": 82.72327599999971,
+    "cells": 5810716800,
+    "windows_per_loc_iter": 9.76388888888889,
+    "iterations": 3,
+    "core_s_per_cell": 1.423632898440339e-08
+   },
+   {
+    "run_id": "cbaca9eb23b10308",
+    "cpu_s": 3906.0037409999995,
+    "cells": 644766044160,
+    "windows_per_loc_iter": 4.0,
+    "iterations": 3,
+    "core_s_per_cell": 6.058017130986998e-09
+   },
+   {
+    "run_id": "08ba7197b4760f7d",
+    "cpu_s": 82.14727200000016,
+    "cells": 8151736320,
+    "windows_per_loc_iter": 5.142857142857143,
+    "iterations": 3,
+    "core_s_per_cell": 1.0077272960664183e-08
+   },
+   {
+    "run_id": "b7de281d7d8c2433",
+    "cpu_s": 582.1199070000002,
+    "cells": 92221584000,
+    "windows_per_loc_iter": 5.114583333333333,
+    "iterations": 3,
+    "core_s_per_cell": 6.312187253257331e-09
+   },
+   {
+    "run_id": "9c928163075921b3",
+    "cpu_s": 42.16814499999964,
+    "cells": 2697114880,
+    "windows_per_loc_iter": 5.9875,
+    "iterations": 5,
+    "core_s_per_cell": 1.5634537969698808e-08
+   },
+   {
+    "run_id": "6e62a5c182bec795",
+    "cpu_s": 470.15158300000076,
+    "cells": 66997990080,
+    "windows_per_loc_iter": 4.338541666666667,
+    "iterations": 3,
+    "core_s_per_cell": 7.0173983195407635e-09
+   },
+   {
+    "run_id": "98aa108d39b55cca_P4",
+    "cpu_s": 89.629245,
+    "cells": 5657325120,
+    "windows_per_loc_iter": 6.753125,
+    "iterations": 5,
+    "core_s_per_cell": 1.5843042975051785e-08
+   },
+   {
+    "run_id": "af8a7c45e8bc0774_P4",
+    "cpu_s": 88.48174399999999,
+    "cells": 4870886400,
+    "windows_per_loc_iter": 8.055555555555555,
+    "iterations": 3,
+    "core_s_per_cell": 1.81654296022999e-08
+   }
+  ],
+  "C_CELL_median": 6.3559089706452815e-09,
+  "windows_median": 4.907407407407407,
+  "windows_p90": 8.131111111111112,
+  "iterations_median": 3.0
+ },
+ "deferred": {
+  "superfast": {
+   "runs": 450,
+   "tumblers": 225,
+   "modes": {
+    "SAM": 112,
+    "LAM": 113,
+    "PA": 225
+   },
+   "P_phi_s_range": [
+    5.023855704536191,
+    589.0086818724178
+   ],
+   "D_m_range": [
+    3.0241024470307196,
+    149.07509142105357
+   ],
+   "Gamma_range": [
+    5.083571931844678,
+    2489.1853747704386
+   ],
+   "sun_motion_per_rotation_q_deg_max": 0.07111918000200118,
+   "n_sun_motion_gt_1deg": 0,
+   "n_fast_layer_over_l_q_gt_0.3": 4,
+   "n_fast_layer_over_l_q_gt_1": 1,
+   "n_P_slow_over_P_orb_gt_0.01": 1,
+   "l_s_over_D_max": 0.11349291944578004,
+   "n_regolith_skin_lt_100um": 195,
+   "n_regolith_skin_lt_30um": 99,
+   "n_skin_lt_10um": 36,
+   "centrifugal_over_gravity_min": 56.866059845621734,
+   "n_unbound_regolith_like": 304,
+   "n_unbound": 450,
+   "n_tumblers_damping_lt_1e3_yr": 110,
+   "n_tumblers_damping_lt_1e6_yr": 209,
+   "twoscale_core_h_total": 349.5604278784,
+   "twoscale_core_h_median": 0.04406195626666667,
+   "twoscale_core_h_max": 26.150043485866668,
+   "twoscale_bins": {
+    "1h": 377,
+    "6h": 61,
+    "24h": 10,
+    "96h": 2,
+    "400h": 0,
+    "over": 0
+   },
+   "full_core_h_total": 12321573.665647924
+  },
+  "fast": {
+   "runs": 152,
+   "tumblers": 76,
+   "modes": {
+    "SAM": 36,
+    "LAM": 40,
+    "PA": 76
+   },
+   "P_phi_s_range": [
+    601.1311963206196,
+    7844.672485293023
+   ],
+   "D_m_range": [
+    10.437496120221793,
+    193.8098460798817
+   ],
+   "Gamma_range": [
+    5.092905992957166,
+    1897.7191114688953
+   ],
+   "sun_motion_per_rotation_q_deg_max": 1.4249485491653842,
+   "n_sun_motion_gt_1deg": 2,
+   "n_fast_layer_over_l_q_gt_0.3": 41,
+   "n_fast_layer_over_l_q_gt_1": 7,
+   "n_P_slow_over_P_orb_gt_0.01": 2,
+   "l_s_over_D_max": 0.11589141982644006,
+   "n_regolith_skin_lt_100um": 40,
+   "n_regolith_skin_lt_30um": 3,
+   "n_skin_lt_10um": 0,
+   "centrifugal_over_gravity_min": 0.6634573159893997,
+   "n_unbound_regolith_like": 127,
+   "n_unbound": 151,
+   "n_tumblers_damping_lt_1e3_yr": 0,
+   "n_tumblers_damping_lt_1e6_yr": 24,
+   "twoscale_core_h_total": 1454.9855949909334,
+   "twoscale_core_h_median": 0.19316424106666666,
+   "twoscale_core_h_max": 366.67892136106667,
+   "twoscale_bins": {
+    "1h": 104,
+    "6h": 25,
+    "24h": 13,
+    "96h": 6,
+    "400h": 4,
+    "over": 0
+   },
+   "full_core_h_total": 57204.131167187814
+  }
+ }
+}

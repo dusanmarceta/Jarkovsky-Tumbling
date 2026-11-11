@@ -167,15 +167,17 @@ def summarise(waves):
     return out
 
 
-def write_wave(waves, wave, out):
+def write_wave(waves, wave, out, route_override=None):
+    """route_override = 'twoscale' writes the deferred wave for the two-scale method (research/superfast); the frozen
+    lines are copied unchanged, only the 'hpc' block says how they are run."""
     out = Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)
     runs = waves[wave]
     with open(out, 'w') as f:
         for rid in sorted(runs, key=lambda r: (runs[r][1][0], r)):
             ln, src, route = runs[rid]
-            f.write(json.dumps(dict(ln, hpc={'wave': wave, 'route': route, 'sources': src, 'selection': 'waves-v1'}),
-                               default=float) + '\n')
+            f.write(json.dumps(dict(ln, hpc={'wave': wave, 'route': route_override or route, 'sources': src,
+                                             'selection': 'waves-v1'}), default=float) + '\n')
     return len(runs)
 
 
@@ -188,6 +190,7 @@ if __name__ == '__main__':
     w = sub.add_parser('write')
     w.add_argument('--wave', required=True)
     w.add_argument('--out', required=True)
+    w.add_argument('--twoscale', action='store_true', help="write the deferred wave with hpc.route = 'twoscale'")
     a = ap.parse_args()
     if a.cmd == 'exclusions':
         ex = build_exclusions(load_frozen())
@@ -202,7 +205,11 @@ if __name__ == '__main__':
             json.dump({'selection': 'waves-v1', 'long_max_core_h': LONG_MAX_CORE_H, 'waves': summ}, open(SUMMARY, 'w'), indent=1)
         print(json.dumps(summ, indent=1))
     else:
-        if a.wave not in waves or a.wave in ('excluded', 'deferred'):
-            sys.exit(f'wave must be one of {[x for x in waves if x not in ("excluded", "deferred")]}')
-        n = write_wave(waves, a.wave, a.out)
+        if a.twoscale:
+            if a.wave != 'deferred':
+                sys.exit('--twoscale is only for the deferred wave')
+        elif a.wave not in waves or a.wave in ('excluded', 'deferred'):
+            sys.exit(f'wave must be one of {[x for x in waves if x not in ("excluded", "deferred")]} '
+                     f'(deferred: only with --twoscale)')
+        n = write_wave(waves, a.wave, a.out, 'twoscale' if a.twoscale else None)
         print(f'wave {a.wave}: {n} runs -> {a.out}')

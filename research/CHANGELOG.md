@@ -32,6 +32,26 @@ The frozen manifests and their checksums are unchanged; every addition is a new 
 | `derive_state` / `lines_for_unit` accept an existing state's `derived` block (`rotation=`), so rebuilt lines of A–D states (derived through the `Simulation`) reproduce their configuration to the last digit | `research/tools/campaign.py` | default path unchanged: V rebuilt with the new and the tagged code is identical |
 | `prepare.py`: honours `hpc.route` of wave manifests, skips excluded runs, optional `400h` bin for `full_long` runs (`--allow-long`); selection factored into `task_bins` | `research/hpc/prepare.py`, `research/hpc/make_slurm_arrays.py` | `test_written_wave_manifest` |
 
+### Branch `research/superfast-method` (from `research/paper1-hpc-v2`; new numerical method, no solver change)
+
+A two-scale method for the 602 deferred runs (super-fast stratum and fast runs that the full solver cannot execute).
+It reads the frozen manifest lines unchanged and reuses the solver's initial state, equations of motion, orbit
+convention, drift formula and Crank–Nicolson column kernel. `src/`, `tempest.py` and the frozen manifests have no
+diff against `hpc-freeze-v1`. Method and limits are in `research/superfast/METHOD.md`; the results are in
+`research/runs/superfast_validation/VALIDATION.json`.
+
+| Change | Files | Supporting tests / evidence |
+|---|---|---|
+| Torque-free attitude in absolute time, Kepler orbit (solver conventions) | `research/superfast/attitude.py`, `orbit.py` | `tests/test_superfast.py`: rotation matrices equal `compute_tumbling_dynamics` to 1e-12–1e-10 (SAM, LAM, PA); orbit to 1e-15 |
+| Compiled kernels: fast column window, seasonal orbit, analytic torus-averaged insolation (all through the solver's `implicit_column_step`) | `research/superfast/kernels.py` | fast kernel equals `implicit_orbit_step` exactly; torus table equals sampling to 1e-3 |
+| Two-scale model: seasonal problem (perihelion-sized grid, multiplicative κ closure), frozen-Sun fast columns at 24–72 positions, adaptive coupling, near-resonant windows | `research/superfast/twoscale.py` | local energy balance; seasonal closure positivity and orbit energy balance |
+| IAC 2026 reference reproduced bit for bit (isolated copy of `Tempestovsky-main`); new code in `mode='diurnal'` within 0.04–0.05 % of its Richardson values | `research/superfast/validation/iac_compare.py` | `iac_compare.json` |
+| Overlap with the full solver: 8 states (16 runs), 1.5–90 h | `validation/overlap.py`, `overlap.jsonl` | ≤ 0.9 % (median 0.16 %) where the Sun moves ≤ 3° per rotation; 0.11 / 0.20 % at 1.5 h; 1.0–1.7 % at 7–16° |
+| Period / 4 scaling test (2 validation-only lines) | `scaled.jsonl` | error 1.7 → 0.9 % and 1.0 → 0.3 % |
+| Convergence studies (positions, Δt, Δz, depth, tolerances, seasonal grid, coupling) | `validation/convergence.py` | < 0.1 % for fast and super-fast states, except halving the solver's own Δz (0.1–0.5 %) |
+| Unsupported campaign runs: 8 deferred states (P_φ 5.0 s … 2.2 h, D 3.0 m …) | `validation/superfast_demo.py` | all converged; 6 CPU-min for the 5 s tumbler (full solver estimate 2.2e5 core-h) |
+| HPC: `twoscale` route for the deferred wave, cost model, task script | `campaign/waves.py write --wave deferred --twoscale`, `superfast/cost.py`, `hpc/prepare.py --twoscale-costs`, `hpc/make_slurm_arrays.py --runner`, `hpc/run_task_twoscale.sh` | `test_deferred_wave_twoscale_route`; wave assignment identical to `WAVES.json` |
+
 ## Solver issues
 
 **S-1 (FIXED in `fc9b41d`). Crank–Nicolson surface solve could return a non-converged, unphysical temperature

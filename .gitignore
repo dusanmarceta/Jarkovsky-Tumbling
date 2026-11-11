@@ -78,3 +78,4 @@ research/runs/probe/
 research/runs/smoke/
 research/runs/postfix/*/
 research/runs/verification/raw/
+research/runs/superfast_validation/deferred_twoscale.jsonl

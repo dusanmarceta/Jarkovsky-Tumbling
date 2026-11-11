@@ -28,7 +28,7 @@ TEMPLATE = """#!/usr/bin/env bash
 {extra}
 export REPO={repo} VENV={venv} NUMBA_CACHE_DIR={root}/numba_cache TASK_INDEX_BASE=0
 export SLURM_ARRAY_TASK_ID=$((SLURM_ARRAY_TASK_ID + {offset}))
-bash {repo}/research/hpc/run_task.sh {manifest} {tasklist} {root}
+bash {repo}/research/hpc/{runner} {manifest} {tasklist} {root}
 """
 
 if __name__ == '__main__':
@@ -38,6 +38,8 @@ if __name__ == '__main__':
     ap.add_argument('--max-array', type=int, default=1000, help='MaxArraySize of the cluster')
     ap.add_argument('--throttle', type=int, default=200)
     ap.add_argument('--extra', default='', help='extra #SBATCH lines, e.g. "#SBATCH --qos=normal"')
+    ap.add_argument('--runner', default='run_task.sh', choices=['run_task.sh', 'run_task_twoscale.sh'],
+                    help='run_task_twoscale.sh for the deferred wave with the two-scale method')
     ap.add_argument('--submit', action='store_true')
     a = ap.parse_args()
     root = Path(a.root)
@@ -54,7 +56,7 @@ if __name__ == '__main__':
             script.write_text(TEMPLATE.format(name=f'{stem}_{b}_{part}', account=a.account, partition=a.partition,
                                               wall=WALL[b], mem=MEM[b], last=cnt - 1, throttle=a.throttle, root=root,
                                               extra=a.extra, repo=a.repo, venv=a.venv, offset=off,
-                                              manifest=Path(a.manifest).resolve(), tasklist=tl))
+                                              manifest=Path(a.manifest).resolve(), tasklist=tl, runner=a.runner))
             print(script, f'{cnt} tasks')
             if a.submit:
                 subprocess.run(['sbatch', str(script)], check=True)
