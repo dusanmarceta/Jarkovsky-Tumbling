@@ -2,6 +2,7 @@
 Figures of the Tempestovsky paper (Tumbling-Yarkovsky-paper repository). Run from the repository root:
 
     python results/paper/make_figures.py [output directory]      # default: my_paper/fig
+    python results/paper/make_figures.py --poster                # sans-serif versions for the poster, my_paper/poster_fig
 
 All numbers come from the results directories of this repository:
   results/linear_comparison/results_2026-10-14.txt     validation against the linear theory
@@ -21,7 +22,9 @@ from scipy.interpolate import PchipInterpolator
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path[:0] = [os.path.join(REPO, 'results', 'apophis_density'), os.path.join(REPO, 'results', 'apophis_flyby_2029'),
                 os.path.join(REPO, 'documentation', 'readme')]
-OUT = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(REPO, 'my_paper', 'fig')
+POSTER = '--poster' in sys.argv
+ARGS = [a for a in sys.argv[1:] if a != '--poster']
+OUT = os.path.abspath(ARGS[0]) if ARGS else os.path.join(REPO, 'my_paper', 'poster_fig' if POSTER else 'fig')
 
 # validated categorical slots (dataviz reference palette, light mode, all-pairs pass) + neutral greys
 BLUE, ORANGE, AQUA = '#2a78d6', '#eb6834', '#1baf7a'
@@ -40,6 +43,8 @@ plt.rcParams.update({
     'xtick.color': INK2, 'ytick.color': INK2, 'xtick.direction': 'in', 'ytick.direction': 'in',
     'xtick.top': True, 'ytick.right': True, 'xtick.major.width': 0.6, 'ytick.major.width': 0.6,
     'lines.linewidth': 1.2, 'legend.frameon': False, 'savefig.dpi': 300, 'pdf.fonttype': 42})
+if POSTER:                                     # the poster is set in a sans-serif font
+    plt.rcParams.update({'font.family': 'sans-serif', 'font.sans-serif': ['DejaVu Sans'], 'mathtext.fontset': 'dejavusans'})
 
 
 def grid(ax):
@@ -75,7 +80,7 @@ def fig_validation():
                 rel = 100 * (data[s, col] / data[s, 3] - 1)
                 ax.plot(data[s, 2], rel, color=c, ls=ls, marker=m, ms=ms, mfc='white', mew=0.8, lw=0.9,
                         label=f'$\\gamma={gamma}^\\circ$' if P == 12 else None)
-        ax.text(0.02, 0.92, f'({"ab"[col - 4]}) {title} vs. linear theory', transform=ax.transAxes, va='top', color=INK)
+        ax.text(0.02, 0.92, f'({"ab"[col - 4]}) {title}', transform=ax.transAxes, va='top', color=INK)
         ax.set_ylabel('relative difference [%]')
     axes[1].axhline(1.6, color=MUTED, lw=0.8, ls=(0, (4, 3)))       # area bias of the 80-facet sphere (caption)
     axes[0].plot([], [], color=INK2, ls=':', label='$P=4$ h')
@@ -190,7 +195,7 @@ def fig_drift_dist(sim, dig, pre_mc):
     for a in (ax, bx):
         grid(a)
     bins = np.arange(-32, 0.001, 0.4)
-    for d, c, ls, lab in ((pre_mc, MUTED, '-', 'before 2029 (MC as in V2015)'), (sim.dadt_pre, ORANGE, '-', 'before 2029, paired'),
+    for d, c, ls, lab in ((pre_mc, MUTED, '-', 'before 2029, V2015 inputs'), (sim.dadt_pre, ORANGE, '-', 'before 2029, paired'),
                           (sim.dadt, BLUE, '-', 'after 2029')):
         ax.hist(d, bins=bins, density=True, histtype='step', color=c, ls=ls, lw=1.1, label=lab)
     p = PAPER_FIG3['pct']
@@ -200,13 +205,13 @@ def fig_drift_dist(sim, dig, pre_mc):
     ax.plot(p[2], y, 'o', color=INK2, ms=3)
     ax.text(p[0], y + 0.008, 'Vokrouhlický et al. (2015), Fig. 3', color=INK2, fontsize=6.5, ha='left', va='bottom')
     ax.axvline(MEASURED, color=INK, lw=0.7, ls=(0, (4, 3)))
-    ax.text(MEASURED + 0.4, 0.205, 'measured', color=INK, fontsize=6.5, ha='left', va='center')
+    ax.text(MEASURED - 0.3, 0.004, 'measured', color=INK, fontsize=6.5, ha='right', va='bottom', rotation=90)
     ax.set_xlim(-32, 0)
     ax.set_ylim(0, 0.225)
     ax.set_xlabel(r'$\langle da/dt\rangle$ [$10^{-4}$ au Myr$^{-1}$]')
     ax.set_ylabel('probability density')
-    ax.legend(loc='upper left', fontsize=6.3)
-    ax.text(0.98, 0.95, '(a)', transform=ax.transAxes, ha='right', va='top')
+    ax.legend(loc='upper right', fontsize=6.3)
+    ax.text(0.02, 0.95, '(a)', transform=ax.transAxes, ha='left', va='top')
     rb = np.arange(0.5, 1.4001, 0.01)
     bx.hist(sim.ratio_eq6, bins=rb, density=True, histtype='step', color=MUTED, lw=1.1, label='Eq. (6) of Benson et al. (2023)')
     bx.hist(sim.ratio, bins=rb, density=True, histtype='step', color=BLUE, lw=1.1, label='this work')
@@ -279,3 +284,7 @@ if __name__ == '__main__':
                 '(github.com/dusanmarceta/Jarkovsky-Tumbling, branch tumbling), '
                 f'commit {commit}{" + uncommitted changes in results/" if dirty else ""}.\n'
                 'Do not edit them here; change the script and rerun it.\n')
+        if POSTER:
+            f.write('\nThe only other file, benson2023_fig1.png, is Fig. 1 of Benson et al. (2023, Icarus 390, 115324), '
+                    'taken unchanged (transparency flattened on white) from arXiv:2210.13365, licence CC BY-NC-ND 4.0; '
+                    'it must be shown with this attribution and not modified.\n')
