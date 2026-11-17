@@ -1,7 +1,7 @@
 '''
 Figures of the Tempestovsky paper (Tumbling-Yarkovsky-paper repository). Run from the repository root:
 
-    python results/paper/make_figures.py [output directory]      # default: my_paper/figures
+    python results/paper/make_figures.py [output directory]      # default: my_paper/fig
 
 All numbers come from the results directories of this repository:
   results/linear_comparison/results_2026-10-14.txt     validation against the linear theory
@@ -21,7 +21,7 @@ from scipy.interpolate import PchipInterpolator
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path[:0] = [os.path.join(REPO, 'results', 'apophis_density'), os.path.join(REPO, 'results', 'apophis_flyby_2029'),
                 os.path.join(REPO, 'documentation', 'readme')]
-OUT = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(REPO, 'my_paper', 'figures')
+OUT = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(REPO, 'my_paper', 'fig')
 
 # validated categorical slots (dataviz reference palette, light mode, all-pairs pass) + neutral greys
 BLUE, ORANGE, AQUA = '#2a78d6', '#eb6834', '#1baf7a'
