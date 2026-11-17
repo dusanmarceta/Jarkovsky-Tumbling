@@ -1,0 +1,40 @@
+Tumbling: theta_0 = 35.387 deg, mean P_phi = 27.3800 h, mean |P_psi| = 264.6013 h, omega period = 264.6013 h
+Tumbling: rotation period for the time step 2pi/max|omega| = 30.0211 h (SAM, I_d/I3 = 0.97656)
+orbital_period: 1.0
+current sunlight direction: [1.0000000e+00 1.2246468e-16 0.0000000e+00]
+current sun distance: 1.0986674736414728
+**********************************************
+**********************************************
+**********************************************
+Diurnal Initialization finished
+delta t 270.1897795517354
+**********************************************
+**********************************************
+**********************************************
+Processing initialization section 1 out of 3
+Processing initialization section 2 out of 3
+Processing initialization section 3 out of 3
+**********************************************
+**********************************************
+**********************************************
+       Seasonal Initialization finished       
+**********************************************
+**********************************************
+**********************************************
+Orbit: 103465 timesteps in 2 sections (max_insolation_memory_mb = 500)
+Processing orbit section 1 out of 2
+Processing orbit section 2 out of 2
+Orbit 1: drift = -3.635183e-06 m/s | max deep correction = 49.183 K | T surface 114.8..450.7 K
+Processing orbit section 1 out of 2
+Processing orbit section 2 out of 2
+Orbit 2: drift = -3.631989e-06 m/s | change = 3.194e-09 m/s | error = 3.194e-09 m/s (8.80e-04 rel.) | max deep correction = 7.048 K | T surface 114.9..450.7 K
+Processing orbit section 1 out of 2
+Processing orbit section 2 out of 2
+Orbit 3: drift = -3.636068e-06 m/s | change = -4.080e-09 m/s | error = 4.080e-09 m/s (1.12e-03 rel.) | max deep correction = 0.924 K | T surface 114.9..450.6 K
+Processing orbit section 1 out of 2
+Processing orbit section 2 out of 2
+Orbit 4: drift = -3.633295e-06 m/s | change = 2.773e-09 m/s | error = 2.773e-09 m/s (7.63e-04 rel.) | max deep correction = 0.922 K | T surface 115.1..450.6 K
+Exporting insolation and temperature for facets 0 and 1...
+  facet 0: insolation_data/facet_0.csv, temperature_data/facet_0.csv
+  facet 1: insolation_data/facet_1.csv, temperature_data/facet_1.csv
+chk_g100_A0.14 379.59 s

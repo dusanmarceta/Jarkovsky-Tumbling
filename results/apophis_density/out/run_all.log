@@ -1,0 +1,116 @@
+chk_g100_A0.14 379.59 s | drift (m/s): -3.6332952047930443e-06
+drift last orbit (m/s): -3.6332952047930443e-06
+drift extrapolated (m/s): None
+estimated error (m/s): 2.7729169603174703e-09
+converged: True
+valid: True
+T surface min, max last orbit (K): 115.1130333156208 450.56613432501734
+backward Euler fallback steps: 0
+orbits: 4
+orbit 1: -3.63518298917751e-06
+orbit 2: -3.6319885262932e-06
+orbit 3: -3.6360681217533618e-06
+orbit 4: -3.6332952047930443e-06
+g50_A0.14 1147.70 s | drift (m/s): -2.1711260114498163e-06
+drift last orbit (m/s): -2.1711260114498163e-06
+drift extrapolated (m/s): None
+estimated error (m/s): 5.564181894424418e-10
+converged: True
+valid: True
+T surface min, max last orbit (K): 97.31000361024435 453.02299828576633
+backward Euler fallback steps: 0
+orbits: 7
+orbit 1: -2.1714965078758647e-06
+orbit 2: -2.1677279750563264e-06
+orbit 3: -2.1722338965467164e-06
+orbit 4: -2.1691788751324705e-06
+orbit 5: -2.1731145104805026e-06
+orbit 6: -2.170569593260374e-06
+orbit 7: -2.1711260114498163e-06
+g75_A0.14 579.41 s | drift (m/s): -2.9602575105394296e-06
+drift last orbit (m/s): -2.9602575105394296e-06
+drift extrapolated (m/s): None
+estimated error (m/s): 2.7974550604188382e-09
+converged: True
+valid: True
+T surface min, max last orbit (K): 107.4613275060258 451.7416128007062
+backward Euler fallback steps: 0
+orbits: 4
+orbit 1: -2.962134491617631e-06
+orbit 2: -2.9588015659090785e-06
+orbit 3: -2.9630549655998485e-06
+orbit 4: -2.9602575105394296e-06
+g50_A0.08 1134.30 s | drift (m/s): -2.2306765495920113e-06
+drift last orbit (m/s): -2.2306765495920113e-06
+drift extrapolated (m/s): None
+estimated error (m/s): 5.84328534981297e-10
+converged: True
+valid: True
+T surface min, max last orbit (K): 97.73634846933406 460.8511741750929
+backward Euler fallback steps: 0
+orbits: 7
+orbit 1: -2.231095963137173e-06
+orbit 2: -2.2270273450307757e-06
+orbit 3: -2.2318721064553742e-06
+orbit 4: -2.2285797763182972e-06
+orbit 5: -2.2328139133889707e-06
+orbit 6: -2.23009222105703e-06
+orbit 7: -2.2306765495920113e-06
+g50_A0.20 1075.61 s | drift (m/s): -2.108217291865276e-06
+drift last orbit (m/s): -2.108217291865276e-06
+drift extrapolated (m/s): None
+estimated error (m/s): 5.279228794007213e-10
+converged: True
+valid: True
+T surface min, max last orbit (K): 96.85311640574304 444.76959508664646
+backward Euler fallback steps: 0
+orbits: 7
+orbit 1: -2.1085408479018142e-06
+orbit 2: -2.105069829556303e-06
+orbit 3: -2.109237997848986e-06
+orbit 4: -2.1064194884326634e-06
+orbit 5: -2.1100571723910666e-06
+orbit 6: -2.1076893689858753e-06
+orbit 7: -2.108217291865276e-06
+g75_A0.08 524.68 s | drift (m/s): -3.0504151786717906e-06
+drift last orbit (m/s): -3.0504151786717906e-06
+drift extrapolated (m/s): None
+estimated error (m/s): 3.0238583789610075e-09
+converged: True
+valid: True
+T surface min, max last orbit (K): 107.9661903222772 459.60451847245946
+backward Euler fallback steps: 0
+orbits: 4
+orbit 1: -3.052457155165966e-06
+orbit 2: -3.048860323966223e-06
+orbit 3: -3.0534390370507516e-06
+orbit 4: -3.0504151786717906e-06
+g75_A0.20 497.25 s | drift (m/s): -2.8652370232307206e-06
+drift last orbit (m/s): -2.8652370232307206e-06
+drift extrapolated (m/s): None
+estimated error (m/s): 2.572211682875291e-09
+converged: True
+valid: True
+T surface min, max last orbit (K): 106.92038394488947 443.45278982148983
+backward Euler fallback steps: 0
+orbits: 4
+orbit 1: -2.8669521269693657e-06
+orbit 2: -2.8638796274380055e-06
+orbit 3: -2.867809234913596e-06
+orbit 4: -2.8652370232307206e-06
+conv_g50_A0.14_s1600 2037.01 s | drift (m/s): -2.1711524064764243e-06
+drift last orbit (m/s): -2.1711524064764243e-06
+drift extrapolated (m/s): None
+estimated error (m/s): 5.224388195371033e-10
+converged: True
+valid: True
+T surface min, max last orbit (K): 97.31163734217289 453.02347197555525
+backward Euler fallback steps: 0
+orbits: 7
+orbit 1: -2.1714593149829558e-06
+orbit 2: -2.167734571078945e-06
+orbit 3: -2.17227578291094e-06
+orbit 4: -2.169231345909356e-06
+orbit 5: -2.1731074913115397e-06
+orbit 6: -2.170629967656887e-06
+orbit 7: -2.1711524064764243e-06

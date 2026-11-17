@@ -21,6 +21,9 @@ plots/
 # Ignore private data
 private/
 
+# Ignore private data
+my_paper/
+
 # Ignore shape models and large data files
 data/model_setups/
 

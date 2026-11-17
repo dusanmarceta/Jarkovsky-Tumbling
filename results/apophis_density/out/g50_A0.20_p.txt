@@ -1,0 +1,2 @@
+Processing orbit section 3 out of 3
+Orbit 7: drift = -2.108217e-06 m/s | change = -5.279e-10 m/s | error = 5.279e-10 m/s (2.50e-04 rel.) | max deep correction = 0.644 K | T surface 96.9..444.8 K

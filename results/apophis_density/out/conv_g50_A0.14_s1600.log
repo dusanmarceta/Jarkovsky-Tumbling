@@ -1,0 +1,76 @@
+Tumbling: theta_0 = 35.387 deg, mean P_phi = 27.3800 h, mean |P_psi| = 264.6013 h, omega period = 264.6013 h
+Tumbling: rotation period for the time step 2pi/max|omega| = 30.0211 h (SAM, I_d/I3 = 0.97656)
+orbital_period: 1.0
+current sunlight direction: [1.0000000e+00 1.2246468e-16 0.0000000e+00]
+current sun distance: 1.0986674736414728
+**********************************************
+**********************************************
+**********************************************
+Diurnal Initialization finished
+delta t 67.54744488793385
+**********************************************
+**********************************************
+**********************************************
+Processing initialization section 1 out of 9
+Processing initialization section 2 out of 9
+Processing initialization section 3 out of 9
+Processing initialization section 4 out of 9
+Processing initialization section 5 out of 9
+Processing initialization section 6 out of 9
+Processing initialization section 7 out of 9
+Processing initialization section 8 out of 9
+Processing initialization section 9 out of 9
+**********************************************
+**********************************************
+**********************************************
+       Seasonal Initialization finished       
+**********************************************
+**********************************************
+**********************************************
+Orbit: 413860 timesteps in 5 sections (max_insolation_memory_mb = 500)
+Processing orbit section 1 out of 5
+Processing orbit section 2 out of 5
+Processing orbit section 3 out of 5
+Processing orbit section 4 out of 5
+Processing orbit section 5 out of 5
+Orbit 1: drift = -2.171459e-06 m/s | max deep correction = 44.059 K | T surface 97.1..453.0 K
+Processing orbit section 1 out of 5
+Processing orbit section 2 out of 5
+Processing orbit section 3 out of 5
+Processing orbit section 4 out of 5
+Processing orbit section 5 out of 5
+Orbit 2: drift = -2.167735e-06 m/s | change = 3.725e-09 m/s | error = 3.725e-09 m/s (1.72e-03 rel.) | max deep correction = 6.386 K | T surface 97.0..453.1 K
+Processing orbit section 1 out of 5
+Processing orbit section 2 out of 5
+Processing orbit section 3 out of 5
+Processing orbit section 4 out of 5
+Processing orbit section 5 out of 5
+Orbit 3: drift = -2.172276e-06 m/s | change = -4.541e-09 m/s | error = 4.541e-09 m/s (2.09e-03 rel.) | max deep correction = 0.842 K | T surface 97.1..453.0 K
+Processing orbit section 1 out of 5
+Processing orbit section 2 out of 5
+Processing orbit section 3 out of 5
+Processing orbit section 4 out of 5
+Processing orbit section 5 out of 5
+Orbit 4: drift = -2.169231e-06 m/s | change = 3.044e-09 m/s | error = 3.044e-09 m/s (1.40e-03 rel.) | max deep correction = 0.931 K | T surface 97.4..453.0 K
+Processing orbit section 1 out of 5
+Processing orbit section 2 out of 5
+Processing orbit section 3 out of 5
+Processing orbit section 4 out of 5
+Processing orbit section 5 out of 5
+Orbit 5: drift = -2.173107e-06 m/s | change = -3.876e-09 m/s | error = 3.876e-09 m/s (1.78e-03 rel.) | max deep correction = 1.628 K | T surface 97.3..453.1 K
+Processing orbit section 1 out of 5
+Processing orbit section 2 out of 5
+Processing orbit section 3 out of 5
+Processing orbit section 4 out of 5
+Processing orbit section 5 out of 5
+Orbit 6: drift = -2.170630e-06 m/s | change = 2.478e-09 m/s | error = 2.478e-09 m/s (1.14e-03 rel.) | max deep correction = 0.878 K | T surface 97.3..453.0 K
+Processing orbit section 1 out of 5
+Processing orbit section 2 out of 5
+Processing orbit section 3 out of 5
+Processing orbit section 4 out of 5
+Processing orbit section 5 out of 5
+Orbit 7: drift = -2.171152e-06 m/s | change = -5.224e-10 m/s | error = 5.224e-10 m/s (2.41e-04 rel.) | max deep correction = 0.657 K | T surface 97.3..453.0 K
+Exporting insolation and temperature for facets 0 and 1...
+  facet 0: insolation_data/facet_0.csv, temperature_data/facet_0.csv
+  facet 1: insolation_data/facet_1.csv, temperature_data/facet_1.csv
+conv_g50_A0.14_s1600 2037.01 s

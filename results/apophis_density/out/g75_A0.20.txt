@@ -1,0 +1,13 @@
+drift (m/s): -2.8652370232307206e-06
+drift last orbit (m/s): -2.8652370232307206e-06
+drift extrapolated (m/s): None
+estimated error (m/s): 2.572211682875291e-09
+converged: True
+valid: True
+T surface min, max last orbit (K): 106.92038394488947 443.45278982148983
+backward Euler fallback steps: 0
+orbits: 4
+orbit 1: -2.8669521269693657e-06
+orbit 2: -2.8638796274380055e-06
+orbit 3: -2.867809234913596e-06
+orbit 4: -2.8652370232307206e-06
