@@ -394,9 +394,11 @@ def fig_apophis_temperature(path=os.path.join(REPO, 'results', 'paper', 'apophis
         ax.add_patch(FancyArrowPatch(1.58 * R * s2, 1.39 * R * s2, arrowstyle='-|>', mutation_scale=7, color=ORANGE,
                                      lw=1.0, zorder=5, shrinkA=0, shrinkB=0))
         ax.text(*(1.69 * R * s2), r'$\odot$', color=ORANGE, fontsize=9, ha='center', va='center', zorder=6)
-        label(1.42 * R * z, r'$P_\psi$', dx=0.45 * np.sign(P(z)[0, 0]), dy=0.02)   # on the side the axis leans to
+        lean = np.sign(P(z)[0, 0])                                 # side to which the short axis leans
+        label(1.42 * R * z, r'$P_\psi$', dx=0.45 * lean, dy=0.02)
+        x_prec = P(prec)[:, 0]                                     # P_phi at the end of the circle on the other side
+        label(prec[np.argmin(x_prec) if lean > 0 else np.argmax(x_prec)], r'$P_{\bar\phi}$', dx=-0.1 * lean, dy=0.2)
         if letter == 'a':
-            label(prec[np.argmax(P(prec)[:, 0])], r'$P_{\bar\phi}$', dx=0.1, dy=0.2)
             label(1.22 * R * (H + z) / np.linalg.norm(H + z), r'$\theta$', dx=0.08, dy=0.0, size=7.5)
         ax.text(0.02, 0.98, f'({letter})', transform=ax.transAxes, fontsize=7.5, color=INK2, va='top')
         ax.set_xlim(*xlim)
