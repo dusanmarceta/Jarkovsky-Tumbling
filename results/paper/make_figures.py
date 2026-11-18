@@ -269,9 +269,7 @@ def fig_ratio_gamma(sim):
 
 
 # ------------------------------------------------------------------------------- Apophis surface temperature
-# one-hue sequential ramp (orange, light = cold -> dark = hot), lightness monotone
-TEMP_CMAP = matplotlib.colors.LinearSegmentedColormap.from_list(
-    'temperature', ['#fcebe2', '#f7c1a6', '#f1946c', '#eb6834', '#c4491b', '#923311', '#5c1f0a'])
+TEMP_CMAP = plt.get_cmap('jet')                # colour map of the surface temperature
 
 
 def hidden(points, triangles, view):
