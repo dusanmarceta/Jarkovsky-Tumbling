@@ -270,6 +270,7 @@ def fig_ratio_gamma(sim):
 
 # ------------------------------------------------------------------------------- Apophis surface temperature
 TEMP_CMAP = plt.get_cmap('jet')                # colour map of the surface temperature
+RING = '#d62728'                               # rotation about the short axis
 
 
 def hidden(points, triangles, view):
@@ -322,8 +323,6 @@ def fig_apophis_temperature(path=os.path.join(REPO, 'results', 'paper', 'apophis
     t = np.linspace(0, 2 * np.pi, 361)[:, None]
     zp, zq = frame(H, z)                                           # zp: short axis projected normal to H
     prec = L_ax * np.cos(theta) * H + L_ax * np.sin(theta) * (np.cos(t) * zp + np.sin(t) * zq)
-    b1, b2 = frame(z, H)
-    ring = 1.45 * R * z + 0.12 * R * (np.cos(t) * b1 + np.sin(t) * b2)
     x = np.linspace(0.06, 0.94, 120)[:, None]
     arc = 1.12 * R * (np.sin((1 - x) * theta) * H + np.sin(x * theta) * z) / np.sin(theta)
 
@@ -372,7 +371,16 @@ def fig_apophis_temperature(path=os.path.join(REPO, 'results', 'paper', 'apophis
         curve(u * L_H * H, lw=1.1, arrow_at=-1)
         curve(u * L_ax * z, lw=1.1, arrow_at=-1)
         curve(prec if phi_sense > 0 else prec[::-1], dashed=True, lw=0.6, arrow_at=225, head=6)
-        curve(ring if psi_sense > 0 else ring[::-1], dashed=True, lw=0.5, arrow_at=180, head=4.5)
+        # ring of the rotation about z; seen nearly edge-on it is tilted towards the viewer (|normal . w| >= 0.4),
+        # as in a schematic drawing, the sense of rotation stays the same
+        n = z
+        for beta in np.linspace(0, 2, 201):
+            n = (z + beta * np.sign(z @ w + 1e-12) * w) / np.linalg.norm(z + beta * np.sign(z @ w + 1e-12) * w)
+            if abs(n @ w) >= 0.4:
+                break
+        b1, b2 = frame(n, H)
+        ring = 1.42 * R * z + 0.2 * R * (np.cos(t) * b1 + np.sin(t) * b2)
+        curve(ring if psi_sense > 0 else ring[::-1], dashed=True, lw=0.9, color=RING, arrow_at=180, head=6.5)
         if letter == 'a':
             curve(arc, dashed=True, lw=0.5, arrow_at=-1, head=4.5)
             curve(arc[::-1], dashed=True, lw=0.5, arrow_at=-1, head=4.5)
@@ -386,10 +394,10 @@ def fig_apophis_temperature(path=os.path.join(REPO, 'results', 'paper', 'apophis
         ax.add_patch(FancyArrowPatch(1.58 * R * s2, 1.39 * R * s2, arrowstyle='-|>', mutation_scale=7, color=ORANGE,
                                      lw=1.0, zorder=5, shrinkA=0, shrinkB=0))
         ax.text(*(1.69 * R * s2), r'$\odot$', color=ORANGE, fontsize=9, ha='center', va='center', zorder=6)
+        label(1.42 * R * z, r'$P_\psi$', dx=0.45 * np.sign(P(z)[0, 0]), dy=0.02)   # on the side the axis leans to
         if letter == 'a':
             label(prec[np.argmax(P(prec)[:, 0])], r'$P_{\bar\phi}$', dx=0.1, dy=0.2)
-            label(1.45 * R * z, r'$P_\psi$', dx=-0.38, dy=0.02)
-            label(1.25 * R * (H + z) / np.linalg.norm(H + z), r'$\theta$', dy=0.03, size=7.5)
+            label(1.22 * R * (H + z) / np.linalg.norm(H + z), r'$\theta$', dx=0.08, dy=0.0, size=7.5)
         ax.text(0.02, 0.98, f'({letter})', transform=ax.transAxes, fontsize=7.5, color=INK2, va='top')
         ax.set_xlim(*xlim)
         ax.set_ylim(*ylim)
