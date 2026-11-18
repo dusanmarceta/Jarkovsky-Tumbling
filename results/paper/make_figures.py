@@ -298,6 +298,8 @@ def fig_apophis_temperature(path=os.path.join(REPO, 'results', 'paper', 'apophis
     Benson et al. (2023): the short axis z (rotation P_psi) precesses about H (P_phi) on a cone of half-angle theta.'''
     from matplotlib.collections import PolyCollection
     from matplotlib.patches import FancyArrowPatch
+    from matplotlib.patheffects import withStroke
+    halo = [withStroke(linewidth=2.2, foreground='white')]       # labels stay legible over the dashed lines
     d = np.load(path)
     tri, T, sun, H = d['vertices'], d['T'], d['sun_body'], d['H_body']
     # volume centroid (the axes pass through it) and the volume-equivalent radius
@@ -381,13 +383,13 @@ def fig_apophis_temperature(path=os.path.join(REPO, 'results', 'paper', 'apophis
         b1, b2 = frame(n, H)
         ring = 1.42 * R * z + 0.2 * R * (np.cos(t) * b1 + np.sin(t) * b2)
         curve(ring if psi_sense > 0 else ring[::-1], dashed=True, lw=0.9, color=RING, arrow_at=180, head=6.5)
-        if letter == 'a':
-            curve(arc, dashed=True, lw=0.5, arrow_at=-1, head=4.5)
-            curve(arc[::-1], dashed=True, lw=0.5, arrow_at=-1, head=4.5)
+        curve(arc, dashed=True, lw=0.5, arrow_at=-1, head=4.5)
+        curve(arc[::-1], dashed=True, lw=0.5, arrow_at=-1, head=4.5)
 
         def label(p, text, dx=0.0, dy=0.0, color=INK, size=8):
             xy = P(p)[0]
-            ax.text(xy[0] + dx * R, xy[1] + dy * R, text, color=color, fontsize=size, ha='center', va='center', zorder=6)
+            ax.text(xy[0] + dx * R, xy[1] + dy * R, text, color=color, fontsize=size, ha='center', va='center', zorder=6,
+                    path_effects=halo)
         label(L_H * H, r'$\mathbf{H}$', dx=0.2, dy=-0.02)
         # Sun: symbol outside the body in the projected direction of the Sun, arrow along the sunlight
         s2 = P(sun)[0] / np.linalg.norm(P(sun)[0])
@@ -398,8 +400,9 @@ def fig_apophis_temperature(path=os.path.join(REPO, 'results', 'paper', 'apophis
         label(1.42 * R * z, r'$P_\psi$', dx=0.45 * lean, dy=0.02)
         x_prec = P(prec)[:, 0]                                     # P_phi at the end of the circle on the other side
         label(prec[np.argmin(x_prec) if lean > 0 else np.argmax(x_prec)], r'$P_{\bar\phi}$', dx=-0.1 * lean, dy=0.2)
-        if letter == 'a':
-            label(1.22 * R * (H + z) / np.linalg.norm(H + z), r'$\theta$', dx=0.08, dy=0.0, size=7.5)
+        m = P(arc[len(arc) // 2])[0]                                # theta: outside the middle of the arc
+        ax.text(*(m + 0.15 * R * m / np.linalg.norm(m)), r'$\theta$', color=INK, fontsize=7.5, ha='center', va='center',
+                zorder=6, path_effects=halo)
         ax.text(0.02, 0.98, f'({letter})', transform=ax.transAxes, fontsize=7.5, color=INK2, va='top')
         ax.set_xlim(*xlim)
         ax.set_ylim(*ylim)
