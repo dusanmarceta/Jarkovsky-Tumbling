@@ -10,6 +10,8 @@ All numbers come from the results directories of this repository:
   results/apophis_fig3/out/ti*.txt                      nominal pre-flyby drift of Apophis versus Gamma
   results/apophis_density/                              density versus Gamma, digitized curves of V2015 and F2024
   results/apophis_flyby_2029/                           post-flyby batch and the paired pre-flyby drift
+  results/paper/apophis_temperature.npz                 surface temperature of Apophis at perihelion (poster only;
+                                                        written by results/paper/apophis_temperature.py)
 The output directory gets a README with the commit of this repository the figures were made from.
 '''
 import os, subprocess, sys
@@ -266,6 +268,146 @@ def fig_ratio_gamma(sim):
     return mid, q16, q50, q84
 
 
+# ------------------------------------------------------------------------------- Apophis surface temperature
+# one-hue sequential ramp (orange, light = cold -> dark = hot), lightness monotone
+TEMP_CMAP = matplotlib.colors.LinearSegmentedColormap.from_list(
+    'temperature', ['#fcebe2', '#f7c1a6', '#f1946c', '#eb6834', '#c4491b', '#923311', '#5c1f0a'])
+
+
+def hidden(points, triangles, view):
+    '''True for the points from which a ray towards the viewer hits a triangle (Moller-Trumbore).
+    Points inside the body are hidden too, their ray leaves the body through its surface.'''
+    v0, e1, e2 = triangles[:, 0], triangles[:, 1] - triangles[:, 0], triangles[:, 2] - triangles[:, 0]
+    pvec = np.cross(view, e2)
+    det = np.einsum('ij,ij->i', e1, pvec)
+    ok = np.abs(det) > 1e-12
+    v0, e1, e2, pvec, inv = v0[ok], e1[ok], e2[ok], pvec[ok], 1.0 / det[ok]
+    out = np.zeros(len(points), bool)
+    for k, p in enumerate(points):
+        s = p - v0
+        u = np.einsum('ij,ij->i', s, pvec) * inv
+        q = np.cross(s, e1)
+        v = (q @ view) * inv
+        t = np.einsum('ij,ij->i', e2, q) * inv
+        out[k] = np.any((u >= 0) & (v >= 0) & (u + v <= 1) & (t > 1e-6))
+    return out
+
+
+def fig_apophis_temperature(path=os.path.join(REPO, 'results', 'paper', 'apophis_temperature.npz')):
+    '''Surface temperature of Apophis at perihelion (results/paper/apophis_temperature.py), seen from four
+    sides 90 deg apart about the angular momentum H, which points up. Rotation axes drawn as in Fig. 1 of
+    Benson et al. (2023): the short axis z (rotation P_psi) precesses about H (P_phi) on a cone of half-angle theta.'''
+    from matplotlib.collections import PolyCollection
+    from matplotlib.patches import FancyArrowPatch
+    d = np.load(path)
+    tri, T, sun, H = d['vertices'], d['T'], d['sun_body'], d['H_body']
+    # volume centroid (the axes pass through it) and the volume-equivalent radius
+    vol6 = np.einsum('ij,ij->i', tri[:, 0], np.cross(tri[:, 1], tri[:, 2]))
+    centre = (vol6[:, None] * tri.sum(1)).sum(0) / (4 * vol6.sum())
+    R = (vol6.sum() / 6 * 3 / (4 * np.pi)) ** (1 / 3)
+    tri = tri - centre
+    normals = np.cross(tri[:, 1] - tri[:, 0], tri[:, 2] - tri[:, 0])
+    normals /= np.linalg.norm(normals, axis=1)[:, None]
+    z = np.array([0, 0, 1.0]) * np.sign(H[2])                     # short axis, the half on the side of H
+    theta = np.arccos(z @ H)
+    L_ax, L_H = 1.62 * R, 1.8 * R                                  # arrow lengths
+    phi_sense = np.sign(d['mean_phi_dot'])                         # precession about H (+1: right handed)
+    psi_sense = np.sign(d['mean_psi_dot']) * np.sign(H[2])         # rotation about z (+1: right handed)
+    norm = matplotlib.colors.Normalize(np.floor(T.min() / 10) * 10, np.ceil(T.max() / 10) * 10)
+
+    def frame(a, b):                                               # e1, e2 normal to a, (e1, e2, a) right handed
+        e1 = b - (b @ a) * a
+        e1 /= np.linalg.norm(e1)
+        return e1, np.cross(a, e1)
+
+    # 3D curves: precession circle of the tip of z about H, rotation ring about z, theta arc between H and z
+    t = np.linspace(0, 2 * np.pi, 361)[:, None]
+    zp, zq = frame(H, z)                                           # zp: short axis projected normal to H
+    prec = L_ax * np.cos(theta) * H + L_ax * np.sin(theta) * (np.cos(t) * zp + np.sin(t) * zq)
+    b1, b2 = frame(z, H)
+    ring = 1.45 * R * z + 0.12 * R * (np.cos(t) * b1 + np.sin(t) * b2)
+    x = np.linspace(0.06, 0.94, 120)[:, None]
+    arc = 1.12 * R * (np.sin((1 - x) * theta) * H + np.sin(x * theta) * z) / np.sin(theta)
+
+    views = [135, 45, 225, 315]    # azimuth of the viewer about H from the short axis [deg]: Sun in front (top) or
+                                   # behind (bottom), on the left (left column) or right (right column)
+    elevation = np.deg2rad(16)
+    xlim, ylim = (-1.76 * R, 1.76 * R), (-1.13 * R, 1.99 * R)
+    views_width = 0.85                                             # fraction of the width, the rest for the colour bar
+    height = 2 * views_width * COL1 / 2 * np.ptp(ylim) / np.ptp(xlim)
+    fig, axes = plt.subplots(2, 2, figsize=(COL1, height),
+                             gridspec_kw=dict(wspace=0.0, hspace=0.0, left=0, right=views_width, bottom=0, top=1))
+    for ax, az, letter in zip(axes.flat, views, 'abcd'):
+        a = np.deg2rad(az)
+        w = np.cos(elevation) * (np.cos(a) * zp + np.sin(a) * zq) + np.sin(elevation) * H   # towards the viewer
+        up = H - (H @ w) * w
+        up /= np.linalg.norm(up)
+        right = np.cross(-w, up)
+        P = lambda p: np.stack([np.atleast_2d(p) @ right, np.atleast_2d(p) @ up], axis=-1)
+
+        front = normals @ w > 0
+        order = np.argsort(tri[front].mean(1) @ w)                 # painter's algorithm, far facets first
+        polys = P(tri[front][order].reshape(-1, 3)).reshape(-1, 3, 2)
+        colors = TEMP_CMAP(norm(T[front][order]))
+        # the same facets with a wide grey edge underneath: visible only along the silhouette
+        ax.add_collection(PolyCollection(polys, facecolors=INK2, edgecolors=INK2, linewidths=0.9, rasterized=True, zorder=1))
+        ax.add_collection(PolyCollection(polys, facecolors=colors, edgecolors=colors, linewidths=0.2, rasterized=True, zorder=2))
+
+        def curve(points, dashed=False, lw=0.9, color=INK, arrow_at=None, head=7):
+            '''Visible parts of a 3D polyline; arrowhead at index arrow_at, pointing along the polyline.'''
+            vis = ~hidden(points, tri, w)
+            xy = P(points)
+            k = 0
+            while k < len(points):
+                j = k
+                while j + 1 < len(points) and vis[j + 1] == vis[k]:
+                    j += 1
+                if vis[k] and j > k:
+                    ax.plot(xy[k:j + 1, 0], xy[k:j + 1, 1], ls=(0, (3, 2)) if dashed else '-', lw=lw, color=color,
+                            zorder=4, solid_capstyle='butt')
+                k = j + 1
+            if arrow_at is not None and vis[arrow_at]:
+                ax.add_patch(FancyArrowPatch(xy[arrow_at - 1], xy[arrow_at], arrowstyle='-|>', mutation_scale=head,
+                                             color=color, lw=0, zorder=5, shrinkA=0, shrinkB=0))
+
+        u = np.linspace(0, 1, 300)[:, None]
+        curve(u * L_H * H, lw=1.1, arrow_at=-1)
+        curve(u * L_ax * z, lw=1.1, arrow_at=-1)
+        curve(prec if phi_sense > 0 else prec[::-1], dashed=True, lw=0.6, arrow_at=225, head=6)
+        curve(ring if psi_sense > 0 else ring[::-1], dashed=True, lw=0.5, arrow_at=180, head=4.5)
+        if letter == 'a':
+            curve(arc, dashed=True, lw=0.5, arrow_at=-1, head=4.5)
+            curve(arc[::-1], dashed=True, lw=0.5, arrow_at=-1, head=4.5)
+
+        def label(p, text, dx=0.0, dy=0.0, color=INK, size=8):
+            xy = P(p)[0]
+            ax.text(xy[0] + dx * R, xy[1] + dy * R, text, color=color, fontsize=size, ha='center', va='center', zorder=6)
+        label(L_H * H, r'$\mathbf{H}$', dx=0.2, dy=-0.02)
+        # Sun: symbol outside the body in the projected direction of the Sun, arrow along the sunlight
+        s2 = P(sun)[0] / np.linalg.norm(P(sun)[0])
+        ax.add_patch(FancyArrowPatch(1.58 * R * s2, 1.39 * R * s2, arrowstyle='-|>', mutation_scale=7, color=ORANGE,
+                                     lw=1.0, zorder=5, shrinkA=0, shrinkB=0))
+        ax.text(*(1.69 * R * s2), r'$\odot$', color=ORANGE, fontsize=9, ha='center', va='center', zorder=6)
+        if letter == 'a':
+            label(prec[np.argmax(P(prec)[:, 0])], r'$P_{\bar\phi}$', dx=0.1, dy=0.2)
+            label(1.45 * R * z, r'$P_\psi$', dx=-0.38, dy=0.02)
+            label(1.25 * R * (H + z) / np.linalg.norm(H + z), r'$\theta$', dy=0.03, size=7.5)
+        ax.text(0.02, 0.98, f'({letter})', transform=ax.transAxes, fontsize=7.5, color=INK2, va='top')
+        ax.set_xlim(*xlim)
+        ax.set_ylim(*ylim)
+        ax.set_aspect('equal')
+        ax.axis('off')
+    cax = fig.add_axes([views_width + 0.015, 0.14, 0.022, 0.72])
+    cb = fig.colorbar(matplotlib.cm.ScalarMappable(norm, TEMP_CMAP), cax=cax, orientation='vertical')
+    cb.set_label('surface temperature [K]', fontsize=7.5, labelpad=2)
+    cb.ax.tick_params(labelsize=7, direction='out', left=False, length=2, pad=1.5)
+    cb.outline.set_linewidth(0.4)
+    save(fig, 'fig_apophis_temperature.pdf')
+    print(f"Apophis temperature: {T.min():.1f}..{T.max():.1f} K at r = {float(d['r_au']):.3f} au, Gamma {float(d['gamma']):g}, "
+          f"theta {np.rad2deg(theta):.1f} deg, angle(H, Sun) {np.rad2deg(np.arccos(H @ sun)):.1f} deg, "
+          f"Sun azimuth from z {float(d['delta_deg']):.1f} deg")
+
+
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     fig_validation()
@@ -277,6 +419,8 @@ if __name__ == '__main__':
     mid, q16, q50, q84 = fig_ratio_gamma(sim)
     for x, a, b, c in zip(mid, q16, q50, q84):
         print(f'Gamma {x:6.0f}: ratio median {b:.3f} [{a:.3f}, {c:.3f}], Theta scaling {theta_scaling(np.array([x]))[0]:.3f}')
+    if POSTER:
+        fig_apophis_temperature()
     commit = subprocess.run(['git', '-C', REPO, 'rev-parse', '--short', 'HEAD'], capture_output=True, text=True).stdout.strip()
     dirty = subprocess.run(['git', '-C', REPO, 'status', '--porcelain', 'results'], capture_output=True, text=True).stdout.strip()
     with open(os.path.join(OUT, 'README.md'), 'w') as f:
@@ -284,7 +428,3 @@ if __name__ == '__main__':
                 '(github.com/dusanmarceta/Jarkovsky-Tumbling, branch tumbling), '
                 f'commit {commit}{" + uncommitted changes in results/" if dirty else ""}.\n'
                 'Do not edit them here; change the script and rerun it.\n')
-        if POSTER:
-            f.write('\nThe only other file, benson2023_fig1.png, is Fig. 1 of Benson et al. (2023, Icarus 390, 115324), '
-                    'taken unchanged (transparency flattened on white) from arXiv:2210.13365, licence CC BY-NC-ND 4.0; '
-                    'it must be shown with this attribution and not modified.\n')
